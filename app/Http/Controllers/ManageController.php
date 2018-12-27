@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class ManageController extends Controller
 {
-    publuc function dashboard()
-    {
-      return view('manage.dashboard');
-    }
+  public function dashboard()
+  {
+    return view('manage.dashboard');
+  }
 }
