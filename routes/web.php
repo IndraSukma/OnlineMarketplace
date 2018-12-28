@@ -6,7 +6,7 @@ Route::get('/', function () {
 
 Route::get('admin', function () {
   return view('admin');
-});
+})->middleware('role:superadministrator|administrator')->name('admin');
 
 Auth::routes();
 
