@@ -1,0 +1,144 @@
+a:hover {
+  text-decoration: none;
+}
+
+.navbar {
+	box-shadow: 0 4px 8px -3px rgba(0, 0, 0, .1);
+}
+
+.navbar-toggler {
+	padding: 0;
+  border: none;
+  outline: none;
+}
+
+/*.navbar-nav .nav-item {
+	margin: 0 .25rem;
+}
+
+.navbar-nav .nav-item:first-child {
+	margin-left: 0;
+}
+
+.navbar-nav .nav-item:last-child {
+	margin-right: 0;
+}*/
+
+.navbar-nav.guest, .navbar-nav.auth {
+	flex-direction: row;
+	float: right;
+}
+
+.navbar-nav.guest .nav-item, .navbar-nav.auth .nav-item {
+	margin-left: 1rem;
+}
+
+.navbar-nav .nav-item .nav-link {
+	font-weight: 500;
+}
+
+.nav-link {
+	position: relative;
+}
+
+.nav-link.red-dot::after {
+	content: "";
+  height: 14px;
+  width: 14px;
+  background-color: #f44336;
+  border: 2px solid #fff;
+  border-radius: 25px;
+  position: absolute;
+  right: -2px;
+  top: 12px;
+}
+
+.dropdown-menu {
+	padding-top: 0;
+  border: none;
+}
+
+.dropdown-item {
+	padding: .5rem 1rem;
+	/*display: flex;
+	align-items: center;*/
+}
+
+.dropdown-toggle::after {
+  margin-left: 10px;
+  vertical-align: 3px;
+}
+
+.account-dropdown .dropdown-toggle::after {
+  content: none;
+}
+
+.account-dropdown .dropdown-item {
+	padding-top: .25rem;
+	padding-bottom: .25rem;
+}
+
+.dropdown-item i {
+	margin-right: 1rem;
+}
+
+.dropdown-divider {
+	margin: 0;
+}
+
+.search {
+	margin: .5rem 0;
+	padding-right: 1rem;
+	background-color: #f8f9fa;
+	border-radius: 25px;
+	display: flex;
+	width: 100%;
+}
+
+.search input {
+	width: auto;
+	background-color: transparent;
+	border: none;
+	padding: 0;
+	flex-grow: 1;
+}
+
+.search button {
+	border-radius: 25px;
+}
+
+.search input:focus, .search button:focus {
+	background-color: transparent;
+	box-shadow: none;
+}
+
+@media (min-width: 992px) {
+	.navbar-nav.guest .nav-item, .navbar-nav.auth .nav-item {
+		margin-left: .5rem;
+	}
+
+	.nav-link.red-dot::after {
+		content: "";
+	  height: 14px;
+	  width: 14px;
+	  background-color: #f44336;
+	  border: 2px solid #fff;
+	  border-radius: 25px;
+	  position: absolute;
+	  right: 6px;
+	  top: 12px;
+	}
+
+	.dropdown-menu {
+		margin-top: 1rem;
+		padding-top: .5rem;
+		border: none;
+		border-radius: .5rem;
+		box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, .1);
+	}
+
+	.search {
+		width: 50%;
+		margin: 0;
+	}
+}
