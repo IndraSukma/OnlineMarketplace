@@ -42,7 +42,10 @@
                 </div>
                 <div class="detail flex-grow-1 d-flex justify-content-between align-items-center pl-3">
                   <a href="#" class="lead text-muted">Username</a>
-                  <button class="btn btn-sm btn-light">Logout</button>
+                  <form action="{{ route('logout') }}" method="POST">
+                      @csrf
+                    <button class="btn btn-sm btn-light">Logout</button>
+                  </form>
                 </div>
               </div>
               <ul class="navbar-nav auth">
@@ -61,18 +64,24 @@
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
                     <a class="dropdown-item" href="#"><i class="mdi mdi-24px mdi-account-outline"></i>Profile</a>
-                    <a class="dropdown-item" href="#"><i class="mdi mdi-24px mdi-exit-to-app"></i>Logout</a>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();"><i class="mdi mdi-24px mdi-exit-to-app"></i>Logout</a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                    </form>
                   </div>
                 </li>
               </ul>
             @else
               <ul class="navbar-nav guest">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">Login</a>
+                  <a href="{{ route('login') }}" class="nav-link">Login</a>
                 </li>
                 @if (Route::has('register'))
                   <li class="nav-item">
-                    <a href="#" class="nav-link">Register</a>
+                    <a href="{{ route('register') }}" class="nav-link">Register</a>
                   </li>
                 @endif
               </ul>

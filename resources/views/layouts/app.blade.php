@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title') | {{ config('app.name', 'Laravel') }}</title>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Fonts -->
@@ -48,6 +48,8 @@
                   </a>
 
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('user.index') }}">Profil</a>
+                    <a class="dropdown-item" href="{{ route('address.index') }}">Alamat Saya</a>
                     <a class="dropdown-item" href="{{ route('products.index') }}">Produk</a>
                     <a class="dropdown-item" href="{{ route('productCategories.index') }}">Kategori Produk</a>
                     <div class="dropdown-divider"></div>

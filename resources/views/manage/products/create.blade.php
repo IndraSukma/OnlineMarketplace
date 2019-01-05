@@ -82,7 +82,7 @@
 
             <div class="form-group mb-0">
               <label for="description">Deskripsi</label>
-              <textarea name="description" id="description" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" rows="3"></textarea>
+              <textarea name="description" id="description" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" rows="3">{{ old('description') }}</textarea>
               @if ($errors->has('description'))
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('description') }}</strong>
