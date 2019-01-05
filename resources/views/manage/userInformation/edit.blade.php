@@ -50,7 +50,7 @@
 
               <div class="form-group col-md-6">
                 <label for="date_of_birth">Tanggal Kelahiran</label>
-                <input type="date" name="date_of_birth" id="date_of_birth" class="form-control{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" value="{{ $user->date_of_birth }}" min="{{ $year.'-01-01' }}" max="{{ $today }}" required>
+                <input type="date" name="date_of_birth" id="date_of_birth" class="form-control{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" value="{{ $user->year_of_birth.'-'.$user->month_of_birth.'-'.$user->day_of_birth }}" min="{{ $year.'-01-01' }}" max="{{ $today }}" required>
                 @if ($errors->has('date_of_birth'))
                   <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('date_of_birth') }}</strong>

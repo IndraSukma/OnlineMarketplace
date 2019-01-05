@@ -15,15 +15,17 @@
             @foreach ($addresses as $address)
               <div class="border-bottom pb-2 mb-3">
                 <div class="d-flex justify-content-between">
-                  <h4 class="my-0">{{ $address->address_name }}</h4>
+                  <h4 class="my-0">{{ $address->full_name . ' - ' . $address->address_name }}</h4>
                   <div class="d-flex">
                     <a href="{{ route('address.show', $address->id) }}" class="btn btn-light btn-sm">Lihat</a>
-                    <a href="{{ route('address.edit', $address->id) }}" class="btn btn-light btn-sm mx-1">Ubah</a>
-                    <form action="{{ route('address.destroy', $address->id) }}" method="post">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-light btn-sm">Hapus</button>
-                    </form>
+                    @if (Auth::user()->hasRole('user'))
+                      <a href="{{ route('address.edit', $address->id) }}" class="btn btn-light btn-sm mx-1">Ubah</a>
+                      <form action="{{ route('address.destroy', $address->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-light btn-sm">Hapus</button>
+                      </form>
+                    @endif
                   </div>
                 </div>
                 <p class="text-muted my-0">{{ $address->complete_address }}</p>

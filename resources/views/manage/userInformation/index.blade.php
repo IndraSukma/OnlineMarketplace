@@ -16,24 +16,24 @@
             <p>{{ $user->email }}</p>
             <div class="row">
             	<div class="col-12">
-            		<p class="mb-0">Detail</p>
+            		<small>Detail</small>
             	</div>
 							<div class="col">
 								<dl>
 									<dt>Tanggal Kelahiran</dt>
-									<dd></dd>
+									<dd>{{ $user->place_of_birth.', '.$user->day_of_birth.'-'.$user->month_of_birth.'-'.$user->year_of_birth }}</dd>
 								</dl>
 							</div>
 							<div class="col">
 								<dl>
 									<dt>Jenis Kelamin</dt>
-									<dd></dd>
+									<dd>{{ $user->gender }}</dd>
 								</dl>
 							</div>
 							<div class="col">
 								<dl>
 									<dt>Nomor Telepon</dt>
-									<dd></dd>
+									<dd>{{ $user->phone }}</dd>
 								</dl>
 							</div>
             </div>

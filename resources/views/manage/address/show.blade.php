@@ -10,12 +10,14 @@
           <div class="card-header d-flex justify-content-between align-items-center">
 	          <span>Alamat</span>
             <div class="d-flex">
-              <a href="{{ route('address.edit', $address->id) }}" class="btn btn-primary btn-sm mx-1">Ubah</a>
-              <form action="{{ route('address.destroy', $address->id) }}" method="post">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-              </form>
+              @if (Auth::user()->hasRole('user'))
+                <a href="{{ route('address.edit', $address->id) }}" class="btn btn-primary btn-sm mx-1">Ubah</a>
+                <form action="{{ route('address.destroy', $address->id) }}" method="post">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                </form>
+              @endif
             </div>
 	        </div>
           <div class="card-body">

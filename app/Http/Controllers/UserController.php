@@ -84,9 +84,7 @@ class UserController extends Controller
       'phone'          => 'required|unique:users,id',
       'gender'         => 'required',
       'place_of_birth' => 'required',
-      'day_of_birth'   => 'required',
-      'month_of_birth' => 'required',
-      'year_of_birth'  => 'required'
+      'date_of_birth'  => 'required'
     ]);
 
     $date = explode('-', $request->date_of_birth);

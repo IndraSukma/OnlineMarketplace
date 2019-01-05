@@ -16,7 +16,13 @@ class AddressController extends Controller
    */
   public function index()
   {
-    $addresses = Address::where('user_id', Auth::user()->id)
+    $user = Auth::user();
+
+    if($user->hasRole('superadministrator|administrator')) {
+      return redirect()->route('address.indexAdmin');
+    }
+
+    $addresses = Address::where('user_id', $user->id)
                         ->orderBy('created_at', 'desc')
                         ->get();
 
@@ -89,7 +95,10 @@ class AddressController extends Controller
    */
   public function edit(Address $address)
   {
-    return view('manage.address.edit', compact('address'));
+    if ($address->user_id == Auth::user()->id) {
+      return view('manage.address.edit', compact('address'));
+    }
+    return abort(403);
   }
 
   /**
@@ -141,5 +150,17 @@ class AddressController extends Controller
     Session::flash('success', 'Alamat Berhasil dihapus.');
 
     return redirect()->route('address.index');
+  }
+
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function indexAdmin()
+  {
+    $addresses = Address::orderBy('created_at', 'desc')->get();
+
+    return view('manage.address.index', compact('addresses'));
   }
 }
