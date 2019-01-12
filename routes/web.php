@@ -7,7 +7,7 @@ Route::get('/', function () {
 Route::prefix('admin')
      ->middleware('role:superadministrator|administrator')
      ->group(function () {
-      
+
   Route::get('/', function () {
     return view('admin');
   })->name('admin');
@@ -29,5 +29,7 @@ Route::prefix('manage')
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/productDetail', 'HomeController@productDetail')->name('product-detail');
+Route::get('/products', 'HomeController@products')->name('products');
 
 // Route::get('/manage/address/{address}/edit', 'AddressController@edit')->name('address.edit');
