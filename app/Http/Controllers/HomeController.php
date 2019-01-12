@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,20 +26,25 @@ class HomeController extends Controller
   public function index()
   {
     $user = Auth::user();
+    $products = Product::orderBy('created_at', 'desc')->limit(4)->get();
 
     if($user->hasRole('superadministrator|administrator')) {
       return redirect()->route('admin');
     }
-    return view('home');
+    return view('home', compact('products'));
   }
 
-  public function productDetail()
+  public function productDetail(Product $product)
   {
-    return view('product-detail');
+    $relatedProducts = Product::orderBy('created_at', 'desc')->limit(4)->get();
+
+    return view('product-detail', compact('product', 'relatedProducts'));
   }
 
   public function products()
   {
-    return view('products');
+    $products = Product::orderBy('created_at', 'desc')->paginate(20);
+
+    return view('products', compact('products'));
   }
 }

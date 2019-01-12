@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
       // $table->integer('review_id')->nullable()->unsigned();
       // $table->integer('category_id')->unsigned()->nullable();
       $table->string('condition');
-      $table->string('views')->nullable();
+      $table->string('views')->default(0);
       $table->integer('stock');
       $table->timestamps();
     });

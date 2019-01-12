@@ -7,7 +7,7 @@
     <div class="mr-auto">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb d-inline-flex pl-0 pt-0">
-          <li class="breadcrumb-item"><a class="white-text" href="#!">Home</a></li>
+          <li class="breadcrumb-item"><a class="white-text" href="{{ route('home') }}">Home</a></li>
           <li class="breadcrumb-item"><a class="white-text" href="#!">Shoes</a></li>
           <li class="breadcrumb-item active">Sneaker</li>
         </ol>
@@ -44,15 +44,17 @@
         <div class="col-sm-7">
           <!-- Product information -->
           <div class="container">
-            <h6 class="h6 mb-3">Category : <a href="#">Sneaker</a></h6>
-            <h2 class="font-weight-bold deep-orange-lighter-hover mb-0  ">Product Name</h2>
-            <h5 class="h5 font-weight-bold deep-orange-lighter-hover">Rp. xxx.xxx.xxx</h5>
+            <h6 class="h6 mb-3">Category : <a href="#">
+              {{ is_null($product->category_id) ? 'Uncategorized' : $product->category->name }}</a>
+            </h6>
+            <h2 class="font-weight-bold deep-orange-lighter-hover mb-0">{{ $product->name }}</h2>
+            <h5 class="h5 font-weight-bold deep-orange-lighter-hover">Rp. {{ $product->price }}</h5>
           </div>
           <div class="container">
             <div class="row">
               <div class="col-sm">
                 <div class="float-left">
-                  Stock : <b>999</b>
+                  Stock : <b>{{ $product->stock }}</b>
                 </div>
               </div>
               <div class="col-sm">
@@ -150,14 +152,14 @@
               <p>Condition</p>
             </div>
             <div class="col-sm-2">
-              <p>: <span class="peach-gradient rounded-right rounded-left py-1 px-2 text-white ml-4">New</span> </p>
+              <p>: <span class="peach-gradient rounded-right rounded-left py-1 px-2 text-white ml-4">{{ $product->condition }}</span> </p>
             </div>
             <div class="col-sm-3"></div>
             <div class="col-sm-2">
               <p>Wishlisted</p>
             </div>
             <div class="col-sm-3">
-              <p>: <strong class="ml-4">999</strong> </p>
+              <p>: <strong class="ml-4">-</strong> </p>
             </div>
           </div>
 
@@ -166,14 +168,14 @@
               <p>Sold</p>
             </div>
             <div class="col-sm-2">
-              <p>: <strong class="ml-4">300</strong> </p>
+              <p>: <strong class="ml-4">-</strong> </p>
             </div>
             <div class="col-sm-3"></div>
             <div class="col-sm-2">
               <p>Updated</p>
             </div>
             <div class="col-sm-3">
-              <p>: <strong class="ml-4">26 November 2018</strong> </p>
+              <p>: <strong class="ml-4">{{ $product->updated_at->toFormattedDateString() }}</strong> </p>
             </div>
           </div>
           <div class="row">
@@ -181,7 +183,7 @@
               <p>Viewed</p>
             </div>
             <div class="col-sm-2">
-              <p>: <strong class="ml-4">999</strong> </p>
+              <p>: <strong class="ml-4">{{ $product->views }}</strong> </p>
             </div>
             <div class="col-sm-3"></div>
             <div class="col-sm-2">
@@ -199,7 +201,7 @@
               <p>Category</p>
             </div>
             <div class="col-sm-2">
-              <p>: <strong class="ml-4">Sneaker</strong> </p>
+              <p>: <strong class="ml-4">{{ is_null($product->category_id) ? 'Uncategorized' : $product->category->name }}</strong> </p>
             </div>
             <div class="col-sm-8"></div>
           </div>
@@ -236,12 +238,7 @@
           <!-- Description -->
           <h5 class="h5 font-weight-bold">Description</h5>
           <div class="row">
-            <div class="col-sm-12">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
+            <div class="col-sm-12">{{ $product->description }}</div>
           </div>
           <!-- ./ Description -->
 
@@ -341,176 +338,55 @@
       </div>
       <div class="col-sm">
         <div class="float-right">
-          <a href="#">
+          <a href="{{ route('products') }}">
             <p class="lead primary-text font-weight-bold">See All Products</p>
           </a>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm">
-        <div class="card card-cascade">
+      @foreach ($relatedProducts as $relatedProduct)
+        <div class="col-md-6 col-lg-3">
+          <div class="card card-cascade">
 
-          <!--Card image-->
-          <div class="view view-cascade">
-            <img src="{{ asset('img/user.jpg') }}" class="card-img-top" alt="">
-            <a>
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-          <!--/.Card image-->
+            <!--Card image-->
+            <div class="view view-cascade">
+              <img src="{{ asset('img/user.jpg') }}" class="card-img-top" alt="">
+              <a>
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+            <!--/.Card image-->
 
-          <!--Card content-->
-          <div class="card-body card-body-cascade">
-            <a href="#" class="text-dark">
-              <h5 class="card-title mb-0"><strong>Product Name</strong></h5>
-            </a>
-            <p class="lead text-primary">Rp. xxx.xxx.xxx</p>
-            <hr>
+            <!--Card content-->
+            <div class="card-body card-body-cascade">
+              <a href="{{ route('productDetail', $relatedProduct->id) }}" class="text-dark">
+                <h5 class="card-title mb-0"><strong>{{ $relatedProduct->name }}</strong></h5>
+              </a>
+              <p class="lead text-primary">Rp. {{ $relatedProduct->price }}</p>
+              <hr>
 
-            <div class="text-center">
-              <div class="row">
-                <div class="col-sm">
-                  <div class="float-left">
-                    <a href class=""><i class="mdi mdi-24px mdi-cart-plus text-dark"></i></a>
+              <div class="text-center">
+                <div class="row">
+                  <div class="col-sm">
+                    <div class="float-left">
+                      <a href class=""><i class="mdi mdi-24px mdi-cart-plus text-dark"></i></a>
+                    </div>
                   </div>
-                </div>
-                <div class="col-sm">
-                  <div class="float-right">
-                    <a href class=""><i class="mdi mdi-24px mdi-heart-outline text-danger"></i></a>
-                    <a href class=""><i class="mdi mdi-24px mdi-share-variant text-link"></i></a>
+                  <div class="col-sm">
+                    <div class="float-right">
+                      <a href class=""><i class="mdi mdi-24px mdi-heart-outline text-danger"></i></a>
+                      <a href class=""><i class="mdi mdi-24px mdi-share-variant text-link"></i></a>
+                    </div>
                   </div>
                 </div>
               </div>
+
             </div>
-
+            <!--/.Card content-->
           </div>
-          <!--/.Card content-->
         </div>
-      </div>
-
-      <div class="col-sm">
-        <div class="card card-cascade">
-
-          <!--Card image-->
-          <div class="view view-cascade">
-            <img src="{{ asset('img/user.jpg') }}" class="card-img-top" alt="">
-            <a>
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-          <!--/.Card image-->
-
-          <!--Card content-->
-          <div class="card-body card-body-cascade">
-            <a href="#" class="text-dark">
-              <h5 class="card-title mb-0"><strong>Product Name</strong></h5>
-            </a>
-            <p class="lead text-primary">Rp. xxx.xxx.xxx</p>
-            <hr>
-
-            <div class="text-center">
-              <div class="row">
-                <div class="col-sm">
-                  <div class="float-left">
-                    <a href class=""><i class="mdi mdi-24px mdi-cart-plus text-dark"></i></a>
-                  </div>
-                </div>
-                <div class="col-sm">
-                  <div class="float-right">
-                    <a href class=""><i class="mdi mdi-24px mdi-heart-outline text-danger"></i></a>
-                    <a href class=""><i class="mdi mdi-24px mdi-share-variant text-link"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <!--/.Card content-->
-        </div>
-      </div>
-
-      <div class="col-sm">
-        <div class="card card-cascade">
-
-          <!--Card image-->
-          <div class="view view-cascade">
-            <img src="{{ asset('img/user.jpg') }}" class="card-img-top" alt="">
-            <a>
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-          <!--/.Card image-->
-
-          <!--Card content-->
-          <div class="card-body card-body-cascade">
-            <a href="#" class="text-dark">
-              <h5 class="card-title mb-0"><strong>Product Name</strong></h5>
-            </a>
-            <p class="lead text-primary">Rp. xxx.xxx.xxx</p>
-            <hr>
-
-            <div class="text-center">
-              <div class="row">
-                <div class="col-sm">
-                  <div class="float-left">
-                    <a href class=""><i class="mdi mdi-24px mdi-cart-plus text-dark"></i></a>
-                  </div>
-                </div>
-                <div class="col-sm">
-                  <div class="float-right">
-                    <a href class=""><i class="mdi mdi-24px mdi-heart-outline text-danger"></i></a>
-                    <a href class=""><i class="mdi mdi-24px mdi-share-variant text-link"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <!--/.Card content-->
-        </div>
-      </div>
-
-      <div class="col-sm">
-        <div class="card card-cascade">
-
-          <!--Card image-->
-          <div class="view view-cascade">
-            <img src="{{ asset('img/user.jpg') }}" class="card-img-top" alt="">
-            <a>
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-          <!--/.Card image-->
-
-          <!--Card content-->
-          <div class="card-body card-body-cascade">
-            <a href="#" class="text-dark">
-              <h5 class="card-title mb-0"><strong>Product Name</strong></h5>
-            </a>
-            <p class="lead text-primary">Rp. xxx.xxx.xxx</p>
-            <hr>
-
-            <div class="text-center">
-              <div class="row">
-                <div class="col-sm">
-                  <div class="float-left">
-                    <a href class=""><i class="mdi mdi-24px mdi-cart-plus text-dark"></i></a>
-                  </div>
-                </div>
-                <div class="col-sm">
-                  <div class="float-right">
-                    <a href class=""><i class="mdi mdi-24px mdi-heart-outline text-danger"></i></a>
-                    <a href class=""><i class="mdi mdi-24px mdi-share-variant text-link"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <!--/.Card content-->
-        </div>
-      </div>
+      @endforeach
     </div>
-</div>
+  </div>
 @endsection

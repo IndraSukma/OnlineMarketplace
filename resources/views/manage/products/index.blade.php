@@ -44,9 +44,9 @@
 								      	{{ strlen(strip_tags($product->description)) > 15 ? '...' : '' }}
 							      	</span>
 							      </td>
-							      <td>{{ $product->category->name }}</td>
+							      <td>{{ is_null($product->category_id) ? 'Uncategorized' : $product->category->name }}</td>
 							      <td>{{ $product->condition }}</td>
-							      <td>{{ is_null($product->views) ? '0' : $product->views }}</td>
+							      <td>{{ $product->views }}</td>
 							      <td>{{ $product->stock }}</td>
 							      <td>{{ $product->created_at->toFormattedDateString() }}</td>
 							      <td>

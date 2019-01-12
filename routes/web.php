@@ -1,8 +1,14 @@
 <?php
 
+Auth::routes();
+
 Route::get('/', function () {
   return view('welcome');
 });
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/productDetail/{product}', 'HomeController@productDetail')->name('productDetail');
+Route::get('/products', 'HomeController@products')->name('products');
 
 Route::prefix('admin')
      ->middleware('role:superadministrator|administrator')
@@ -15,9 +21,6 @@ Route::prefix('admin')
   Route::get('/address', 'AddressController@indexAdmin')->name('address.indexAdmin');
 });
 
-
-Auth::routes();
-
 Route::prefix('manage')
 		 ->middleware('role:superadministrator|administrator|user')
 		 ->group(function () {
@@ -27,9 +30,5 @@ Route::prefix('manage')
   Route::resource('/products', 'ProductController');
   Route::resource('/productCategories', 'ProductCategoryController');
 });
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/productDetail', 'HomeController@productDetail')->name('product-detail');
-Route::get('/products', 'HomeController@products')->name('products');
 
 // Route::get('/manage/address/{address}/edit', 'AddressController@edit')->name('address.edit');

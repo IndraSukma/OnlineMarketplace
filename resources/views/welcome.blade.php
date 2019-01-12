@@ -12,26 +12,26 @@
   <div class="row justify-content-center">
     <div class="col-lg-4">
       <div class="view overlay">
-          <img src="https://mdbootstrap.com/img/Photos/Others/forest-sm.jpg" class="img-fluid " alt="smaple image">
-          <div class="mask flex-center rgba-green-slight">
-              <p class="white-text">Super light overlay</p>
-          </div>
+        <img src="https://mdbootstrap.com/img/Photos/Others/forest-sm.jpg" class="img-fluid " alt="smaple image">
+        <div class="mask flex-center rgba-green-slight">
+          <p class="white-text">Strong overlay</p>
+        </div>
       </div>
     </div>
     <div class="col-lg-4">
       <div class="view overlay">
-          <img src="https://mdbootstrap.com/img/Photos/Others/forest-sm.jpg" class="img-fluid " alt="smaple image">
-          <div class="mask flex-center rgba-red-strong">
-              <p class="white-text">Strong overlay</p>
-          </div>
+        <img src="https://mdbootstrap.com/img/Photos/Others/forest-sm.jpg" class="img-fluid " alt="smaple image">
+        <div class="mask flex-center rgba-red-strong">
+          <p class="white-text">Strong overlay</p>
+        </div>
       </div>
     </div>
     <div class="col-lg-4">
       <div class="view overlay">
-          <img src="https://mdbootstrap.com/img/Photos/Others/forest-sm.jpg" class="img-fluid " alt="smaple image">
-          <div class="mask flex-center rgba-red-strong">
-              <p class="white-text">Strong overlay</p>
-          </div>
+        <img src="https://mdbootstrap.com/img/Photos/Others/forest-sm.jpg" class="img-fluid " alt="smaple image">
+        <div class="mask flex-center rgba-red-strong">
+          <p class="white-text">Strong overlay</p>
+        </div>
       </div>
     </div>
   </div>
