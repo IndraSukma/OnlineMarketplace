@@ -7,13 +7,13 @@
     <title>Marketplace</title>
     {{-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css"> --}}
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="{{ asset('css/main/materialdesignicons.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/mdb.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/lightslider.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
   </head>
   <body>
     <header>
@@ -265,15 +265,34 @@
     <script src="{{ asset('js/main/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('js/main/popper.min.js') }}"></script>
     <script src="{{ asset('js/main/bootstrap.min.js') }}"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-      $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-      })
-    });
-    </script>
     <script src="{{ asset('js/mdb.min.js') }}"></script>
     <script src="{{ asset('js/lightslider.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#productGallery').owlCarousel({
+            loop:true,
+            margin:10,
+            responsiveClass:true,
+            responsive:{
+                0:{
+                    items:1,
+                    nav:true
+                },
+                600:{
+                    items:1,
+                    nav:true
+                },
+                1000:{
+                    items:1,
+                    nav:true,
+                }
+            }
+        });
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
+      });
+    </script>
   </body>
 </html>

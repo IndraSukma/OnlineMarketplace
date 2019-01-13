@@ -22,23 +22,23 @@
       <div class="row">
         <div class="col-sm-5 pl-2">
           <div class="product-gallery">
-            <ul id="productGallery" class="cs-hidden">
-              <li class="item">
+            <div  id="productGallery" class="owl-carousel owl-theme">
+              <div class="item">
                 <img src="{{ asset('img/user.jpg') }}" class="img-thumbnail w-100" alt="">
-              </li>
-              <li class="item">
+              </div>
+              <div class="item">
                 <img src="{{ asset('img/user.jpg') }}" class="img-thumbnail w-100" alt="">
-              </li>
-              <li class="item">
+              </div>
+              <div class="item">
                 <img src="{{ asset('img/user.jpg') }}" class="img-thumbnail w-100" alt="">
-              </li>
-              <li class="item">
+              </div>
+              <div class="item">
                 <img src="{{ asset('img/user.jpg') }}" class="img-thumbnail w-100" alt="">
-              </li>
-              <li class="item">
+              </div>
+              <div class="item">
                 <img src="{{ asset('img/user.jpg') }}" class="img-thumbnail w-100" alt="">
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-sm-7">
@@ -60,10 +60,10 @@
               <div class="col-sm">
                 <div class="float-right">
                   <div class="share-link">
-                    <a href="" class="text-danger">
+                    <a href="" class="text-danger" data-toggle="tooltip" title="Add to Wishlist">
                       <i class="mdi mdi-24px mdi-heart-outline"></i>
                     </a>
-                    <a href="" class="text-dark">
+                    <a href="" class="text-dark" data-toggle="tooltip" title="Copy Link to Clipboard">
                       <i class="mdi mdi-24px mdi-share-variant"></i>
                     </a>
                   </div>
@@ -370,13 +370,13 @@
                 <div class="row">
                   <div class="col-sm">
                     <div class="float-left">
-                      <a href class=""><i class="mdi mdi-24px mdi-cart-plus text-dark"></i></a>
+                      <a href="#!" data-toggle="tooltip" title="Add to Cart" class=""><i class="mdi mdi-24px mdi-cart-plus text-dark"></i></a>
                     </div>
                   </div>
                   <div class="col-sm">
                     <div class="float-right">
-                      <a href class=""><i class="mdi mdi-24px mdi-heart-outline text-danger"></i></a>
-                      <a href class=""><i class="mdi mdi-24px mdi-share-variant text-link"></i></a>
+                      <a href="#!" data-toggle="tooltip" title="Add to Wishlist" class=""><i class="mdi mdi-24px mdi-heart-outline text-danger"></i></a>
+                      <a href="#!" data-toggle="tooltip" title="Copy Link to Clipboard" class=""><i class="mdi mdi-24px mdi-share-variant text-link"></i></a>
                     </div>
                   </div>
                 </div>
