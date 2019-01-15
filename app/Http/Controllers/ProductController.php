@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Session;
+use Auth;
+
 use App\ProductCategory;
 use App\Product;
+use App\Cart;
+use App\Wishlist;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -132,5 +136,27 @@ class ProductController extends Controller
     Session::flash('success', 'Produk Berhasil dihapus.');
 
     return redirect()->route('products.index');
+  }
+
+  // Product Operation
+  public function addToCart(Request $request)
+  {
+    $data = new Cart();
+    $data->id_user = $request->id_user;
+    $data->product_id = $request->product_id;
+    $data->amount_of_item = $request->amount_of_item;
+    $data->save();
+
+    return response()->json($data);
+  }
+
+  public function addToWishlist(Request $request)
+  {
+    $data = new Wishlist();
+    $data->id_user = $request->id_user;
+    $data->product_id = $request->product_id;
+    $data->save();
+
+    return response()->json($data);
   }
 }
