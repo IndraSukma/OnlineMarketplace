@@ -7,8 +7,13 @@ Route::get('/', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/productDetail/{product}', 'HomeController@productDetail')->name('productDetail');
+Route::get('/productDetail/{slug}', 'HomeController@productDetail')->name('productDetail');
 Route::get('/products', 'HomeController@products')->name('products');
+
+Route::get('/search', 'ProductController@search')->name('products.search');
+
+// Route::post('/products', 'SearchController@index')->name('search.index');
+// Route::get('/search?keyword={keyword}', 'SearchController@index')->name('search.index');
 
 Route::prefix('admin')
      ->middleware('role:superadministrator|administrator')
@@ -30,5 +35,3 @@ Route::prefix('manage')
   Route::resource('/products', 'ProductController');
   Route::resource('/productCategories', 'ProductCategoryController');
 });
-
-// Route::get('/manage/address/{address}/edit', 'AddressController@edit')->name('address.edit');

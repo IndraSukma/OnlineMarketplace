@@ -50,8 +50,11 @@ class ProductController extends Controller
       'stock'       => 'required'
     ]);
 
+    $slug = str_replace(' ', '-', $request->name);
+
     $product = new Product;
     $product->name = $request->name;
+    $product->slug = $slug;
     $product->price = $request->price;
     $product->description = $request->description;
     $product->category_id = $request->category;
@@ -106,7 +109,10 @@ class ProductController extends Controller
       'stock'       => 'required'
     ]);
 
+    $slug = str_replace(' ', '-', $request->name);
+
     $product->name = $request->name;
+    $product->slug = $slug;
     $product->price = $request->price;
     $product->description = $request->description;
     $product->category_id = $request->category;
@@ -132,5 +138,13 @@ class ProductController extends Controller
     Session::flash('success', 'Produk Berhasil dihapus.');
 
     return redirect()->route('products.index');
+  }
+
+  public function search(Request $request)
+  {
+    $keyword = $request->keyword;
+    $products = Product::search($keyword)->paginate(20);
+
+    return view('search.index', compact('keyword', 'products'));
   }
 }

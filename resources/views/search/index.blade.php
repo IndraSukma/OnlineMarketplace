@@ -8,7 +8,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb d-inline-flex pl-0 pt-0">
           <li class="breadcrumb-item"><a class="white-text" href="{{ route('home') }}">Home</a></li>
-          <li class="breadcrumb-item active">All Products</li>
+          <li class="breadcrumb-item active">Result for "{{ $keyword }}"</li>
         </ol>
       </nav>
     </div>
@@ -90,20 +90,10 @@
       @endforeach
     </div>
 
-    {{-- <nav aria-label="Page Navigation" class="mt-5">
-      <ul class="pagination pg-blue justify-content-end pagination-md">
-        <li class="page-item disabled">
-          <a class="page-link" tabindex="-1">Previous</a>
-        </li>
-        <li class="page-item active"><a class="page-link">1</a></li>
-        <li class="page-item"><a class="page-link">2</a></li>
-        <li class="page-item"><a class="page-link">3</a></li>
-        <li class="page-item">
-          <a class="page-link">Next</a>
-        </li>
-      </ul>
-    </nav> --}}
-    <nav aria-label="Page Navigation" class="mt-5">
+    <nav aria-label="Page Navigation" class="d-flex justify-content-between align-items-center mt-5">
+    	{{-- <a href="https://www.algolia.com" target="blank">
+        <img src="{{ asset('svg/algolia.svg') }}" alt="search by Algolia" height="20">
+      </a> --}}
       {{ $products->links() }}
     </nav>
   </div>

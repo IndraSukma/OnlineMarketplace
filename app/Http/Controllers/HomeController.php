@@ -34,8 +34,9 @@ class HomeController extends Controller
     return view('home', compact('products'));
   }
 
-  public function productDetail(Product $product)
+  public function productDetail(Product $product, $slug)
   {
+    $product = Product::where('slug', $slug)->first();
     $relatedProducts = Product::orderBy('created_at', 'desc')->limit(4)->get();
 
     return view('product-detail', compact('product', 'relatedProducts'));
@@ -47,4 +48,12 @@ class HomeController extends Controller
 
     return view('products', compact('products'));
   }
+
+  // public function search(Request $request)
+  // {
+  //   $keyword = $request->keyword;
+  //   $products = Product::search($keyword)->paginate(20);
+
+  //   return view('search.index', compact('keyword', 'products'));
+  // }
 }
