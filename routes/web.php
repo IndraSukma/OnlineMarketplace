@@ -1,9 +1,19 @@
 <?php
 
+use App\Cart;
+use App\Wishlist;
+use App\Product;
+
 Auth::routes();
 
 Route::get('/', function () {
-  return view('welcome');
+  $user = Auth::user();
+  $carts = Cart::where('id_user', $user->id)->get();
+  $wishlist = Wishlist::where('id_user', $user->id)->get();
+
+  $products = Product::orderBy('created_at', 'desc')->limit(4)->get();
+
+  return view('home', compact('products', 'carts', 'wishlist'));
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -11,9 +21,6 @@ Route::get('/productDetail/{slug}', 'HomeController@productDetail')->name('produ
 Route::get('/products', 'HomeController@products')->name('products');
 
 Route::get('/search', 'ProductController@search')->name('products.search');
-
-// Route::post('/products', 'SearchController@index')->name('search.index');
-// Route::get('/search?keyword={keyword}', 'SearchController@index')->name('search.index');
 
 Route::prefix('admin')
      ->middleware('role:superadministrator|administrator')
@@ -35,3 +42,7 @@ Route::prefix('manage')
   Route::resource('/products', 'ProductController');
   Route::resource('/productCategories', 'ProductCategoryController');
 });
+
+// Product Operation
+Route::get('addToCart', 'ProductController@addToCart');
+Route::get('addToWishlist', 'ProductController@addToWishlist');

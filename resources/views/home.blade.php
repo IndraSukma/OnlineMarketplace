@@ -125,13 +125,20 @@
               <div class="row">
                 <div class="col-sm">
                   <div class="float-left">
-                    <a href class=""><i class="mdi mdi-24px mdi-cart-plus text-dark"></i></a>
+                    <button data-toggle="tooltip" id="{{$product->id}}" title="Add to Cart" class="border-0" style="background: transparent;">
+                      <i class="mdi mdi-24px mdi-cart-plus text-dark"></i>
+                    </button>
                   </div>
+
                 </div>
                 <div class="col-sm">
                   <div class="float-right">
-                    <a href class=""><i class="mdi mdi-24px mdi-heart-outline text-danger"></i></a>
-                    <a href class=""><i class="mdi mdi-24px mdi-share-variant text-link"></i></a>
+                    <button data-toggle="tooltip" id="wish{{$product->id}}" value="{{$product->id}}" title="Add to Wishlist" class="border-0" style="background: transparent">
+                      <i id="heart{{$product->id}}" class="mdi mdi-24px mdi-heart-outline text-danger"></i>
+                    </button>
+                    <button data-toggle="tooltip" id="link{{$product->id}}" value="{{$product->id}}" title="Copy Link to Clipboard" class="border-0 pr-0" style="background: transparent">
+                      <i class="mdi mdi-24px mdi-share-variant text-link"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -143,5 +150,4 @@
       </div>
     @endforeach
 </div>
-
 @endsection
