@@ -6,7 +6,6 @@ use Auth;
 use App\Product;
 use App\Cart;
 use App\Wishlist;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -45,12 +44,11 @@ class HomeController extends Controller
     return view('home', compact('products', 'wishlist', 'carts'));
   }
 
-  public function productDetail(Product $product)
+  public function productDetail(Product $product, $slug)
   {
     $user = Auth::user();
     $carts = Cart::where('id_user', $user->id)->get();
     $wishlist = Wishlist::where('id_user', $user->id)->get();
-
     $relatedProducts = Product::orderBy('created_at', 'desc')->limit(4)->get();
 
     return view('product-detail', compact('product', 'relatedProducts', 'carts', 'wishlist'));

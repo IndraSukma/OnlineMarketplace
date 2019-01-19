@@ -34,9 +34,9 @@
             </li>
           </ul>
 
-          <form class="search form-inline ml-lg-2 mr-lg-auto pr-0 active-pink-3 active-pink-4">
-            <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
-            <button type="submit" name="search" class="btn blue-gradient btn-sm pt-0 pb-0 pl-2 pr-2"><i class="mdi mdi-magnify mdi-24px" aria-hidden="true"></i></button>
+          <form action="{{ route('products.search') }}" method="get" class="search form-inline ml-lg-2 mr-lg-auto pr-0 active-pink-3 active-pink-4">
+            <input class="form-control form-control-sm ml-3 w-75" type="text" name="keyword" placeholder="Search" aria-label="Search">
+            <button type="submit" class="btn blue-gradient btn-sm pt-0 pb-0 pl-2 pr-2"><i class="mdi mdi-magnify mdi-24px" aria-hidden="true"></i></button>
           </form>
 
           @if (Route::has('login'))
@@ -103,9 +103,14 @@
                     <img src="{{ asset('img/user.jpg') }}" alt="User" height="36" class="rounded-circle">
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
+<<<<<<< HEAD
                     <a class="dropdown-item" href="#"><i class="mdi mdi-24px mdi-account-outline"></i>Profile</a>
                     <a class="dropdown-item" href="#"><i class="mdi mdi-24px mdi-clipboard-flow"></i>Transaction</a>
                     <a class="dropdown-item" href="#"><i class="mdi mdi-24px mdi-cart"></i>Track Order</a>
+=======
+                    <a class="dropdown-item" href="{{ route('dashboard') }}"><i class="mdi mdi-24px mdi-account-outline"></i>Dashboard</a>
+                    <a class="dropdown-item" href="{{ route('user.index') }}"><i class="mdi mdi-24px mdi-account-outline"></i>Profile</a>
+>>>>>>> d75969fb06f47e5d8e688c82a9b2c62cc041094a
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();"><i class="mdi mdi-24px mdi-exit-to-app"></i>Logout</a>

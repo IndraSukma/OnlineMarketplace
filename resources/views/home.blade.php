@@ -115,7 +115,7 @@
 
           <!--Card content-->
           <div class="card-body card-body-cascade">
-            <a href="{{ route('productDetail', $product->id) }}" class="text-dark">
+            <a href="{{ route('productDetail', $product->slug) }}" class="text-dark">
               <h5 class="card-title mb-0"><strong>{{ $product->name }}</strong></h5>
             </a>
             <p class="lead text-primary">Rp. {{ $product->price }}</p>
