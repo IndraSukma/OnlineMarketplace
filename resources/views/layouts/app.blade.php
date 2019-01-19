@@ -58,9 +58,9 @@
               <ul class="navbar-nav auth">
                 <li class="nav-item">
                   @if($carts->count() > 0)
-                  <a href="#" id="navCart" class="nav-link red-dot" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
+                  <a href="{{route('carts')}}" id="navCart" class="nav-link red-dot" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
                   @else
-                  <a href="#" id="navCart" class="nav-link" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
+                  <a href="{{route('carts')}}" id="navCart" class="nav-link" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
                   @endif
                 </li>
                 <li class="nav-item">
@@ -104,6 +104,8 @@
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
                     <a class="dropdown-item" href="#"><i class="mdi mdi-24px mdi-account-outline"></i>Profile</a>
+                    <a class="dropdown-item" href="#"><i class="mdi mdi-24px mdi-clipboard-flow"></i>Transaction</a>
+                    <a class="dropdown-item" href="#"><i class="mdi mdi-24px mdi-cart"></i>Track Order</a>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();"><i class="mdi mdi-24px mdi-exit-to-app"></i>Logout</a>

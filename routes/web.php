@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/productDetail/{product}', 'HomeController@productDetail')->name('productDetail');
 Route::get('/products', 'HomeController@products')->name('products');
+Route::get('/carts', 'HomeController@carts')->name('carts');
 
 Route::prefix('admin')
      ->middleware('role:superadministrator|administrator')
@@ -42,7 +43,12 @@ Route::prefix('manage')
 });
 
 // Product Operation
-Route::get('addToCart', 'ProductController@addToCart');
+Route::get('addToCart', 'CartController@addToCart');
+Route::get('removeFromCart', 'CartController@removeFromCart');
 Route::get('addToWishlist', 'ProductController@addToWishlist');
 
 // Route::get('/manage/address/{address}/edit', 'AddressController@edit')->name('address.edit');
+
+
+// JSON
+Route::get('/productsJson', 'ProductController@json');

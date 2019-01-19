@@ -66,4 +66,34 @@ class HomeController extends Controller
 
     return view('products', compact('products', 'carts', 'wishlist'));
   }
+
+
+  public function carts()
+  {
+    $user = Auth::user();
+    $carts = Cart::where('id_user', $user->id)->get();
+    $wishlist = Wishlist::where('id_user', $user->id)->get();
+
+    $inCart = DB::table('products')
+                       ->join('carts', function($join) {
+                         $join->on('products.id', '=', 'carts.product_id')
+                              ->where('carts.id_user', '=', Auth::user()->id);
+
+                        })->get();
+
+    $subTotal = DB::table('products')
+                       ->join('carts', function($join) {
+                         $join->on('products.id', '=', 'carts.product_id')
+                              ->where('carts.id_user', '=', Auth::user()->id);
+
+                        })
+                        ->sum('price');
+
+    $mightLikeProduct = Product::orderBy('created_at', 'desc')->limit(4)->get();
+
+    return view('carts', compact('mightLikeProduct', 'carts', 'wishlist', 'inCart', 'subTotal'));
+  }
+
+
+
 }

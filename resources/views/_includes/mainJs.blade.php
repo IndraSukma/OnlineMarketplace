@@ -26,6 +26,32 @@
       });
     })
     @endforeach
+    // Remove from Cart Function
+    @foreach(App\Cart::all() as $p)
+    $('#cart_item{{$p->id}}').click(function() {
+      var id = $('#cart_item{{$p->id}}').val();
+      // var id = this.id;
+
+      $.ajax({
+        type: 'get',
+        url: '{{url('/removeFromCart')}}',
+        data: {
+          'id_user' :
+            @if (Auth::check())
+              {{Auth::user()->id}}
+            @else
+              null
+            @endif
+            ,
+          'product_id' : id,
+        },
+        success: function(response) {
+          console.log(response);
+          location.reload();
+        }
+      });
+    })
+    @endforeach
 
     // Add to Wishlist Function
     @foreach(App\Product::all() as $p)

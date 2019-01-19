@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('title', 'Produk')
 
@@ -40,8 +40,8 @@
               </div>
               <div class="col col-md-4">
                 <dl>
-                  <dt>Kateogori</dt>
-                  <dd>{{ $product->category->name }}</dd>
+                  <dt>Kategori</dt>
+                  <dd>{{ is_null($product->category_id) ? 'Uncategorized' : $product->category->name }}</dd>
                 </dl>
               </div>
               <div class="col col-md-4">
