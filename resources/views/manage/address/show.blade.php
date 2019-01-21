@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.manage')
 
-@section('title', 'Alamat')
+@section('title', 'Alamat '.$address->address_name)
 
 @section('content')
 	<div class="container">
@@ -37,7 +37,7 @@
               <div class="col col-md-4">
                 <dl>
                   <dt>Nama Alamat</dt>
-                  <dd>{{ $address->complete_address }}</dd>
+                  <dd>{{ $address->address_name }}</dd>
                 </dl>
               </div>
               <div class="col col-md-4">

@@ -15,7 +15,7 @@ class CreateAddressesTable extends Migration
   {
     Schema::create('addresses', function (Blueprint $table) {
       $table->increments('id');
-      $table->integer('user_id')->unsigned();
+      $table->unsignedInteger('user_id');
       $table->string('full_name');
       $table->string('address_name');
       $table->string('complete_address');

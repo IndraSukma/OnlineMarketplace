@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Session;
 use Auth;
-
-use App\ProductCategory;
-use App\Product;
+use Session;
 use App\Cart;
 use App\Wishlist;
+use App\ProductCategory;
+use App\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -46,12 +45,12 @@ class ProductController extends Controller
   public function store(Request $request)
   {
     $this->validate($request, [
-      'name'        => 'required|min:2|max:255',
-      'price'       => 'required',
+      'name'        => 'required|min:2|max:255|unique:products',
+      'price'       => 'required|numeric',
       'description' => 'required',
       'category'    => 'required',
       'condition'   => 'required',
-      'stock'       => 'required'
+      'stock'       => 'required|numeric'
     ]);
 
     $slug = str_replace(' ', '-', $request->name);
@@ -105,12 +104,12 @@ class ProductController extends Controller
   public function update(Request $request, Product $product)
   {
     $this->validate($request, [
-      'name'        => 'required|min:2|max:255',
-      'price'       => 'required',
+      'name'        => 'required|min:2|max:255|unique:products,id',
+      'price'       => 'required|numeric',
       'description' => 'required',
       'category'    => 'required',
       'condition'   => 'required',
-      'stock'       => 'required'
+      'stock'       => 'required|numeric'
     ]);
 
     $slug = str_replace(' ', '-', $request->name);
@@ -144,34 +143,90 @@ class ProductController extends Controller
     return redirect()->route('products.index');
   }
 
-  // Search
+  public function indexFront()
+  {
+    $products = Product::orderBy('created_at', 'desc')->paginate(20);
+
+    if (Auth::check()) {
+      $user = Auth::user();
+      $cart = Cart::where('user_id', $user->id)->get();
+      $cart_added = Cart::where('user_id', $user->id)->pluck('product_id')->toArray();
+      $wishlist = Wishlist::where('user_id', $user->id)->get();
+      $wishlist_added = Wishlist::where('user_id', $user->id)->pluck('product_id')->toArray();
+    }
+
+    return view('products', compact('products', 'cart', 'cart_added', 'wishlist', 'wishlist_added'));
+  }
+
+  public function detail(Product $product, $slug)
+  {
+    $product = Product::where('slug', $slug)->first();
+    $relatedProducts = Product::orderBy('created_at', 'desc')->limit(4)->get();
+
+    if (Auth::check()) {
+      $user = Auth::user();
+      $cart = Cart::where('user_id', $user->id)->get();
+      $cart_added = Cart::where('user_id', $user->id)->pluck('product_id')->toArray();
+      $wishlist = Wishlist::where('user_id', $user->id)->get();
+      $wishlist_added = Wishlist::where('user_id', $user->id)->pluck('product_id')->toArray();
+    }
+
+    return view('productDetail', compact('product', 'relatedProducts', 'cart', 'cart_added', 'wishlist', 'wishlist_added'));
+  }
+
   public function search(Request $request)
   {
     $keyword = $request->keyword;
     $products = Product::search($keyword)->paginate(20);
 
-    return view('search.index', compact('keyword', 'products'));
+    if (Auth::check()) {
+      $user = Auth::user();
+      $cart = Cart::where('user_id', $user->id)->get();
+      $cart_added = Cart::where('user_id', $user->id)->pluck('product_id')->toArray();
+      $wishlist = Wishlist::where('user_id', $user->id)->get();
+      $wishlist_added = Wishlist::where('user_id', $user->id)->pluck('product_id')->toArray();
+    }
+
+    return view('search.index', compact('keyword', 'products', 'cart', 'cart_added', 'wishlist', 'wishlist_added'));
   }
 
-  // Product Operation
   public function addToCart(Request $request)
   {
-    $data = new Cart();
-    $data->id_user = $request->id_user;
-    $data->product_id = $request->product_id;
-    $data->amount_of_item = $request->amount_of_item;
-    $data->save();
+    $user = Auth::user();
 
-    return response()->json($data);
+    if (Cart::where([['user_id', $user->id], ['product_id', $request->product_id]])->exists()) {
+      return response('Item is already in the cart');
+    } else {
+      $cart = new Cart;
+      $cart->user_id = $user->id;
+      $cart->product_id = $request->product_id;
+      $cart->save();
+
+      return response('Item has been added to the cart.');
+    }
   }
 
   public function addToWishlist(Request $request)
   {
-    $data = new Wishlist();
-    $data->id_user = $request->id_user;
-    $data->product_id = $request->product_id;
-    $data->save();
+    $user = Auth::user();
 
-    return response()->json($data);
+    $wishlist = new Wishlist;
+    $wishlist->user_id = $user->id;
+    $wishlist->product_id = $request->product_id;
+    $wishlist->save();
+
+    return response('Item has been added from the wish list.');
+  }
+
+  public function removeWishlist(Request $request)
+  {
+    $user = Auth::user();
+
+    Wishlist::where([
+      ['user_id', $user->id],
+      ['product_id', $request->product_id]
+    ])->delete();
+
+    return response('Item has been removed from the wish list.');
   }
 }

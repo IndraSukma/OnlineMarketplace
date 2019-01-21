@@ -43,25 +43,4 @@ class HomeController extends Controller
 
     return view('home', compact('products', 'wishlist', 'carts'));
   }
-
-  public function productDetail(Product $product, $slug)
-  {
-    $user = Auth::user();
-    $carts = Cart::where('id_user', $user->id)->get();
-    $wishlist = Wishlist::where('id_user', $user->id)->get();
-    $relatedProducts = Product::orderBy('created_at', 'desc')->limit(4)->get();
-
-    return view('product-detail', compact('product', 'relatedProducts', 'carts', 'wishlist'));
-  }
-
-  public function products()
-  {
-    $user = Auth::user();
-    $carts = Cart::where('id_user', $user->id)->get();
-    $wishlist = Wishlist::where('id_user', $user->id)->get();
-
-    $products = Product::orderBy('created_at', 'desc')->paginate(20);
-
-    return view('products', compact('products', 'carts', 'wishlist'));
-  }
 }

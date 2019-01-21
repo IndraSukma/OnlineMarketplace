@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Marketplace</title>
+    <title>@yield('title') | Marketplace</title>
     {{-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css"> --}}
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
@@ -18,7 +18,7 @@
   <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="/">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -57,17 +57,17 @@
               </div>
               <ul class="navbar-nav auth">
                 <li class="nav-item">
-                  @if($carts->count() > 0)
-                  <a href="#" id="navCart" class="nav-link red-dot" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
+                  @if($cart->count() > 0)
+                    <a href="#" id="navCart" class="nav-link red-dot" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
                   @else
-                  <a href="#" id="navCart" class="nav-link" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
+                    <a href="#" id="navCart" class="nav-link" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
                   @endif
                 </li>
                 <li class="nav-item">
                   @if($wishlist->count() > 0)
-                  <a class="nav-link red-dot" id="navWishlist" href="#" title="Wishlist"><i class="mdi mdi-24px mdi-heart-outline"></i></a>
+                    <a class="nav-link red-dot" id="navWishlist" href="#" title="Wishlist"><i class="mdi mdi-24px mdi-heart-outline"></i></a>
                   @else
-                  <a class="nav-link" id="navWishlist" href="#" title="Wishlist"><i class="mdi mdi-24px mdi-heart-outline"></i></a>
+                    <a class="nav-link" id="navWishlist" href="#" title="Wishlist"><i class="mdi mdi-24px mdi-heart-outline"></i></a>
                   @endif
                 </li>
                 <li class="nav-item dropdown notification-dropdown d-none d-lg-block">
@@ -275,30 +275,10 @@
     <script src="{{ asset('js/main/popper.min.js') }}"></script>
     <script src="{{ asset('js/main/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/mdb.min.js') }}"></script>
-    <script src="{{ asset('js/lightslider.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    @yield('script')
     @include('_includes.mainJs')
-    <script type="text/javascript">
+    <script>
       $(document).ready(function() {
-        $('#productGallery').owlCarousel({
-            loop:true,
-            margin:10,
-            responsiveClass:true,
-            responsive:{
-                0:{
-                    items:1,
-                    nav:true
-                },
-                600:{
-                    items:1,
-                    nav:true
-                },
-                1000:{
-                    items:1,
-                    nav:true,
-                }
-            }
-        });
         $(function () {
           $('[data-toggle="tooltip"]').tooltip()
         });

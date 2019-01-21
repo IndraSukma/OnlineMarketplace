@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.manage')
 
-@section('title', 'Kategori Produk')
+@section('title', 'Kategori '.$productCategory->name)
 
 @section('content')
 	<div class="container">

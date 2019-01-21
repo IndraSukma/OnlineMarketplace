@@ -10,6 +10,7 @@ class Product extends Model
 	use Searchable;
 
 	public $asYouType = true;
+  // public $timestamps = false;
 
 	public function toSearchableArray()
   {

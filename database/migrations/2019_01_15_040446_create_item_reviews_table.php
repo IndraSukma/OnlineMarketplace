@@ -15,9 +15,9 @@ class CreateItemReviewsTable extends Migration
     {
         Schema::create('item_reviews', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_user');
-            $table->integer('product_id');
-            $table->integer('feedback');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('feedback');
             $table->text('item_review');
             $table->timestamps();
         });

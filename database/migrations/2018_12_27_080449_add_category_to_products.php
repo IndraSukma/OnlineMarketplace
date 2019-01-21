@@ -14,7 +14,7 @@ class AddCategoryToProducts extends Migration
   public function up()
   {
     Schema::table('products', function (Blueprint $table) {
-      $table->integer('category_id')->unsigned()->nullable()->after('description');
+      $table->unsignedInteger('category_id')->nullable()->after('description');
 
       $table->foreign('category_id')
             ->references('id')->on('product_categories')

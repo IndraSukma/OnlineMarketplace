@@ -1,35 +1,25 @@
 <?php
 
-use App\Cart;
-use App\Wishlist;
-use App\Product;
-
 Auth::routes();
 
-Route::get('/', function () {
-  $user = Auth::user();
-  $carts = Cart::where('id_user', $user->id)->get();
-  $wishlist = Wishlist::where('id_user', $user->id)->get();
+Route::get('/', 'PageController@index')->name('home');
 
-  $products = Product::orderBy('created_at', 'desc')->limit(4)->get();
+// Route::get('/home', 'HomeController@index')->name('home');
 
-  return view('home', compact('products', 'carts', 'wishlist'));
-});
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/productDetail/{slug}', 'HomeController@productDetail')->name('productDetail');
-Route::get('/products', 'HomeController@products')->name('products');
-
+// Product Operation
+Route::get('/products', 'ProductController@indexFront')->name('products.indexFront');
+Route::get('/products/{slug}', 'ProductController@detail')->name('products.detail');
 Route::get('/search', 'ProductController@search')->name('products.search');
+Route::post('/addToCart', 'ProductController@addToCart')->name('products.addToCart');
+Route::post('/addToWishlist', 'ProductController@addToWishlist')->name('products.addToWishlist');
+Route::delete('/removeWishlist/{wishlist}', 'ProductController@removeWishlist')->name('products.removeWishlist');
 
 Route::prefix('admin')
      ->middleware('role:superadministrator|administrator')
      ->group(function () {
-
   Route::get('/', function () {
     return view('admin');
   })->name('admin');
-
   Route::get('/address', 'AddressController@indexAdmin')->name('address.indexAdmin');
 });
 
@@ -42,7 +32,3 @@ Route::prefix('manage')
   Route::resource('/products', 'ProductController');
   Route::resource('/productCategories', 'ProductCategoryController');
 });
-
-// Product Operation
-Route::get('addToCart', 'ProductController@addToCart');
-Route::get('addToWishlist', 'ProductController@addToWishlist');
