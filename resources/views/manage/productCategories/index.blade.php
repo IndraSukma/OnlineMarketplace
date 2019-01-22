@@ -7,36 +7,35 @@
     <div class="row justify-content-center">
       <div class="col">
       	<div class="card">
-          <div class="card-header d-flex justify-content-between align-items-center">
-	          <span>Kategori Produk</span>
-	          <a href="{{ route('productCategories.create') }}" class="btn btn-primary btn-sm">Tambah Kategori</a>
+          <div class="d-flex justify-content-between align-items-center">
+	          <h4 class="h4"><b>Product Categories</b></h4>
+	          <button type="button" id="btnAddCategory" class="btn btn-primary">Add Category</button>
 	        </div>
-          <div class="card-body">
-            <table class="table border-bottom mb-0">
+          <div class="mt-3">
+            <table id="categories-table" class="table table-bordered mb-3">
 						  <thead>
 						    <tr>
-						      <th>#</th>
-						      <th>Nama</th>
-						      <th>Produk</th>
-						      <th>Tanggal Dibuat</th>
-						      <th>Pilihan</th>
+						      <th class="text-center">#</th>
+						      <th class="text-center">Base Category</th>
+									<th class="text-center">Nama Kategori</th>
+						      <th class="text-center">Tanggal Dibuat</th>
+						      <th class="text-center">Pilihan</th>
 						    </tr>
 						  </thead>
 						  <tbody>
 						  	@foreach ($productCategories as $productCategory)
 							    <tr>
-							      <td>{{ $loop->iteration }}</td>
-							      <td>{{ $productCategory->name }}</td>
-							      <td>Jumlah Produk</td>
-							      <td>{{ $productCategory->created_at->toFormattedDateString() }}</td>
+							      <td class="text-center text-dark">{{ $loop->iteration }}</td>
+							      <td class="text-center text-dark">{{ $productCategory->base_category }}</td>
+										<td class="text-center text-dark">{{ $productCategory->name }}</td>
+							      <td class="text-center text-dark">{{ $productCategory->created_at->toFormattedDateString() }}</td>
 							      <td>
-							      	<div class="d-flex">
-							      		<a href="{{ route('productCategories.show', $productCategory->id) }}" class="btn btn-light btn-sm">Lihat</a>
-								      	<a href="{{ route('productCategories.edit', $productCategory->id) }}" class="btn btn-light btn-sm mx-1">Ubah</a>
+							      	<div class="d-flex justify-content-center">
+								      	<button id="btnEditCategory{{$productCategory->id}}" class="btn btn-warning mr-3">Ubah</button>
 								      	<form action="{{ route('productCategories.destroy', $productCategory->id) }}" method="post">
 					                @csrf
 					                @method('DELETE')
-					                <button type="submit" class="btn btn-light btn-sm">Hapus</button>
+					                <button type="submit" class="btn btn-danger">Hapus</button>
 					              </form>
 							      	</div>
 							      </td>
@@ -45,6 +44,12 @@
 						  </tbody>
 						</table>
           </div>
+
+					@include('_extends.category-add')
+
+					@foreach($productCategories as $productCategory)
+					@include('_extends.category-edit')
+					@endforeach
         </div>
       </div>
     </div>

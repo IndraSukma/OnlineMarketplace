@@ -51,11 +51,29 @@
       modal.setContent(content);
       modal.open();
     });
-    @endforeach    
+    @endforeach
+    // End Of Edit Product
+
+    // Add Category
+    $('#btnAddCategory').click(function() {
+      var content = $('#modalAddCategory').html();
+      modal.setContent(content);
+      modal.open();
+    });
+
+    // Edit Product
+    @foreach(App\ProductCategory::all() as $p)
+    $('#btnEditCategory{{$p->id}}').click(function() {
+      var content = $('#modalEditCategory{{$p->id}}').html();
+      modal.setContent(content);
+      modal.open();
+    });
+    @endforeach
     // End Of Edit Product
 
     // Datatables
     $('#products-table').DataTable();
+    $('#categories-table').DataTable();
 
   });
 </script>

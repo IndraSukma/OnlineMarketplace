@@ -39,16 +39,18 @@ class ProductCategoryController extends Controller
   public function store(Request $request)
   {
     $this->validate($request, [
+      'base_category' => 'required',
       'name' => 'required|min:2|max:255|unique:product_categories'
     ]);
 
     $productCategory = new ProductCategory;
+    $productCategory->base_category = $request->base_category;
     $productCategory->name = $request->name;
     $productCategory->save();
 
     Session::flash('success', 'Kategori berhasil ditambahkan.');
 
-    return redirect()->route('productCategories.show', $productCategory->id);
+    return redirect()->route('productCategories.index');
   }
 
   /**
@@ -83,15 +85,17 @@ class ProductCategoryController extends Controller
   public function update(Request $request, ProductCategory $productCategory)
   {
     $this->validate($request, [
+      'base_category' => 'required',
       'name' => 'required|min:2|max:255|unique:product_categories,id'
     ]);
 
+    $productCategory->base_category = $request->base_category;
     $productCategory->name = $request->name;
     $productCategory->save();
 
     Session::flash('success', 'Kategori berhasil diubah.');
 
-    return redirect()->route('productCategories.show', $productCategory->id);
+    return redirect()->route('productCategories.index');
   }
 
   /**
