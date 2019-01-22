@@ -24,4 +24,31 @@ class PageController extends Controller
 
 	  return view('home', compact('products', 'cart', 'cart_added', 'wishlist', 'wishlist_added'));
   }
+
+  public function dashboard()
+  {
+    return view('manage.dashboard');
+  }
+
+  public function cart()
+  {
+    $user = Auth::user();
+    $cart = Cart::where('user_id', $user->id)->get();
+    $wishlist = Wishlist::where('user_id', $user->id)->get();
+    $subTotal = Product::whereIn('id', $cart->pluck('product_id'))->pluck('price')->sum();
+    $mightLikeProduct = Product::orderBy('created_at', 'desc')->limit(4)->get();
+
+    // $inCart = DB::table('products')
+    //             ->join('carts', function($join) {
+    //               $join->on('products.id', '=', 'carts.product_id')
+    //                    ->where('carts.user_id', '=', Auth::user()->id);
+    //             })->get();
+
+    // $subTotal = Product::join('carts', function($join) {
+				//                   $join->on('products.id', 'carts.product_id')
+				//                        ->where('carts.user_id', Auth::user()->id);
+				//                 })->pluck('price')->sum();
+
+    return view('cart', compact('mightLikeProduct', 'cart', 'wishlist', 'subTotal'));
+  }
 }

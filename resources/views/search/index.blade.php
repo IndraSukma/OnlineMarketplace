@@ -78,7 +78,7 @@
                               <i class="mdi mdi-24px mdi-cart-plus"></i>
                             </button>
                           @else --}}
-                            <button value="{{$product->id}}" title="Add to Cart" data-toggle="tooltip" class="btn-cart bg-transparent border-0">
+                            <button class="btn-cart bg-transparent border-0" value="{{$product->id}}" title="Add to Cart" data-toggle="tooltip" data-action="add">
                               <i class="mdi mdi-24px mdi-cart-plus"></i>
                             </button>
                           {{-- @endif --}}

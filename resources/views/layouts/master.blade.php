@@ -14,12 +14,12 @@
   <title>{{config('app.name', 'Online Marketplace')}}</title>
 
   <link href="{{ asset('css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.14.0/tingle.min.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">  -->
   <!-- Custom CSS -->
 
   <link href="{{ asset('css/lib/calendar2/semantic.ui.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/lib/calendar2/pignose.calendar.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/lib/owl.carousel.min.css') }}" rel="stylesheet" />
-  <link href="{{ asset('css/lib/owl.theme.default.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('css/helper.css') }}" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
@@ -243,7 +243,7 @@
                        onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">
                              <i class="fa fa-power-off"></i> Logout</a>
-                             
+
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                       @csrf
                     </form>
@@ -344,8 +344,7 @@
       <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a></footer>
       <!-- End footer -->
     </div>
-    <!-- End Page wrapper  -->
-
+    <!-- End Page wrapper  -->    
 
   </div>
   <!-- End Wrapper -->
@@ -357,6 +356,8 @@
   <script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
   <script src="{{ asset('js/sidebarmenu.js') }}"></script>
   <script src="{{ asset('js/lib/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
+  <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.14.0/tingle.min.js"></script>
 
   <!-- Amchart -->
 
@@ -366,11 +367,10 @@
   <script src="{{ asset('js/lib/calendar-2/pignose.calendar.min.js') }}"></script>
   <script src="{{ asset('js/lib/calendar-2/pignose.init.js') }}"></script>
 
-  <script src="{{ asset('js/lib/owl-carousel/owl.carousel.min.js') }}"></script>
-  <script src="{{ asset('js/lib/owl-carousel/owl.carousel-init.js') }}"></script>
   <script src="{{ asset('js/scripts.js') }}"></script>
 
   <script src="{{ asset('js/custom.min.js') }}"></script>
+  @include('_includes/adminJs')
   @yield('scripts')
 
 </body>

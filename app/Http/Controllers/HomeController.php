@@ -28,19 +28,19 @@ class HomeController extends Controller
    * @return \Illuminate\Contracts\Support\Renderable
    */
 
-  public function index()
-  {
-    $user = Auth::user();
+  // public function index()
+  // {
+  //   $user = Auth::user();
 
-    if($user->hasRole('superadministrator|administrator')) {
-      return redirect()->route('admin');
-    }
+  //   if($user->hasRole('superadministrator|administrator')) {
+  //     return redirect()->route('admin');
+  //   }
 
-    $carts = Cart::where('id_user', $user->id)->get();
-    $wishlist = Wishlist::where('id_user', $user->id)->get();
+  //   $carts = Cart::where('user_id', $user->id)->get();
+  //   $wishlist = Wishlist::where('user_id', $user->id)->get();
 
-    $products = Product::orderBy('created_at', 'desc')->limit(4)->get();
+  //   $products = Product::orderBy('created_at', 'desc')->limit(4)->get();
 
-    return view('home', compact('products', 'wishlist', 'carts'));
-  }
+  //   return view('home', compact('products', 'wishlist', 'carts'));
+  // }
 }

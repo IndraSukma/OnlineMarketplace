@@ -22,7 +22,7 @@ class CreateAddressesTable extends Migration
       $table->string('provence');
       $table->string('city');
       $table->string('sub_district');
-      $table->string('additional_info');
+      $table->string('additional_info')->nullable();
       $table->string('phone');
       $table->timestamps();
 
@@ -39,6 +39,7 @@ class CreateAddressesTable extends Migration
    */
   public function down()
   {
+    // $table->dropForeign('adresses_user_id_foreign');
     Schema::dropIfExists('addresses');
   }
 }

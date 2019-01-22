@@ -8,6 +8,7 @@ use App\Cart;
 use App\Wishlist;
 use App\ProductCategory;
 use App\Product;
+use DataTables;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -19,9 +20,10 @@ class ProductController extends Controller
    */
   public function index()
   {
-    $products = Product::orderBy('created_at', 'desc')->get();
+    $products = Product::orderBy('id', 'asc')->get();
+    $productCategories = ProductCategory::orderBy('name')->get();
 
-    return view('manage.products.index', compact('products'));
+    return view('manage.products.index', compact('products', 'productCategories'));
   }
 
   /**
@@ -67,7 +69,7 @@ class ProductController extends Controller
 
     Session::flash('success', 'Produk berhasil ditambahkan.');
 
-    return redirect()->route('products.show', $product->id);
+    return redirect()->route('products.index');
   }
 
   /**
@@ -125,7 +127,7 @@ class ProductController extends Controller
 
     Session::flash('success', 'Produk berhasil diubah.');
 
-    return redirect()->route('products.show', $product->id);
+    return redirect()->route('products.index');
   }
 
   /**
@@ -206,6 +208,18 @@ class ProductController extends Controller
     }
   }
 
+  public function removeFromCart(Request $request)
+  {
+    $user = Auth::user();
+
+    Cart::where([
+      ['user_id', $user->id],
+      ['product_id', $request->product_id]
+    ])->delete();
+
+    return response('Item has been removed from the cart.');
+  }
+
   public function addToWishlist(Request $request)
   {
     $user = Auth::user();
@@ -218,7 +232,7 @@ class ProductController extends Controller
     return response('Item has been added from the wish list.');
   }
 
-  public function removeWishlist(Request $request)
+  public function removeFromWishlist(Request $request)
   {
     $user = Auth::user();
 
@@ -228,5 +242,22 @@ class ProductController extends Controller
     ])->delete();
 
     return response('Item has been removed from the wish list.');
+  }
+
+  public function json()
+  {
+    $products = Product::query();
+
+    return DataTables::of($products)
+                     ->addColumn('action', function($products){
+                        return '
+                          <center>
+                            <a href="{{route('."products.show".', $product->id)}}" class="btn btn-primary mx-0"> Show</a>
+                            <a href="#edit-'.$products->id.'" class="btn btn-warning mx-0"> Edit</a>
+                            <a href="#edit-'.$products->id.'" class="btn btn-danger mx-0"> Delete</a>
+                          </center>
+                        ';
+                      })
+                     ->make(true);
   }
 }

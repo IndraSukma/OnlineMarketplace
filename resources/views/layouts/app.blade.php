@@ -58,9 +58,9 @@
               <ul class="navbar-nav auth">
                 <li class="nav-item">
                   @if($cart->count() > 0)
-                    <a href="#" id="navCart" class="nav-link red-dot" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
+                    <a href="{{route('cart')}}" id="navCart" class="nav-link red-dot" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
                   @else
-                    <a href="#" id="navCart" class="nav-link" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
+                    <a href="{{route('cart')}}" id="navCart" class="nav-link" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
                   @endif
                 </li>
                 <li class="nav-item">

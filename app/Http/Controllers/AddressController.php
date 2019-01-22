@@ -48,14 +48,13 @@ class AddressController extends Controller
   public function store(Request $request)
   {
     $this->validate($request, [
-      'full_name'        => 'required',
-      'address_name'     => 'required',
-      'complete_address' => 'required',
+      'full_name'        => 'required|string|max:255',
+      'address_name'     => 'required|string|max:255',
+      'complete_address' => 'required|string|max:255',
       'provence'         => 'required',
       'city'             => 'required',
       'sub_district'     => 'required',
-      'additional_info'  => 'required',
-      'phone'            => 'required'
+      'phone'            => 'required|numeric'
     ]);
 
     $address = new Address;
@@ -111,14 +110,13 @@ class AddressController extends Controller
   public function update(Request $request, Address $address)
   {
     $this->validate($request, [
-      'full_name'        => 'required',
-      'address_name'     => 'required',
-      'complete_address' => 'required',
+      'full_name'        => 'required|string|max:255',
+      'address_name'     => 'required|string|max:255',
+      'complete_address' => 'required|string|max:255',
       'provence'         => 'required',
       'city'             => 'required',
       'sub_district'     => 'required',
-      'additional_info'  => 'required',
-      'phone'            => 'required'
+      'phone'            => 'required|numeric'
     ]);
 
     $address->full_name        = $request->full_name;

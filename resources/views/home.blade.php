@@ -121,11 +121,11 @@
                   <div class="col-sm">
                     <div class="float-left">
                       {{-- @if (Auth::check() && in_array($product->id, $cart_added))
-                        <button value="{{$product->id}}" title="Already in Cart" data-toggle="tooltip" class="btn-cart border-0 disabled">
+                        <button class="btn-cart border-0 disabled" value="{{$product->id}}" title="Already in Cart" data-toggle="tooltip">
                           <i class="mdi mdi-24px mdi-cart-plus"></i>
                         </button>
                       @else --}}
-                        <button value="{{$product->id}}" title="Add to Cart" data-toggle="tooltip" class="btn-cart bg-transparent border-0">
+                        <button class="btn-cart bg-transparent border-0" value="{{$product->id}}" title="Add to Cart" data-toggle="tooltip" data-action="add">
                           <i class="mdi mdi-24px mdi-cart-plus"></i>
                         </button>
                       {{-- @endif --}}
@@ -134,11 +134,11 @@
                   <div class="col-sm">
                     <div class="float-right">
                       @if (Auth::check() && in_array($product->id, $wishlist_added))
-                        <button value="{{$product->id}}" title="Remove Wishlist" data-toggle="tooltip" data-action="remove" class="btn-wishlist bg-transparent border-0">
+                        <button class="btn-wishlist bg-transparent border-0" value="{{$product->id}}" title="Remove From Wishlist" data-toggle="tooltip" data-action="remove">
                           <i class="mdi mdi-24px mdi-heart text-danger"></i>
                         </button>
                       @else
-                        <button value="{{$product->id}}" title="Add to Wishlist" data-toggle="tooltip" data-action="add" class="btn-wishlist bg-transparent border-0">
+                        <button class="btn-wishlist bg-transparent border-0" value="{{$product->id}}" title="Add to Wishlist" data-toggle="tooltip" data-action="add">
                           <i class="mdi mdi-24px mdi-heart-outline text-danger"></i>
                         </button>
                       @endif

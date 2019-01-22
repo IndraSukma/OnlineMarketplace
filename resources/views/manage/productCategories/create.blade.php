@@ -1,4 +1,4 @@
-@extends('layouts.manage')
+@extends('layouts.master')
 
 @section('title', 'Tambah Kategori Produk')
 

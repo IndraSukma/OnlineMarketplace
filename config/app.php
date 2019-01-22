@@ -179,6 +179,7 @@ return [
          * Third party service providers
          */
          Laratrust\LaratrustServiceProvider::class,
+         Yajra\Datatables\DatatablesServiceProvider::class,
 
     ],
 
@@ -229,7 +230,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];
