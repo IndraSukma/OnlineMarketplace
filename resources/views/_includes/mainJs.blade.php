@@ -58,7 +58,7 @@
         switch(action) {
           case 'add':
             $(this).data('action', 'remove');
-            $(this).data('original-title', 'Add to Wishlist');
+            // $(this).data('original-title', 'Remove from Wishlist');
             $(this).children().removeClass('mdi-heart-outline').addClass('mdi-heart');
             $.ajax({
               type: 'post',
@@ -76,7 +76,7 @@
           break;
           case 'remove':
             $(this).data('action', 'add');
-            $(this).data('original-title', 'Remove Wishlist');
+            // $(this).data('original-title', 'Add to Wishlist');
             $(this).children().removeClass('mdi-heart').addClass('mdi-heart-outline');
             $.ajax({
               type: 'delete',
@@ -97,11 +97,7 @@
     });
   @else
     $(document).ready(function () {
-      $('.btn-cart').click(function() {
-        alert('You must login first.');
-      });
-
-      $('.btn-wishlist').click(function() {
+      $('.btn-cart, .btn-wishlist').click(function() {
         alert('You must login first.');
       });
     });

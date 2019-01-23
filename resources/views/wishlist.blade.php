@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Products')
+@section('title', 'Wishlist')
 
 @section('content')
-  <div class="container-fluid px-4 mt-4">
+	<div class="container-fluid px-4 mt-4">
     <nav class="navbar navbar-expand-md aqua-gradient mdb-color my-3 mx-5">
       <div class="mr-auto">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb d-inline-flex pl-0 pt-0">
             <li class="breadcrumb-item"><a class="white-text" href="{{ route('home') }}">Home</a></li>
-            <li class="breadcrumb-item active">All Products</li>
+            <li class="breadcrumb-item active">Wishlist</li>
           </ol>
         </nav>
       </div>
@@ -47,14 +47,14 @@
       <hr class="mt-0">
 
       <div class="row mt-4">
-        @foreach ($products as $product)
+        @foreach ($wishlist as $wish)
           <div class="col-md-6 col-lg-3">
             <div class="card card-cascade mb-4">
 
               <!--Card image-->
               <div class="view view-cascade">
                 <img src="{{ asset('img/user.jpg') }}" class="card-img-top" alt="">
-                <a>
+                <a href="{{ route('products.detail', $wish->product->slug) }}">
                   <div class="mask rgba-white-slight"></div>
                 </a>
               </div>
@@ -62,33 +62,27 @@
 
               <!--Card content-->
               <div class="card-body card-body-cascade">
-                <a href="{{ route('products.detail', $product->slug) }}" class="text-dark">
-                  <h5 class="card-title mb-0"><strong>{{ $product->name }}</strong></h5>
+                <a href="{{ route('products.detail', $wish->product->slug) }}" class="text-dark">
+                  <h5 class="card-title mb-0"><strong>{{ $wish->product->name }}</strong></h5>
                 </a>
-                <p class="lead text-primary">Rp. {{ $product->price }}</p>
+                <p class="lead text-primary">Rp. {{ $wish->product->price }}</p>
                 <hr>
 
                 <div class="text-center">
                   <div class="row">
                     <div class="col-sm">
                       <div class="float-left">
-                        <button class="btn-cart bg-transparent border-0" value="{{ $product->id }}" title="Add to Cart" data-toggle="tooltip" data-action="add">
+                        <button class="btn-cart bg-transparent border-0" value="{{ $wish->product->id }}" title="Add to Cart" data-toggle="tooltip" data-action="add">
                           <i class="mdi mdi-24px mdi-cart-plus"></i>
                         </button>
                       </div>
                     </div>
                     <div class="col-sm">
                       <div class="float-right">
-                        @if (Auth::check() && in_array($product->id, $wishlist_added))
-                          <button class="btn-wishlist bg-transparent border-0" value="{{ $product->id }}" title="Remove Wishlist" data-toggle="tooltip" data-action="remove">
-                            <i class="mdi mdi-24px mdi-heart text-danger"></i>
-                          </button>
-                        @else
-                          <button class="btn-wishlist bg-transparent border-0" value="{{ $product->id }}" title="Add to Wishlist" data-toggle="tooltip" data-action="add">
-                            <i class="mdi mdi-24px mdi-heart-outline text-danger"></i>
-                          </button>
-                        @endif
-                        <button data-toggle="tooltip" title="Copy Link to Clipboard" id="link{{ $product->id }}" value="{{$product->id}}" class="bg-transparent border-0 pr-0">
+                        <button class="btn-wishlist bg-transparent border-0" value="{{ $wish->product->id }}" title="Remove Wishlist" data-toggle="tooltip" data-action="remove">
+                          <i class="mdi mdi-24px mdi-heart text-danger"></i>
+                        </button>
+                        <button data-toggle="tooltip" title="Copy Link to Clipboard" id="link" value="" class="bg-transparent border-0 pr-0">
                           <i class="mdi mdi-24px mdi-share-variant text-link"></i>
                         </button>
                       </div>
@@ -102,22 +96,8 @@
           </div>
         @endforeach
       </div>
-
-      {{-- <nav aria-label="Page Navigation" class="mt-5">
-        <ul class="pagination pg-blue justify-content-end pagination-md">
-          <li class="page-item disabled">
-            <a class="page-link" tabindex="-1">Previous</a>
-          </li>
-          <li class="page-item active"><a class="page-link">1</a></li>
-          <li class="page-item"><a class="page-link">2</a></li>
-          <li class="page-item"><a class="page-link">3</a></li>
-          <li class="page-item">
-            <a class="page-link">Next</a>
-          </li>
-        </ul>
-      </nav> --}}
       <nav aria-label="Page Navigation" class="mt-5">
-        {{ $products->links() }}
+        {{ $wishlist->links() }}
       </nav>
     </div>
   </div>

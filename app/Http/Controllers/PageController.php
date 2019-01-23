@@ -16,13 +16,13 @@ class PageController extends Controller
 	  
 	  if (Auth::check()) {
 	  	$user = Auth::user();
-	    $cart = Cart::where('user_id', $user->id)->get();
-	    $cart_added = Cart::where('user_id', $user->id)->pluck('product_id')->toArray();
-      $wishlist = Wishlist::where('user_id', $user->id)->get();
-      $wishlist_added = Wishlist::where('user_id', $user->id)->pluck('product_id')->toArray();
+	    $cart = Cart::where('user_id', $user->id)->first();
+      $wishlist = Wishlist::where('user_id', $user->id)->first();
+      // $cart_array = Cart::where('user_id', $user->id)->pluck('product_id')->toArray();
+      $wishlist_array = Wishlist::where('user_id', $user->id)->pluck('product_id')->toArray();
 	  }
 
-	  return view('home', compact('products', 'cart', 'cart_added', 'wishlist', 'wishlist_added'));
+	  return view('home', compact('products', 'cart', 'wishlist', 'wishlist_array'));
   }
 
   public function dashboard()
@@ -33,10 +33,10 @@ class PageController extends Controller
   public function cart()
   {
     $user = Auth::user();
-    $cart = Cart::where('user_id', $user->id)->get();
-    $wishlist = Wishlist::where('user_id', $user->id)->get();
+    $cart = Cart::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+    $wishlist = Wishlist::where('user_id', $user->id)->first();
     $subTotal = Product::whereIn('id', $cart->pluck('product_id'))->pluck('price')->sum();
-    $mightLikeProduct = Product::orderBy('created_at', 'desc')->limit(4)->get();
+    $mightLikeProducts = Product::orderBy('created_at', 'desc')->limit(4)->get();
 
     // $inCart = DB::table('products')
     //             ->join('carts', function($join) {
@@ -45,10 +45,19 @@ class PageController extends Controller
     //             })->get();
 
     // $subTotal = Product::join('carts', function($join) {
-				//                   $join->on('products.id', 'carts.product_id')
-				//                        ->where('carts.user_id', Auth::user()->id);
-				//                 })->pluck('price')->sum();
+        //                   $join->on('products.id', 'carts.product_id')
+        //                        ->where('carts.user_id', Auth::user()->id);
+        //                 })->pluck('price')->sum();
 
-    return view('cart', compact('mightLikeProduct', 'cart', 'wishlist', 'subTotal'));
+    return view('cart', compact('mightLikeProducts', 'cart', 'wishlist', 'subTotal'));
+  }
+
+  public function wishlist()
+  {
+    $user = Auth::user();
+    $cart = Cart::where('user_id', $user->id)->first();
+    $wishlist = Wishlist::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(20);
+
+    return view('wishlist', compact('cart', 'wishlist'));
   }
 }

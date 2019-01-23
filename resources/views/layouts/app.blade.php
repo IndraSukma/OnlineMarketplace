@@ -57,17 +57,17 @@
               </div>
               <ul class="navbar-nav auth">
                 <li class="nav-item">
-                  @if($cart->count() > 0)
-                    <a href="{{route('cart')}}" id="navCart" class="nav-link red-dot" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
-                  @else
+                  @if(is_null($cart))
                     <a href="{{route('cart')}}" id="navCart" class="nav-link" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
+                  @else
+                    <a href="{{route('cart')}}" id="navCart" class="nav-link red-dot" title="Cart"><i class="mdi mdi-24px mdi-cart-outline"></i></a>
                   @endif
                 </li>
                 <li class="nav-item">
-                  @if($wishlist->count() > 0)
-                    <a class="nav-link red-dot" id="navWishlist" href="#" title="Wishlist"><i class="mdi mdi-24px mdi-heart-outline"></i></a>
+                  @if(is_null($wishlist))
+                    <a href="{{ route('wishlist') }}" id="navWishlist" class="nav-link" title="Wishlist"><i class="mdi mdi-24px mdi-heart-outline"></i></a>
                   @else
-                    <a class="nav-link" id="navWishlist" href="#" title="Wishlist"><i class="mdi mdi-24px mdi-heart-outline"></i></a>
+                    <a href="{{ route('wishlist') }}" id="navWishlist" class="nav-link red-dot" title="Wishlist"><i class="mdi mdi-24px mdi-heart-outline"></i></a>
                   @endif
                 </li>
                 <li class="nav-item dropdown notification-dropdown d-none d-lg-block">
@@ -106,8 +106,8 @@
                     <a class="dropdown-item" href="{{ route('dashboard') }}"><i class="mdi mdi-24px mdi-account-outline"></i>Dashboard</a>
                     <a class="dropdown-item" href="{{ route('user.index') }}"><i class="mdi mdi-24px mdi-account-outline"></i>Profile</a>
                     <a class="dropdown-item" href="{{ route('logout') }}"
-                       onclick="event.preventDefault();
-                             document.getElementById('logout-form').submit();"><i class="mdi mdi-24px mdi-exit-to-app"></i>Logout</a>
+                     onclick="event.preventDefault();
+                           document.getElementById('logout-form').submit();"><i class="mdi mdi-24px mdi-exit-to-app"></i>Logout</a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                       @csrf

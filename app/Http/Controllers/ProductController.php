@@ -151,13 +151,13 @@ class ProductController extends Controller
 
     if (Auth::check()) {
       $user = Auth::user();
-      $cart = Cart::where('user_id', $user->id)->get();
-      $cart_added = Cart::where('user_id', $user->id)->pluck('product_id')->toArray();
-      $wishlist = Wishlist::where('user_id', $user->id)->get();
-      $wishlist_added = Wishlist::where('user_id', $user->id)->pluck('product_id')->toArray();
+      $cart = Cart::where('user_id', $user->id)->first();
+      $wishlist = Wishlist::where('user_id', $user->id)->first();
+      // $cart_array = Cart::where('user_id', $user->id)->pluck('product_id')->toArray();
+      $wishlist_array = Wishlist::where('user_id', $user->id)->pluck('product_id')->toArray();
     }
 
-    return view('products', compact('products', 'cart', 'cart_added', 'wishlist', 'wishlist_added'));
+    return view('products', compact('products', 'cart', 'wishlist', 'wishlist_array'));
   }
 
   public function detail(Product $product, $slug)
@@ -167,29 +167,30 @@ class ProductController extends Controller
 
     if (Auth::check()) {
       $user = Auth::user();
-      $cart = Cart::where('user_id', $user->id)->get();
-      $cart_added = Cart::where('user_id', $user->id)->pluck('product_id')->toArray();
-      $wishlist = Wishlist::where('user_id', $user->id)->get();
-      $wishlist_added = Wishlist::where('user_id', $user->id)->pluck('product_id')->toArray();
+      $cart = Cart::where('user_id', $user->id)->first();
+      $wishlist = Wishlist::where('user_id', $user->id)->first();
+      // $cart_array = Cart::where('user_id', $user->id)->pluck('product_id')->toArray();
+      $wishlist_array = Wishlist::where('user_id', $user->id)->pluck('product_id')->toArray();
     }
 
-    return view('productDetail', compact('product', 'relatedProducts', 'cart', 'cart_added', 'wishlist', 'wishlist_added'));
+    return view('productDetail', compact('product', 'relatedProducts', 'cart', 'wishlist', 'wishlist_array'));
   }
 
   public function search(Request $request)
   {
     $keyword = $request->keyword;
-    $products = Product::search($keyword)->paginate(20);
+    // $products = Product::search($keyword)->paginate(20);
+    $products = Product::where('name', 'Like', '%' .$keyword. '%')->paginate(20);
 
     if (Auth::check()) {
       $user = Auth::user();
-      $cart = Cart::where('user_id', $user->id)->get();
-      $cart_added = Cart::where('user_id', $user->id)->pluck('product_id')->toArray();
-      $wishlist = Wishlist::where('user_id', $user->id)->get();
-      $wishlist_added = Wishlist::where('user_id', $user->id)->pluck('product_id')->toArray();
+      $cart = Cart::where('user_id', $user->id)->first();
+      $wishlist = Wishlist::where('user_id', $user->id)->first();
+      // $cart_array = Cart::where('user_id', $user->id)->pluck('product_id')->toArray();
+      $wishlist_array = Wishlist::where('user_id', $user->id)->pluck('product_id')->toArray();
     }
 
-    return view('search.index', compact('keyword', 'products', 'cart', 'cart_added', 'wishlist', 'wishlist_added'));
+    return view('search.index', compact('keyword', 'products', 'cart', 'wishlist', 'wishlist_array'));
   }
 
   public function addToCart(Request $request)
