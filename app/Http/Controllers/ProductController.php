@@ -179,8 +179,8 @@ class ProductController extends Controller
   public function search(Request $request)
   {
     $keyword = $request->keyword;
-    // $products = Product::search($keyword)->paginate(20);
-    $products = Product::where('name', 'Like', '%' .$keyword. '%')->paginate(20);
+    $products = Product::search($keyword)->paginate(20);
+    // $products = Product::where('name', 'Like', '%' .$keyword. '%')->paginate(20);
 
     if (Auth::check()) {
       $user = Auth::user();
