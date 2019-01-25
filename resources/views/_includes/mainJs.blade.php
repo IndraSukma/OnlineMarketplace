@@ -102,4 +102,8 @@
       });
     });
   @endauth
+
+  // Address dataTables
+  $('#address-table').DataTables();
+
 </script>

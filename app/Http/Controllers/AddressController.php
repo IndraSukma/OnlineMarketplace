@@ -72,7 +72,7 @@ class AddressController extends Controller
 
     Session::flash('success', 'Alamat berhasil ditambahkan.');
 
-    return redirect()->route('address.show', $address->id);
+    return redirect()->route('user.index');
   }
 
   /**
@@ -132,7 +132,7 @@ class AddressController extends Controller
 
     Session::flash('success', 'Alamat berhasil diubah.');
 
-    return redirect()->route('address.show', $address->id);
+    return redirect()->route('user.index');
   }
 
   /**
@@ -147,7 +147,7 @@ class AddressController extends Controller
 
     Session::flash('success', 'Alamat Berhasil dihapus.');
 
-    return redirect()->route('address.index');
+    return redirect()->route('user.index');
   }
 
   /**

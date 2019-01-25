@@ -6,6 +6,7 @@ use Auth;
 use Session;
 use Carbon\Carbon;
 use App\User;
+use App\Address;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -18,8 +19,12 @@ class UserController extends Controller
   public function index()
   {
     $user = Auth::user();
+    $addresses = Address::where('user_id', $user->id)->get();
+    $today = Carbon::today('Asia/Jakarta')->toDateString();
+    $year_now = Carbon::today()->year;
+    $year = $year_now - 100;
 
-    return view('manage.userInformation.index', compact('user'));
+    return view('manage.userInformation.index', compact('addresses', 'user', 'today', 'year'));
   }
 
   /**
