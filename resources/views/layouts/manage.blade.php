@@ -279,7 +279,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     {{-- @include('_includes.mainJs') --}}
     <script type="text/javascript">
-      $(document).ready(function() {
+      $(document).ready(function() {        
         $('#productGallery').owlCarousel({
           loop: true,
           margin: 10,

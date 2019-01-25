@@ -275,6 +275,7 @@
     <script src="{{ asset('js/main/popper.min.js') }}"></script>
     <script src="{{ asset('js/main/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/mdb.min.js') }}"></script>
+    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     @yield('script')
     @include('_includes.mainJs')
     <script>
