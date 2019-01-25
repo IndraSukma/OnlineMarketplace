@@ -370,7 +370,7 @@
   <script src="{{ asset('js/scripts.js') }}"></script>
 
   <script src="{{ asset('js/custom.min.js') }}"></script>
-  @include('_includes/adminJs')
+  {{-- @include('_includes/adminJs') --}}
   @yield('scripts')
 
 </body>

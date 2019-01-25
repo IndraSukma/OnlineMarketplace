@@ -50,7 +50,7 @@ class ProductCategoryController extends Controller
 
     Session::flash('success', 'Kategori berhasil ditambahkan.');
 
-    return redirect()->route('productCategories.index');
+    return redirect()->back();
   }
 
   /**
@@ -95,7 +95,7 @@ class ProductCategoryController extends Controller
 
     Session::flash('success', 'Kategori berhasil diubah.');
 
-    return redirect()->route('productCategories.index');
+    return redirect()->back();
   }
 
   /**
@@ -110,6 +110,6 @@ class ProductCategoryController extends Controller
 
     Session::flash('success', 'Kategori Berhasil dihapus.');
 
-    return redirect()->route('productCategories.index');
+    return redirect()->back();
   }
 }

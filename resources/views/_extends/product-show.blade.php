@@ -1,4 +1,4 @@
-<div id="modalShowProduct{{$product->id}}" class="modal" tabindex="-1" role="dialog">
+<div id="modalShow" class="modal" tabindex="-1" role="dialog">
   <div class="container">
     <h4 class="h4">Showing Product : </h4>
     <div class="row justify-content-center mt-3">
@@ -8,43 +8,43 @@
             <div class="col col-md-4">
               <dl>
                 <dt>Nama Produk</dt>
-                <dd>{{ $product->name }}</dd>
+                <dd id="name">{{-- $product->name --}}</dd>
               </dl>
             </div>
             <div class="col col-md-4">
               <dl>
                 <dt>Stok</dt>
-                <dd>{{ $product->stock }}</dd>
+                <dd id="stock">{{-- $product->stock --}}</dd>
               </dl>
             </div>
             <div class="col col-md-4">
               <dl>
                 <dt>Jumlah Dilihat</dt>
-                <dd>{{ is_null($product->views) ? 'Belum ada yang melihat.' : $product->views }}</dd>
+                <dd id="views">{{-- is_null($product->views) ? 'Belum ada yang melihat.' : $product->views --}}</dd>
               </dl>
             </div>
             <div class="col col-md-4">
               <dl>
                 <dt>Kategori</dt>
-                <dd>{{ is_null($product->category_id) ? 'Uncategorized' : $product->category->name }}</dd>
+                <dd id="category">{{-- is_null($product->category_id) ? 'Uncategorized' : $product->category->name --}}</dd>
               </dl>
             </div>
             <div class="col col-md-4">
               <dl>
                 <dt>Kondisi</dt>
-                <dd>{{ $product->condition }}</dd>
+                <dd id="condition">{{-- $product->condition --}}</dd>
               </dl>
             </div>
             <div class="col col-md-4">
               <dl>
                 <dt>Harga</dt>
-                <dd>{{ $product->price }}</dd>
+                <dd id="price">{{-- $product->price --}}</dd>
               </dl>
             </div>
             <div class="col">
               <dl>
                 <dt>Deskripsi</dt>
-                <dd>{{ $product->description }}</dd>
+                <dd id="description">{{-- $product->description --}}</dd>
               </dl>
             </div>
             {{-- <div class="col">

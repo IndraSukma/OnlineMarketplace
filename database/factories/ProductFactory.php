@@ -11,7 +11,7 @@ $factory->define(\App\Product::class, function (Faker $faker) use ($autoIncremen
     'slug' => 'Product-' . $autoIncrement->current(),
     'price' => rand(1, 100) . '000',
     'description' => 'Lorem ipsum sit dolor amet.',
-    'condition' => 'New',
+    'condition' => $faker->randomElement(['Baru', 'Bekas']),
     'stock' => rand(1, 100),
   ];
 });

@@ -1,9 +1,9 @@
-<div id="modalEditCategory{{$productCategory->id}}" class="modal" tabindex="-1" role="dialog">
+<div id="modalEdit" class="modal" tabindex="-1" role="dialog">
   <div class="container">
     <h4 class="h4">
       <b>Edit Category</b>
     </h4>
-  	<form action="{{ route('productCategories.update', $productCategory->id) }}" method="post">
+  	<form action="" method="post" id="formEdit">
       <div>
 				@csrf
         @method('PUT')
@@ -11,10 +11,10 @@
           <label for="base_category">Base Category</label>
           <select name="base_category" id="base_category" class="form-control{{ $errors->has('base_category') ? ' is-invalid' : '' }}" required>
             <option selected disabled>Choose Base Category</option>
-            <option value="Fashion Anak" {{ is_null($productCategory->id) ? '' : ($productCategory->base_category == 'Fashion Anak' ? 'selected' : '') }}>Fashion Anak</option>
-            <option value="Fashion Wanita" {{ is_null($productCategory->id) ? '' : ($productCategory->base_category == 'Fashion Wanita' ? 'selected' : '') }}>Fashion Wanita</option>
-            <option value="Fashion Pria" {{ is_null($productCategory->id) ? '' : ($productCategory->base_category == 'Fashion Pria' ? 'selected' : '') }}>Fashion Pria</option>
-            <option value="Olahraga" {{ is_null($productCategory->id) ? '' : ($productCategory->base_category == 'Olahraga' ? 'selected' : '') }}>Olahraga</option>
+            <option value="Fashion Anak">Fashion Anak</option>
+            <option value="Fashion Wanita">Fashion Wanita</option>
+            <option value="Fashion Pria">Fashion Pria</option>
+            <option value="Olahraga">Olahraga</option>
           </select>
           @if ($errors->has('category'))
             <span class="invalid-feedback" role="alert">

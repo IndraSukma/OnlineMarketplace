@@ -1,4 +1,4 @@
-<div id="modalAddCategory" class="modal" tabindex="-1" role="dialog">
+<div id="modalAdd" class="modal" tabindex="-1" role="dialog">
   <div class="container">
     <h4 class="h4">
       <b>Add Category</b>
@@ -33,7 +33,7 @@
       </div>
       <div class="mt-3">
         <div class="float-right">
-          <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
+          {{-- <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a> --}}
           <button type="submit" class="btn btn-primary">Tambahkan</button>
         </div>
       </div>
