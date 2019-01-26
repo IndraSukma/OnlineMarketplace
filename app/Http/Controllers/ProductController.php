@@ -69,7 +69,7 @@ class ProductController extends Controller
 
     Session::flash('success', 'Produk berhasil ditambahkan.');
 
-    return redirect()->route('products.index');
+    return redirect()->back();
   }
 
   /**
@@ -127,7 +127,7 @@ class ProductController extends Controller
 
     Session::flash('success', 'Produk berhasil diubah.');
 
-    return redirect()->route('products.index');
+    return redirect()->back();
   }
 
   /**
@@ -142,7 +142,7 @@ class ProductController extends Controller
 
     Session::flash('success', 'Produk Berhasil dihapus.');
 
-    return redirect()->route('products.index');
+    return redirect()->back();
   }
 
   public function indexFront()
@@ -230,7 +230,7 @@ class ProductController extends Controller
     $wishlist->product_id = $request->product_id;
     $wishlist->save();
 
-    return response('Item has been added from the wish list.');
+    return response('Item has been added to the wish list.');
   }
 
   public function removeFromWishlist(Request $request)

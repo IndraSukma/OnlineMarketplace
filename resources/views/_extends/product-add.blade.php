@@ -1,5 +1,5 @@
 <!-- Modal Add -->
-<div id="modalAddProduct" class="modal" tabindex="-1" role="dialog">
+<div id="modalAdd" class="modal" tabindex="-1" role="dialog">
   <h4 class="h4 font-bold">Add Product</h4>
   <div class="row">
     <div class="col-sm-12">
@@ -81,7 +81,7 @@
         </div>
         <div class="mt-5">
           <div class="float-right">
-            <button type="button" id="btnCloseModalAddProduct" class="btn btn-secondary">Discard</button>
+            <button type="button" id="btnClose" class="btn btn-secondary">Discard</button>
             <button type="submit" class="btn btn-primary">Save Data</button>
           </div>
         </div>

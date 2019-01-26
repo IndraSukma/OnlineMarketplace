@@ -9,7 +9,7 @@
       	<div class="card">
           <div class="d-flex justify-content-between align-items-center">
 	          <h4 class="h4"><b>Product Categories</b></h4>
-	          <button type="button" id="btnAddCategory" class="btn btn-primary">Add Category</button>
+	          <button type="button" id="btnAdd" class="btn btn-primary">Add Category</button>
 	        </div>
           <div class="mt-3">
             <table id="categories-table" class="table table-bordered mb-3">
@@ -31,12 +31,11 @@
 							      <td class="text-center text-dark">{{ $productCategory->created_at->toFormattedDateString() }}</td>
 							      <td>
 							      	<div class="d-flex justify-content-center">
-								      	<button id="btnEditCategory{{$productCategory->id}}" class="btn btn-warning mr-3">Ubah</button>
-								      	<form action="{{ route('productCategories.destroy', $productCategory->id) }}" method="post">
-					                @csrf
-					                @method('DELETE')
-					                <button type="submit" class="btn btn-danger">Hapus</button>
-					              </form>
+								      	<button class="btnEdit btn btn-warning mr-3"
+								      					data-id="{{ $productCategory->id }}" 
+				                				data-name="{{ $productCategory->name }}" 
+				                				data-base-category="{{ $productCategory->base_category }}">Ubah</button>
+					              <button class="btnDelete btn btn-danger" data-id="{{ $productCategory->id }}">Hapus</button>
 							      	</div>
 							      </td>
 							    </tr>
@@ -46,12 +45,56 @@
           </div>
 
 					@include('_extends.category-add')
-
-					@foreach($productCategories as $productCategory)
 					@include('_extends.category-edit')
-					@endforeach
+					@include('_extends.delete')
         </div>
       </div>
     </div>
   </div>
+@endsection
+
+@section('scripts')
+	<script>
+    $(document).ready(function () {
+      // Modal
+      var modal = new tingle.modal();
+
+      // Add Category
+      $('#btnAdd').click(function() {
+        var content = $('#modalAdd').html();
+        modal.setContent(content);
+        modal.open();
+      });
+
+      // Edit Category
+      $('.btnEdit').click(function() {
+        var content = $('#modalEdit').html();
+        modal.setContent(content);
+
+        $('#formEdit').attr('action', '/manage/productCategories/' + $(this).data('id'));
+        $('#base_category').val($(this).data('base-category'));
+        $('#name').val($(this).data('name'));
+
+        modal.open();
+      });
+
+      // Delete Category
+      $('.btnDelete').click(function() {
+        var content = $('#modalDelete').html();
+        modal.setContent(content);
+
+        $('#formDelete').attr('action', '/manage/productCategories/' + $(this).data('id'));
+
+        modal.open();
+      });
+
+      // Close Modal
+      // $('#btnClose').click(function() {
+      //   modal.close();
+      // });
+
+      // Datatables
+      $('#categories-table').DataTable();
+    });
+  </script>
 @endsection
