@@ -24,7 +24,7 @@
         </div>
         <div class="form-group">
           <label for="name">Nama Kategori</label>
-          <input type="text" name="name" id="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ $productCategory->name }}" required>
+          <input type="text" name="name" id="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{-- $productCategory->name --}}" required>
           @if ($errors->has('name'))
             <span class="invalid-feedback" role="alert">
               <strong>{{ $errors->first('name') }}</strong>

@@ -275,10 +275,11 @@
     <script src="{{ asset('js/main/popper.min.js') }}"></script>
     <script src="{{ asset('js/main/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/mdb.min.js') }}"></script>
-    <script src="{{ asset('js/lightslider.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    @yield('scripts')
+    {{-- <script src="{{ asset('js/lightslider.min.js') }}"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script> --}}
     {{-- @include('_includes.mainJs') --}}
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
       $(document).ready(function() {        
         $('#productGallery').owlCarousel({
           loop: true,
@@ -303,6 +304,6 @@
           $('[data-toggle="tooltip"]').tooltip()
         });
       });
-    </script>
+    </script> --}}
   </body>
 </html>

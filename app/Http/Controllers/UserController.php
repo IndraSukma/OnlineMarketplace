@@ -109,7 +109,7 @@ class UserController extends Controller
 
     Session::flash('success', 'Profil berhasil diubah.');
 
-    return redirect()->route('user.index');
+    return redirect()->back();
   }
 
   /**
