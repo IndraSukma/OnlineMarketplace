@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/main/mdb.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/lightslider.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/iziModal.min.css') }}">
   </head>
   <body>
     <header>
@@ -275,12 +276,11 @@
     <script src="{{ asset('js/main/popper.min.js') }}"></script>
     <script src="{{ asset('js/main/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/mdb.min.js') }}"></script>
-    @yield('scripts')
-    {{-- <script src="{{ asset('js/lightslider.min.js') }}"></script> --}}
+    <script src="{{ asset('js/iziModal.min.js') }}"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script> --}}
-    {{-- @include('_includes.mainJs') --}}
+    @yield('scripts')
     {{-- <script type="text/javascript">
-      $(document).ready(function() {        
+      $(document).ready(function() {
         $('#productGallery').owlCarousel({
           loop: true,
           margin: 10,
