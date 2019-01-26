@@ -44,10 +44,8 @@
 						</table>
           </div>
 
-					@include('_extends.category-add')
-					@foreach($productCategories as $productCategory)
-					@include('_extends.category-edit')
-					@endforeach
+					@include('_extends.category-add')					
+					@include('_extends.category-edit')					
 					@include('_extends.delete')
         </div>
       </div>

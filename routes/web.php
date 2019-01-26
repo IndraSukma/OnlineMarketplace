@@ -4,6 +4,7 @@ Auth::routes();
 
 Route::get('/', 'PageController@index')->name('home');
 Route::get('/cart', 'PageController@cart')->name('cart');
+Route::get('/checkout', 'PageController@checkout')->name('checkout');
 Route::get('/wishlist', 'PageController@wishlist')->name('wishlist');
 
 // Route::get('/home', 'HomeController@index')->name('home');

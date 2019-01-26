@@ -6,6 +6,7 @@ use Auth;
 use App\Cart;
 use App\Wishlist;
 use App\Product;
+use App\Address;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -13,7 +14,7 @@ class PageController extends Controller
   public function index()
   {
 	  $products = Product::orderBy('created_at', 'desc')->limit(4)->get();
-	  
+
 	  if (Auth::check()) {
 	  	$user = Auth::user();
 	    $cart = Cart::where('user_id', $user->id)->first();
@@ -38,19 +39,21 @@ class PageController extends Controller
     $subTotal = Product::whereIn('id', $cart->pluck('product_id'))->pluck('price')->sum();
     $mightLikeProducts = Product::orderBy('created_at', 'desc')->limit(4)->get();
 
-    // $inCart = DB::table('products')
-    //             ->join('carts', function($join) {
-    //               $join->on('products.id', '=', 'carts.product_id')
-    //                    ->where('carts.user_id', '=', Auth::user()->id);
-    //             })->get();
-
-    // $subTotal = Product::join('carts', function($join) {
-        //                   $join->on('products.id', 'carts.product_id')
-        //                        ->where('carts.user_id', Auth::user()->id);
-        //                 })->pluck('price')->sum();
-
     return view('cart', compact('mightLikeProducts', 'cart', 'wishlist', 'subTotal'));
   }
+
+  public function checkout()
+  {
+    $user = Auth::user();
+    $cart = Cart::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+    $wishlist = Wishlist::where('user_id', $user->id)->first();
+    $subTotal = Product::whereIn('id', $cart->pluck('product_id'))->pluck('price')->sum();
+    $addresses = Address::where('user_id', $user->id)->get();
+
+    return view('checkout', compact('cart', 'wishlist', 'subTotal', 'addresses'));
+  }
+
+
 
   public function wishlist()
   {

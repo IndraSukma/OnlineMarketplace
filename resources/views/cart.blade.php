@@ -18,7 +18,6 @@
 
   <div class="container-fluid px-4">
     <div class="mx-5 py-0">
-      <h3>Cart</h3>
       <div class="row justify-content-center">
         <div class="col-sm-12">
           @if($cart->count() == 0)
@@ -37,7 +36,7 @@
             </div>
           @else
             <div class="row">
-              <div class="col-sm-7">
+              <div class="col-sm-7">                
                 <div class="card">
                   <div class="card-body">
                     @foreach($cart as $cartItem)
