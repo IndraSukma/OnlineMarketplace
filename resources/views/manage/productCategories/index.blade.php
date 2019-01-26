@@ -32,8 +32,8 @@
 							      <td>
 							      	<div class="d-flex justify-content-center">
 								      	<button class="btnEdit btn btn-warning mr-3"
-								      					data-id="{{ $productCategory->id }}" 
-				                				data-name="{{ $productCategory->name }}" 
+								      					data-id="{{ $productCategory->id }}"
+				                				data-name="{{ $productCategory->name }}"
 				                				data-base-category="{{ $productCategory->base_category }}">Ubah</button>
 					              <button class="btnDelete btn btn-danger" data-id="{{ $productCategory->id }}">Hapus</button>
 							      	</div>
@@ -45,7 +45,9 @@
           </div>
 
 					@include('_extends.category-add')
+					@foreach($productCategories as $productCategory)
 					@include('_extends.category-edit')
+					@endforeach
 					@include('_extends.delete')
         </div>
       </div>
