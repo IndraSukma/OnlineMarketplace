@@ -54,6 +54,7 @@ class AddressController extends Controller
       'provence'         => 'required',
       'city'             => 'required',
       'sub_district'     => 'required',
+      'zip_code'         => 'required|numeric',
       'phone'            => 'required|numeric'
     ]);
 
@@ -72,7 +73,7 @@ class AddressController extends Controller
 
     Session::flash('success', 'Alamat berhasil ditambahkan.');
 
-    return redirect()->route('user.index');
+    return redirect()->back();
   }
 
   /**
@@ -116,6 +117,7 @@ class AddressController extends Controller
       'provence'         => 'required',
       'city'             => 'required',
       'sub_district'     => 'required',
+      'zip_code'         => 'required|numeric',
       'phone'            => 'required|numeric'
     ]);
 
@@ -132,7 +134,7 @@ class AddressController extends Controller
 
     Session::flash('success', 'Alamat berhasil diubah.');
 
-    return redirect()->route('user.index');
+    return redirect()->back();
   }
 
   /**
@@ -147,7 +149,7 @@ class AddressController extends Controller
 
     Session::flash('success', 'Alamat Berhasil dihapus.');
 
-    return redirect()->route('user.index');
+    return redirect()->back();
   }
 
   /**
