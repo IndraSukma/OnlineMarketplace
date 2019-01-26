@@ -22,8 +22,10 @@
               },
               success: function(response) {
                 $('#navCart').addClass('red-dot');
-                alert(response);
-                // console.log(response);
+
+                iziToast.show({
+                    message: response
+                });
               }
             });
           break;
@@ -40,7 +42,12 @@
               success: function(response) {
                 $('#totalItem').text(totalItem - 1);
                 $('#subTotal').text(subTotal - product_price);
-                alert(response);
+                iziToast.show({
+                    message: response,
+                    onOpening: function() {
+                      location.reload();
+                    }
+                });
                 // console.log(response);
                 // location.reload();
               }
@@ -69,8 +76,11 @@
               },
               success: function(response) {
                 $('#navWishlist').addClass('red-dot');
-                alert(response);
-                // console.log(response);
+                iziToast.show({
+                    message: response,
+                    backgroundColor: '#ff5983',
+                    messageColor: '#fff'
+                });
               }
             });
           break;
@@ -87,8 +97,11 @@
                 'product_id': product_id
               },
               success: function(response) {
-                alert(response);
-                // console.log(response);
+                iziToast.show({
+                    message: response,
+                    backgroundColor: '#ff5983',
+                    messageColor: '#fff'
+                });
               }
             });
           break;
@@ -103,7 +116,5 @@
     });
   @endauth
 
-  // Address dataTables
-  $('#address-table').DataTables();
 
 </script>

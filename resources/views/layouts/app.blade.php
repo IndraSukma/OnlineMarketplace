@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/main/mdb.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/lightslider.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/iziToast.min.css') }}">
   </head>
   <body>
     <header>
@@ -267,14 +268,14 @@
           <a href="#"> Marketplace.io</a>
         </div>
         <!-- Copyright -->
-
       </footer>
+      <div id="modal-alert" data-izimodal-subtitle="Item has added to Cart"></div>
       <!-- Footer -->
-
     <script src="{{ asset('js/main/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('js/main/popper.min.js') }}"></script>
     <script src="{{ asset('js/main/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/mdb.min.js') }}"></script>
+    <script src="{{ asset('js/iziToast.min.js') }}"></script>
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     @yield('script')
     @include('_includes.mainJs')
