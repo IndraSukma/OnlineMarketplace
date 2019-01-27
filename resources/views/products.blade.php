@@ -103,19 +103,6 @@
         @endforeach
       </div>
 
-      {{-- <nav aria-label="Page Navigation" class="mt-5">
-        <ul class="pagination pg-blue justify-content-end pagination-md">
-          <li class="page-item disabled">
-            <a class="page-link" tabindex="-1">Previous</a>
-          </li>
-          <li class="page-item active"><a class="page-link">1</a></li>
-          <li class="page-item"><a class="page-link">2</a></li>
-          <li class="page-item"><a class="page-link">3</a></li>
-          <li class="page-item">
-            <a class="page-link">Next</a>
-          </li>
-        </ul>
-      </nav> --}}
       <nav aria-label="Page Navigation" class="mt-5">
         {{ $products->links() }}
       </nav>

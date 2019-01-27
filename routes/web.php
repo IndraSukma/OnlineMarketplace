@@ -6,8 +6,6 @@ Route::get('/', 'PageController@index')->name('home');
 Route::get('/cart', 'PageController@cart')->name('cart');
 Route::get('/wishlist', 'PageController@wishlist')->name('wishlist');
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
 // Product Operation
 Route::get('/products', 'ProductController@indexFront')->name('products.indexFront');
 Route::get('/products/{slug}', 'ProductController@detail')->name('products.detail');
@@ -16,8 +14,6 @@ Route::post('/addToCart', 'ProductController@addToCart')->name('products.addToCa
 Route::post('/addToWishlist', 'ProductController@addToWishlist')->name('products.addToWishlist');
 Route::delete('/removeFromCart', 'ProductController@removeFromCart')->name('products.removeFromCart');
 Route::delete('/removeFromWishlist', 'ProductController@removeFromWishlist')->name('products.removeFromWishlist');
-
-// Route::get('/removeFromCart', 'CartController@removeFromCart');
 
 Route::prefix('admin')
      ->middleware('role:superadministrator|administrator')
@@ -39,4 +35,4 @@ Route::prefix('manage')
 });
 
 // JSON
-Route::get('/productsJson', 'ProductController@json');
+// Route::get('/productsJson', 'ProductController@json');
