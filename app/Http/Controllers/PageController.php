@@ -47,12 +47,11 @@ class PageController extends Controller
     $user = Auth::user();
     $cart = Cart::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
     $wishlist = Wishlist::where('user_id', $user->id)->first();
-    $subTotal = Product::whereIn('id', $cart->pluck('product_id'))->pluck('price')->sum();
     $addresses = Address::where('user_id', $user->id)->get();
+    $subTotal = Product::whereIn('id', $cart->pluck('product_id'))->pluck('price')->sum();
 
     return view('checkout', compact('cart', 'wishlist', 'subTotal', 'addresses'));
   }
-
 
 
   public function wishlist()

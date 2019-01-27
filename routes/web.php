@@ -15,6 +15,7 @@ Route::get('/products/{slug}', 'ProductController@detail')->name('products.detai
 Route::get('/search', 'ProductController@search')->name('products.search');
 Route::post('/addToCart', 'ProductController@addToCart')->name('products.addToCart');
 Route::post('/addToWishlist', 'ProductController@addToWishlist')->name('products.addToWishlist');
+Route::post('/updateQuantity', 'ProductController@updateQuantity')->name('products.updateQuantity');
 Route::delete('/removeFromCart', 'ProductController@removeFromCart')->name('products.removeFromCart');
 Route::delete('/removeFromWishlist', 'ProductController@removeFromWishlist')->name('products.removeFromWishlist');
 

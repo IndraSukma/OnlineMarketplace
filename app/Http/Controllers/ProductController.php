@@ -9,7 +9,9 @@ use App\Wishlist;
 use App\ProductCategory;
 use App\Product;
 use DataTables;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -207,6 +209,22 @@ class ProductController extends Controller
 
       return response('Item has been added to the cart.');
     }
+  }
+
+  public function updateQuantity(Request $request)
+  {
+    $user = Auth::user();
+    $updateDetails=array(
+      'amount_of_item' => $request->get('quantity'),
+      'subtotal' => $request->get('subtotal')
+    );
+
+    DB::table('carts')->where([
+      ['user_id', $user->id],
+      ['product_id', $request->product_id]
+    ])->update($updateDetails);
+
+    return response('Success');
   }
 
   public function removeFromCart(Request $request)

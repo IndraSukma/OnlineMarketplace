@@ -21,44 +21,42 @@
       <div class="row justify-content-center">
         <div class="col-sm-12">
           @if($cart->count() == 0)
-            <div class="card">
-              <div class="card-body">
-                <div class="row  mt-5 mb-5">
-                  <div class="col-sm text-center">
-                    <div class="text-center display-1">
-                      <i class="mdi mdi-cart-off"></i>
-                    </div>
-                    <h5 class="text-center font-weight-bold">There are no items in your cart</h5>
-                    <a href="#" class="btn aqua-gradient">Start Shopping</a>
-                  </div>
-                </div>
+          <div class="row  mt-5 mb-5">
+            <div class="col-sm text-center">
+              <div class="text-center display-1">
+                <i class="mdi mdi-cart-off"></i>
               </div>
+              <h5 class="text-center">There are no items in your cart</h5>
+              <a href="#" class="btn aqua-gradient">Start Shopping</a>
             </div>
+          </div>
           @else
             <div class="row">
-              <div class="col-sm-7">                
+              <div class="col-sm-7">
                 <div class="card">
                   <div class="card-body">
                     @foreach($cart as $cartItem)
-                      <div id="product{{ $cartItem->id }}" class="d-flex border-bottom pb-3 mb-3">
+                      <div id="product{{ $cartItem->id }}" class="d-flex border-bottom mb-3">
                         <div class="flex-fill">
                           <div class="row">
                             <div class="col-2">
                               <img src="{{ asset('img/user.jpg') }}" alt="{{ $cartItem->product->name }}" class="w-100">
                             </div>
                             <div class="col px-0 mr-5">
-                              <div class="d-flex justify-content-between mb-3">
+                              <div class="d-flex justify-content-between">
                                 <a href="{{ route('products.detail', $cartItem->product->slug) }}">
                                   <h5 class="font-weight-bold m-0">{{ $cartItem->product->name }}</h5>
                                 </a>
-                                <p class="text-right m-0">Rp. {{ $cartItem->product->price }}</p>
+                                <p>Rp. <span class="text-right m-0" id="item-price{{$cartItem->id}}">{{number_format($cartItem->amount_of_item * $cartItem->product->price,2,',','.')}}</span></p>                                
                               </div>
                               <div class="row">
-                                <div class="col input-group pr-0">
-                                  <input type="text" class="form-control" placeholder="Amount of Item">
+                                <div class="col form-group pr-0">
+                                    <label for="exampleInputEmail1">Amount of Item</label>
+                                    <input type="number" class="form-control w-100" id="quantity-{{$cartItem->id}}" min="1" max="100" value="{{$cartItem->amount_of_item}}">
                                 </div>
-                                <div class="col input-group">
-                                  <input type="text" class="form-control" placeholder="Notes, Ex: Size, Color etc">
+                                <div class="col form-group input-group">
+                                    <label for="exampleInputEmail1">Notes</label>
+                                    <input type="email" class="form-control w-100" id="notes" placeholder="Ex: Size: XL, etc">
                                 </div>
                               </div>
                             </div>
@@ -69,43 +67,6 @@
                         </button>
                       </div>
                     @endforeach
-                    {{-- @foreach($inCart as $item)
-                      <div id="product-detail{{$item->id}}">
-                        <div class="product-thumbnail">
-                          <div class="row ">
-                            <div class="col-sm-2">
-                              <img src="{{ asset('img/user.jpg') }}" alt="{{$item->name}}" class="w-100">
-                            </div>
-                            <div class="col-sm-7">
-                              <a href="#" class="d-block mt-1">
-                                <h5 class="font-weight-bold">{{$item->name}}</h5>
-                              </a>
-                              <div class="row mt-3">
-                                <div class="col-sm-6 float-left">
-                                  <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Amount of Item">
-                                  </div>
-                                </div>
-                                <div class="col-sm-6 float-left">
-                                  <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Notes, Ex: Size, Color etc">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-sm-2">
-                              <p class="mt-2 text-right">Rp. {{$item->price}}</p>
-                            </div>
-                            <div class="col-sm-1">
-                              <button class="btn-cart bg-transparent border-0" value="{{$item->product_id}}" title="Remove from Cart" data-toggle="tooltip" data-action="remove">
-                                <i class="mdi mdi-24px mdi-close"></i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <hr>
-                    @endforeach --}}
                     <div class="cart-info">
                       <div class="row">
                         <div class="col-sm-12">
@@ -129,12 +90,12 @@
                       <div class="col-sm">
                         <span class="text-success float-right">
                           <strong>Rp. </strong>
-                          <strong id="subTotal">{{ $subTotal }}</strong>
+                          <strong id="subTotal">{{ number_format($cart->sum('subtotal'),2,',','.') }}</strong>
                         </span>
                       </div>
                     </div>
                     <hr>
-                    <button type="button" class="btn blue-gradient w-100" name="button">Checkout</button>
+                    <button id="processProducts" type="button" class="btn blue-gradient w-100" name="button">Checkout</button>
                   </div>
                 </div>
               </div>
@@ -144,4 +105,36 @@
       </div>
     </div>
   </div>
+@endsection
+@section('script')
+<script>
+$(document).ready(function () {
+  var csrf_token = '{{ csrf_token() }}';
+  @foreach($cart as $c)
+  $('#quantity-{{$c->id}}').on('input',function(e){
+    var quantity = $('#quantity-{{$c->id}}').val();
+    var subtotal = {{$c->product->price}} * quantity;
+    var product_id = {{$c->product->id}};
+    $.ajax({
+      type: 'POST',
+      url: '{{ route('products.updateQuantity') }}',
+      data: {
+        '_token': csrf_token,
+        'product_id': product_id,
+        'quantity': quantity,
+        'subtotal': subtotal
+      },
+      success: function(response) {
+        iziToast.show({
+            message: response,
+            onOpening: function() {
+              location.reload();
+            }
+        });
+      }
+    });
+  });
+  @endforeach
+});
+</script>
 @endsection

@@ -1,6 +1,7 @@
+<script src="{{asset('js/bootstrap-input-spinner.js')}}"></script>
 <script>
   @auth
-    $(document).ready(function() {          
+    $(document).ready(function() {      
       // Cart
       $('.btn-cart').click(function() {
         var action = $(this).data('action');

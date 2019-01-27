@@ -68,7 +68,7 @@
                           <tr>
                             <td>{{$item->product->name}}</td>
                             <td>{{$item->amount_of_item}}</td>
-                            <td class="text-right font-weight-bold">Rp. {{$item->product->price}}</td>
+                            <td class="text-right font-weight-bold">Rp. {{ number_format($item->product->price * $item->amount_of_item,2,',','.') }}</td>                            
                           </tr>
                           @endforeach
                         </tbody>
@@ -93,7 +93,7 @@
                     <div class="col-sm">
                       <span class="text-success float-right">
                         <strong>Rp. </strong>
-                        <strong id="subTotal">{{ $subTotal + 18000 }}</strong>
+                        <strong id="subTotal">{{ number_format($cart->sum('subtotal'),2,',','.') }}</strong>
                       </span>
                     </div>
                   </div>
@@ -108,7 +108,7 @@
     </div>
   </div>
 
-  
+
 
 @endsection
 

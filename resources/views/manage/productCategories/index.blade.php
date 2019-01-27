@@ -44,13 +44,8 @@
 						</table>
           </div>
 
-<<<<<<< HEAD
-					@include('_extends.category-add')					
-					@include('_extends.category-edit')					
-=======
 					@include('_extends.category-add')
 					@include('_extends.category-edit')
->>>>>>> 299d45a1c2733eea42a49497b5d901ac3768993e
 					@include('_extends.delete')
         </div>
       </div>
