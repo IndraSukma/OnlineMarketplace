@@ -1,15 +1,21 @@
+<script src="{{asset('js/bootstrap-input-spinner.js')}}"></script>
 <script>
   @auth
-    $(document).ready(function() {
+    $(document).ready(function() {      
       // Cart
       $('.btn-cart').click(function() {
         var action = $(this).data('action');
         var csrf_token = '{{ csrf_token() }}';
         var product_id = $(this).val();
 
-        var totalItem = $('#totalItem').text();
-        var subTotal = $('#subTotal').text();
-        var product_price = $(this).data('price');
+        var totalItem = $('#totalItem');
+        var totalPrice = $('#subTotal');
+        var totalPriceText = totalPrice.text();
+        var totalPriceTextFormatted = totalPriceText.substr(0, totalPriceText.length - 2).replace(/[^a-z0-9\s]/gi, '');
+        var multiplePrice = $(this).siblings().find('.multiplePrice');
+        var multiplePriceText = multiplePrice.text();
+        var multiplePriceTextFormatted = multiplePriceText.substr(0, multiplePriceText.length - 2).replace(/[^a-z0-9\s]/gi, '');
+        var subTotal = totalPriceTextFormatted - multiplePriceTextFormatted;
 
         switch(action) {
           case 'add':
@@ -22,15 +28,17 @@
               },
               success: function(response) {
                 $('#navCart').addClass('red-dot');
-
                 iziToast.show({
-                    message: response
+                  message: response
                 });
               }
             });
           break;
           case 'remove':
-            $(this).parent().removeClass('d-flex').addClass('d-none');
+            $(this).parent().remove();
+            totalItem.text(totalItem.text() - 1);
+            totalPrice.number(subTotal, 2, ',', '.');
+
             $.ajax({
               type: 'delete',
               url: '{{ route('products.removeFromCart') }}',
@@ -40,16 +48,12 @@
                 'product_id': product_id
               },
               success: function(response) {
-                $('#totalItem').text(totalItem - 1);
-                $('#subTotal').text(subTotal - product_price);
                 iziToast.show({
-                    message: response,
-                    onOpening: function() {
-                      location.reload();
-                    }
+                  message: response,
+                  // onOpening: function() {
+                  //   location.reload();
+                  // }
                 });
-                // console.log(response);
-                // location.reload();
               }
             });
           break;
@@ -77,9 +81,9 @@
               success: function(response) {
                 $('#navWishlist').addClass('red-dot');
                 iziToast.show({
-                    message: response,
-                    backgroundColor: '#ff5983',
-                    messageColor: '#fff'
+                  message: response,
+                  backgroundColor: '#ff5983',
+                  messageColor: '#fff'
                 });
               }
             });
@@ -98,9 +102,9 @@
               },
               success: function(response) {
                 iziToast.show({
-                    message: response,
-                    backgroundColor: '#ff5983',
-                    messageColor: '#fff'
+                  message: response,
+                  backgroundColor: '#ff5983',
+                  messageColor: '#fff'
                 });
               }
             });
@@ -115,6 +119,4 @@
       });
     });
   @endauth
-
-
 </script>

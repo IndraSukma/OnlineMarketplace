@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('css/main/materialdesignicons.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/mdb.min.css') }}">
@@ -236,6 +237,7 @@
     <!-- Footer -->
     <div id="modal-alert" data-izimodal-subtitle="Item has added to Cart"></div>
     <script src="{{ asset('js/main/jquery-3.3.1.min.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{ asset('js/main/popper.min.js') }}"></script>
     <script src="{{ asset('js/main/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/mdb.min.js') }}"></script>

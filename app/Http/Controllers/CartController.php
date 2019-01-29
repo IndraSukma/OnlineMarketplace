@@ -10,6 +10,10 @@ use App\Cart;
 
 class CartController extends Controller
 {
+  public function updateQuantity(Request $request)
+  {
+    $data = new Cart();
+  }
   // public function addToCart(Request $request)
   // {
   //   $data = new Cart();
@@ -26,7 +30,7 @@ class CartController extends Controller
   //   $userId = $request->id_user;
   //   $productId = $request->product_id;
 
-    
+
   //   // $cart = DB::table('carts')
   //   //                 ->when($userId, function ($query, $userId) {
   //   //                     return $query->where('id_user', $userId);
@@ -34,7 +38,7 @@ class CartController extends Controller
   //   //                     return $query->where('product_id', $productId);
   //   //                 })
   //   //                 ->get();
-    
+
 
   //   $whereArray = array(
   //                   'id_user' => $userId,

@@ -79,7 +79,7 @@
                     </div>
                     <div class="col-sm">
                       <div class="float-right">
-                        @if (Auth::check() && in_array($product->id, $wishlist_added))
+                        @if (Auth::check() && in_array($product->id, $wishlist_array))
                           <button class="btn-wishlist bg-transparent border-0" value="{{ $product->id }}" title="Remove Wishlist" data-toggle="tooltip" data-action="remove">
                             <i class="mdi mdi-24px mdi-heart text-danger"></i>
                           </button>

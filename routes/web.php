@@ -4,6 +4,7 @@ Auth::routes();
 
 Route::get('/', 'PageController@index')->name('home');
 Route::get('/cart', 'PageController@cart')->name('cart');
+Route::get('/checkout', 'PageController@checkout')->name('checkout');
 Route::get('/wishlist', 'PageController@wishlist')->name('wishlist');
 
 // Product Operation
@@ -12,6 +13,7 @@ Route::get('/products/{slug}', 'ProductController@detail')->name('products.detai
 Route::get('/search', 'ProductController@search')->name('products.search');
 Route::post('/addToCart', 'ProductController@addToCart')->name('products.addToCart');
 Route::post('/addToWishlist', 'ProductController@addToWishlist')->name('products.addToWishlist');
+Route::post('/updateQuantity', 'ProductController@updateQuantity')->name('products.updateQuantity');
 Route::delete('/removeFromCart', 'ProductController@removeFromCart')->name('products.removeFromCart');
 Route::delete('/removeFromWishlist', 'ProductController@removeFromWishlist')->name('products.removeFromWishlist');
 
@@ -35,4 +37,4 @@ Route::prefix('manage')
 });
 
 // JSON
-// Route::get('/productsJson', 'ProductController@json');
+Route::get('/productsJson', 'ProductController@json');
