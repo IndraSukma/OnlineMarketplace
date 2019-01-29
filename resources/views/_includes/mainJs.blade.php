@@ -35,6 +35,7 @@
             });
           break;
           case 'remove':
+            $(this).tooltip('hide');
             $(this).parent().remove();
             totalItem.text(totalItem.text() - 1);
             totalPrice.number(subTotal, 2, ',', '.');
