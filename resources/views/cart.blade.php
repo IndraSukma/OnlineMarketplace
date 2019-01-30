@@ -21,17 +21,26 @@
       <div class="row justify-content-center">
         <div class="col-sm-12">
           @if($cart->count() == 0)
-          <div class="row  mt-5 mb-5">
-            <div class="col-sm text-center">
-              <div class="text-center display-1">
-                <i class="mdi mdi-cart-off"></i>
+            <div class="row  mt-5 mb-5">
+              <div class="col-sm text-center">
+                <div class="text-center display-1">
+                  <i class="mdi mdi-cart-off"></i>
+                </div>
+                <h5 class="text-center">There are no items in your cart</h5>
+                <a href="#" class="btn aqua-gradient">Start Shopping</a>
               </div>
-              <h5 class="text-center">There are no items in your cart</h5>
-              <a href="#" class="btn aqua-gradient">Start Shopping</a>
             </div>
-          </div>
           @else
-            <div class="row">
+            <div class="row mt-5 mb-5" id="cartEmpty" style="display: none;">
+              <div class="col-sm text-center">
+                <div class="text-center display-1">
+                  <i class="mdi mdi-cart-off"></i>
+                </div>
+                <h5 class="text-center">There are no items in your cart</h5>
+                <a href="#" class="btn aqua-gradient">Start Shopping</a>
+              </div>
+            </div>
+            <div class="row" id="cartFilled">
               <div class="col-sm-7">
                 <div class="card">
                   <div class="card-body">
@@ -105,7 +114,7 @@
                       </div>
                     </div>
                     <hr>
-                    <button id="processProducts" type="button" class="btn blue-gradient w-100" name="button">Checkout</button>
+                    <button id="btnCheckout" class="btn blue-gradient w-100">Checkout</button>
                   </div>
                 </div>
               </div>
@@ -211,6 +220,10 @@
         });
 
         totalPrice.number(sum, 2, ',', '.');
+      });
+
+      $('#btnCheckout').click(function() {
+        window.location.replace('{{ route('checkout') }}');
       });
     });
   </script>

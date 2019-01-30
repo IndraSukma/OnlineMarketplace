@@ -49,8 +49,14 @@
                 'product_id': product_id
               },
               success: function(response) {
+                if (response == 0) {
+                  $('#navCart').removeClass('red-dot');
+                  $('#cartEmpty').show();
+                  $('#cartFilled').hide();
+                }
+
                 iziToast.show({
-                  message: response,
+                  message: 'Item has been removed from the cart.',
                   // onOpening: function() {
                   //   location.reload();
                   // }

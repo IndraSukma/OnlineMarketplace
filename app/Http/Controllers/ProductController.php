@@ -9,9 +9,7 @@ use App\Wishlist;
 use App\ProductCategory;
 use App\Product;
 use DataTables;
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -242,7 +240,9 @@ class ProductController extends Controller
       ['product_id', $request->product_id]
     ])->delete();
 
-    return response('Item has been removed from the cart.');
+    $amountOfItem = Cart::where('user_id', $user->id)->count();
+
+    return response($amountOfItem);
   }
 
   public function addToWishlist(Request $request)
