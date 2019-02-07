@@ -59,13 +59,13 @@
                   @endif
                 </div>
 
-                <div class="form-group col col-md-4">
+                <div class="form-group col col-md-12">
                   <label for="provence">Provinsi</label>
-                  <select name="provence" id="provence" class="form-control{{ $errors->has('provence') ? ' is-invalid' : '' }}" required>
+                  <select type="text" name="provence" id="provence" class="selectpicker form-control{{ $errors->has('provence') ? ' is-invalid' : '' }}" required>
                     <option selected disabled>Pilih Provinsi</option>
-                    <option value="Provinsi 1">Provinsi 1</option>
-                    <option value="Provinsi 2">Provinsi 2</option>
-                    <option value="Provinsi 3">Provinsi 3</option>
+                    @foreach($provinces as $provence)
+                    <option value="{{$provence->id}}">{{$provence->name}}</option>
+                    @endforeach
                   </select>
                   @if ($errors->has('provence'))
                     <span class="invalid-feedback" role="alert">
@@ -74,13 +74,13 @@
                   @endif
                 </div>
 
-                <div class="form-group col col-md-4">
+                <div class="form-group col col-md-12">
                   <label for="city">Kota/Kabupaten</label>
-                  <select name="city" id="city" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" required>
+                  <select type="text" name="city" id="city" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" required>
                     <option selected disabled>Pilih Kota/Kabupaten</option>
-                    <option value="Kota/Kabupaten 1">Kota/Kabupaten 1</option>
-                    <option value="Kota/Kabupaten 2">Kota/Kabupaten 2</option>
-                    <option value="Kota/Kabupaten 3">Kota/Kabupaten 3</option>
+                    @foreach($cities as $city)
+                    <option value="{{$city->id}}">{{$city->name}}</option>
+                    @endforeach
                   </select>
                   @if ($errors->has('city'))
                     <span class="invalid-feedback" role="alert">
@@ -89,14 +89,9 @@
                   @endif
                 </div>
 
-                <div class="form-group col col-md-4">
+                <div class="form-group col col-md-12">
                   <label for="sub_district">Kecamatan</label>
-                  <select name="sub_district" id="sub_district" class="form-control{{ $errors->has('sub_district') ? ' is-invalid' : '' }}" required>
-                    <option selected disabled>Pilih Kecamatan</option>
-                    <option value="Kecamatan 1">Kecamatan 1</option>
-                    <option value="Kecamatan 2">Kecamatan 2</option>
-                    <option value="Kecamatan 3">Kecamatan 3</option>
-                  </select>
+                  <input type="text" name="sub_district" id="sub_district" class="form-control{{ $errors->has('sub_district') ? ' is-invalid' : '' }}" required>
                   @if ($errors->has('sub_district'))
                     <span class="invalid-feedback" role="alert">
                       <strong>{{ $errors->first('sub_district') }}</strong>

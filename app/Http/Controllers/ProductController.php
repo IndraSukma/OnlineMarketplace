@@ -218,7 +218,7 @@ class ProductController extends Controller
       'amount_of_item' => $request->get('quantity'),
       'subtotal' => $request->get('subtotal')
     );
-
+    
     DB::table('carts')->where([
       ['user_id', $user->id],
       ['product_id', $request->product_id]

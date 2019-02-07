@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use Auth;
 use Session;
 use App\Address;
+use App\Provinces;
+use App\Regency;
+use App\District;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class AddressController extends Controller
 {
@@ -26,7 +31,11 @@ class AddressController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->get();
 
-    return view('manage.address.index', compact('addresses'));
+    $provinces = Provinces::get();
+    $regencies = Regency::get();
+    $districts = District::get();
+
+    return view('manage.address.index', compact('addresses', 'provinces', 'regencies', 'districts'));
   }
 
   /**
@@ -63,8 +72,8 @@ class AddressController extends Controller
     $address->full_name        = $request->full_name;
     $address->address_name     = $request->address_name;
     $address->complete_address = $request->complete_address;
-    $address->provence         = $request->provence;
-    $address->city             = $request->city;
+    $address->province_id      = $request->provence;
+    $address->city_id          = $request->city;
     $address->sub_district     = $request->sub_district;
     $address->zip_code         = $request->zip_code;
     $address->additional_info  = $request->additional_info;
@@ -96,7 +105,7 @@ class AddressController extends Controller
   public function edit(Address $address)
   {
     if ($address->user_id == Auth::user()->id) {
-      return view('manage.address.edit', compact('address'));
+      return view('manage.userInformation.index', compact('address'));
     }
     return abort(403);
   }
@@ -124,8 +133,8 @@ class AddressController extends Controller
     $address->full_name        = $request->full_name;
     $address->address_name     = $request->address_name;
     $address->complete_address = $request->complete_address;
-    $address->provence         = $request->provence;
-    $address->city             = $request->city;
+    $address->province_id      = $request->provence;
+    $address->city_id          = $request->city;
     $address->sub_district     = $request->sub_district;
     $address->zip_code         = $request->zip_code;
     $address->additional_info  = $request->additional_info;
@@ -162,5 +171,12 @@ class AddressController extends Controller
     $addresses = Address::orderBy('created_at', 'desc')->get();
 
     return view('manage.address.index', compact('addresses'));
+  }
+
+  public function provencesJson()
+  {
+    $provinces = Provinces::select('name');
+
+    return DataTables::of($provinces)->make(true);
   }
 }

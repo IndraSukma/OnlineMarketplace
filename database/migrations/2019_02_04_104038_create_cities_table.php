@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddSubtotalToCartsTable extends Migration
+class CreateCitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddSubtotalToCartsTable extends Migration
      */
     public function up()
     {
-        Schema::table('carts', function (Blueprint $table) {
-            $table->integer('subtotal');
+        Schema::create('cities', function (Blueprint $table) {
+            $table->integer('id')->unsigned();
+            $table->primary('id');
+            $table->string('name');
+            $table->integer('province_id')->unsigned();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddSubtotalToCartsTable extends Migration
      */
     public function down()
     {
-        Schema::table('carts', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('cities');
     }
 }

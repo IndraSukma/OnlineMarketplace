@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Facades\Input;
+use App\City;
 
 Auth::routes();
 
@@ -42,3 +44,20 @@ Route::prefix('manage')
 
 // JSON
 Route::get('/productsJson', 'ProductController@json');
+Route::get('/provencesJson', 'AddressController@provencesJson')->name('json.provences');
+
+// Get Rajaongkir
+Route::get('/getProvince', 'PageController@getProvince')->name('getProvince');
+Route::get('/getCity', 'PageController@getCity')->name('getCity');
+Route::get('/checkShipping', 'PageController@getShippingCost')->name('checkShipping');
+Route::post('/processShipping', 'PageController@processShipping')->name('processShipping');
+
+
+
+// Address Data
+Route::get('/city', function (){
+  $province_id = Input::get('province_id');
+  $city = City::where('province_id', '=', $province_id)->get();
+
+  return Response::json($city);
+});

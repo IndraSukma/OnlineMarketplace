@@ -7,6 +7,8 @@ use Session;
 use Carbon\Carbon;
 use App\User;
 use App\Address;
+use App\Provinces;
+use App\City;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -23,8 +25,10 @@ class UserController extends Controller
     $today = Carbon::today('Asia/Jakarta')->toDateString();
     $year_now = Carbon::today()->year;
     $year = $year_now - 100;
+    $provinces = Provinces::get();
+    $cities = City::get();
 
-    return view('manage.userInformation.index', compact('addresses', 'user', 'today', 'year'));
+    return view('manage.userInformation.index', compact('addresses', 'user', 'today', 'year', 'provinces', 'cities'));
   }
 
   /**

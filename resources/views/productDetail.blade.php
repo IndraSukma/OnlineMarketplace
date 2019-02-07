@@ -24,7 +24,7 @@
           <div class="product-gallery">
             <div id="productGallery" class="owl-carousel owl-theme">
               <div class="item">
-                <img src="{{ asset('img/user.jpg') }}" class="img-thumbnail w-100" alt="">
+                <img src="{{ asset('img/product-img/product-2.jpeg') }}" class="img-thumbnail w-100" alt="">
               </div>
               <div class="item">
                 <img src="{{ asset('img/user.jpg') }}" class="img-thumbnail w-100" alt="">

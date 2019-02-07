@@ -20,6 +20,17 @@
     <div class="mx-5 py-0">
       <div class="row justify-content-center">
         <div class="col-sm-12">
+          @if($cart->count() == 0)
+          <div class="row  mt-5 mb-5">
+            <div class="col-sm text-center">
+              <div class="text-center display-1">
+                <i class="mdi mdi-cart-off"></i>
+              </div>
+              <h5 class="text-center">There are no items in your cart</h5>
+              <a href="#" class="btn aqua-gradient">Start Shopping</a>
+            </div>
+          </div>
+          @else
           <div class="row">
             <div class="col-sm-7">
               <div class="card mb-3">
@@ -30,7 +41,9 @@
                       Select Address
                     </button>
                     <div class="dropdown-menu py-0" aria-labelledby="dropdownMenuButton">
-                      <button class="dropdown-item"><i class="mdi mdi-plus"></i> Add New Address</button>
+                      <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modalAddAddress">
+                        <i class="mdi mdi-plus"></i> Add New Address
+                      </button>
                       <div class="dropdown-divider"></div>
                       @foreach($addresses as $address)
                       <button class="dropdown-item" id="select-address-{{$address->id}}">
@@ -68,7 +81,7 @@
                           <tr>
                             <td>{{$item->product->name}}</td>
                             <td>{{$item->amount_of_item}}</td>
-                            <td class="text-right font-weight-bold">Rp. {{ number_format($item->product->price * $item->amount_of_item,2,',','.') }}</td>                            
+                            <td class="text-right font-weight-bold">Rp. {{ number_format($item->product->price * $item->amount_of_item,2,',','.') }}</td>
                           </tr>
                           @endforeach
                         </tbody>
@@ -77,11 +90,10 @@
                         <thead>
                           <tr>
                             <th>Shipping</th>
-                            <th class="text-right">JNE REG: <b>Rp. 18000</b></th>
+                            <th class="text-right">POS KILAT : <b> <span class="shipping-cost">Select your address</span></b></th>
                           </tr>
                         </thead>
                       </table>
-
                     </div>
                   </div>
                   <div class="row px-2">
@@ -92,8 +104,7 @@
                     </div>
                     <div class="col-sm">
                       <span class="text-success float-right">
-                        <strong>Rp. </strong>
-                        <strong id="subTotal">{{ number_format($cart->sum('subtotal'),2,',','.') }}</strong>
+                        <strong id="subTotal">Rp. {{ number_format($cart->sum('subtotal'),2,',','.') }}</strong>
                       </span>
                     </div>
                   </div>
@@ -103,18 +114,45 @@
               </div>
             </div>
           </div>
+          @endif
         </div>
       </div>
     </div>
   </div>
 
-
-
+@include('_extends.address-add')
 @endsection
 
 @section('script')
 <script>
 $(document).ready(function () {
+  function convertToRupiah(angka)
+  {
+  	var rupiah = '';
+  	var angkarev = angka.toString().split('').reverse().join('');
+  	for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
+  	return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('');
+  }
+
+  function setCheckoutPrice(a) {
+    var checkoutPrice = a;
+  }
+
+  var totalprice = {{$cart->sum('subtotal')}};
+  var checkoutPrice;
+
+  $('#provence').on('change', function(e) {
+    console.log(e);
+    var province_id = e.target.value;
+
+    $.get('/city?province_id=' + province_id, function (data) {
+      $('#city').empty();
+      $.each(data, function (index, cityObj) {
+        $('#city').append('<option value="'+cityObj.id+'">'+cityObj.name+'</option>');
+      });
+    });
+  });
+
   @foreach($addresses as $a)
   $('#select-address-{{$a->id}}').click(function () {
     var contentStr = '';
@@ -123,12 +161,38 @@ $(document).ready(function () {
     contentStr += '<span id="address-name">{{$a->address_name}}</span><br>';
     contentStr += '<span class="mt-5" id="complete-address">{{$a->complete_address}}. </span><span id="additional-info">{{$a->additional_info}}</span><br>';
     contentStr += '<span id="sub-district">{{$a->sub_district}}, </span>';
-    contentStr += '<span id="city">{{$a->city}}</span><br>';
-    contentStr += '<span id="provence">{{$a->provence}}, </span>';
+    contentStr += '<span class="city" id="{{$a->city->id}}">{{$a->city->name}}</span><br>';
+    contentStr += '<span class="province" id="{{$a->province->id}}">{{$a->province->name}}, </span>';
     contentStr += '<span id="zip-code">{{$a->zip_code}}</span><br>';
     contentStr += '<span id="phone">{{$a->phone}}</span>';
     $('#address-info').html(contentStr);
     $('#recepient').text('{{$a->full_name}}');
+
+    var csrf_token = '{{ csrf_token() }}';
+    var origin = '107';
+    var destination = $('.city').attr('id');
+    var weight = '1700';
+    var courier = 'pos';
+
+    $.ajax({
+      type: 'post',
+      url: '{{ route('processShipping') }}',
+      data: {
+        '_token': csrf_token,
+        'origin': origin,
+        'destination': destination,
+        'weight': weight,
+        'courier': courier,
+      },
+      success: function(response) {
+        var subtotal = parseInt(response) + parseInt(totalprice);
+        $('.shipping-cost').html('<strong>'+ convertToRupiah(response) +',00</strong>');
+        $('#subTotal').html('<span>'+convertToRupiah(subtotal)+',00</span>');
+        checkoutPrice = subtotal;
+
+        console.log(checkoutPrice);
+      }
+    });
   });
   @endforeach
 });

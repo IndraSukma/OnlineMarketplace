@@ -47,7 +47,7 @@
                                 <a href="{{ route('products.detail', $cartItem->product->slug) }}">
                                   <h5 class="font-weight-bold m-0">{{ $cartItem->product->name }}</h5>
                                 </a>
-                                <p>Rp. <span class="text-right m-0" id="item-price{{$cartItem->id}}">{{number_format($cartItem->amount_of_item * $cartItem->product->price,2,',','.')}}</span></p>                                
+                                <p>Rp. <span class="text-right m-0" id="item-price{{$cartItem->id}}">{{number_format($cartItem->amount_of_item * $cartItem->product->price,2,',','.')}}</span></p>
                               </div>
                               <div class="row">
                                 <div class="col form-group pr-0">
@@ -106,6 +106,7 @@
     </div>
   </div>
 @endsection
+
 @section('script')
 <script>
 $(document).ready(function () {

@@ -102,7 +102,7 @@
           <div class="card card-cascade mb-4">
             <!--Card image-->
             <div class="view view-cascade">
-              <img src="{{ asset('img/user.jpg') }}" class="card-img-top" alt="">
+              <img src="{{ asset('img/product-img/product-'.$product->id.'.jpeg') }}" class="card-img-top" alt="">
               <a href="{{ route('products.detail', $product->slug) }}">
                 <div class="mask rgba-white-slight"></div>
               </a>

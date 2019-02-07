@@ -7,15 +7,13 @@
     <title>@yield('title') | Marketplace</title>
     {{-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css"> --}}
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('css/main/materialdesignicons.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/mdb.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/lightslider.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/iziModal.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery.autocomplete.css') }}">
   </head>
   <body>
     <header>
@@ -274,11 +272,11 @@
       <!-- Footer -->
 
     <script src="{{ asset('js/main/jquery-3.3.1.min.js') }}"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{ asset('js/main/popper.min.js') }}"></script>
     <script src="{{ asset('js/main/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/mdb.min.js') }}"></script>
     <script src="{{ asset('js/iziModal.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.autocomplete.js') }}"></script>    
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script> --}}
     @yield('scripts')
     {{-- <script type="text/javascript">

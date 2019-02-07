@@ -19,16 +19,18 @@ class CreateAddressesTable extends Migration
       $table->string('full_name');
       $table->string('address_name');
       $table->string('complete_address');
-      $table->string('provence');
-      $table->string('city');
+      $table->unsignedInteger('province_id');
+      $table->unsignedInteger('city_id');
+      //$table->string('provence');
+      //$table->string('city');
       $table->string('sub_district');
       $table->string('additional_info')->nullable();
       $table->string('phone');
       $table->timestamps();
 
       $table->foreign('user_id')
-            ->references('id')->on('users')
-            ->onDelete('cascade');
+      ->references('id')->on('users')
+      ->onDelete('cascade');      
     });
   }
 
