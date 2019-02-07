@@ -6,30 +6,38 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateProductOrdersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('product_orders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('order_id');
-            $table->integer('product_id');
-            $table->integer('quantity');
-            $table->integer('single_price');
-            $table->timestamps();
-        });
-    }
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::create('product_orders', function (Blueprint $table) {
+      $table->increments('id');
+      $table->unsignedInteger('order_id');
+      $table->unsignedInteger('product_id');
+      $table->unsignedInteger('quantity');
+      $table->unsignedInteger('single_price');
+      $table->timestamps();
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('product_orders');
-    }
+      $table->foreign('order_id')
+            ->references('id')->on('orders')
+            ->onDelete('cascade');
+
+      $table->foreign('product_id')
+            ->references('id')->on('products')
+            ->onDelete('cascade');
+    });
+  }
+
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('product_orders');
+  }
 }

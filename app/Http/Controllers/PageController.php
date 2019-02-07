@@ -58,7 +58,6 @@ class PageController extends Controller
     return view('checkout', compact('cart', 'wishlist', 'subTotal', 'addresses', 'provinces'));
   }
 
-
   public function wishlist()
   {
     $user = Auth::user();

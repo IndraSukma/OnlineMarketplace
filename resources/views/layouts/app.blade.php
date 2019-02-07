@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title') | Marketplace</title>
-    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css"> --}}
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
@@ -54,7 +53,7 @@
                 <div class="detail flex-grow-1 d-flex justify-content-between align-items-center pl-3">
                   <a href="#" class="lead text-muted">Username</a>
                   <form action="{{ route('logout') }}" method="POST">
-                      @csrf
+                    @csrf
                     <button class="btn btn-sm btn-light">Logout</button>
                   </form>
                 </div>
@@ -144,6 +143,7 @@
     <footer class="page-footer font-small unique-color-dark">
       <div class="blue-gradient">
         <div class="container">
+<<<<<<< HEAD
 
           <!-- Grid row-->
           <div class="row py-4 d-flex align-items-center">
@@ -197,53 +197,54 @@
             </div>
             <!-- Grid column -->
 
+=======
+          <!-- Grid row-->
+          <div class="row py-4 d-flex align-items-center">
+>>>>>>> 3ea2d4e1cec5fc5701627e08b5a1430a22811f6e
             <!-- Grid column -->
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-
-              <!-- Links -->
-              <h6 class="text-uppercase font-weight-bold">Products</h6>
-              <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-              <p>
-                <a href="#!">MDBootstrap</a>
-              </p>
-              <p>
-                <a href="#!">MDWordPress</a>
-              </p>
-              <p>
-                <a href="#!">BrandFlow</a>
-              </p>
-              <p>
-                <a href="#!">Bootstrap Angular</a>
-              </p>
-
+            <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+              <h6 class="mb-0">Get connected with us on social networks!</h6>
             </div>
             <!-- Grid column -->
 
             <!-- Grid column -->
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <div class="col-md-6 col-lg-7 text-center text-md-right">
 
-              <!-- Links -->
-              <h6 class="text-uppercase font-weight-bold">Useful links</h6>
-              <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-              <p>
-                <a href="#!">Your Account</a>
-              </p>
-              <p>
-                <a href="#!">Become an Affiliate</a>
-              </p>
-              <p>
-                <a href="#!">Shipping Rates</a>
-              </p>
-              <p>
-                <a href="#!">Help</a>
-              </p>
+              <!-- Facebook -->
+              <a class="mr-3">
+                <i class="mdi mdi-facebook white-text"> </i>
+              </a>
+              <!--Instagram-->
+              <a class="mr-3">
+                <i class="mdi mdi-instagram white-text"> </i>
+              </a>
+              <!--Whatsaap-->
+              <a class="">
+                <i class="mdi mdi-whatsapp white-text"> </i>
+              </a>
 
             </div>
             <!-- Grid column -->
+          </div>
+          <!-- Grid row-->
+        </div>
+      </div>
 
-            <!-- Grid column -->
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+      <!-- Footer Links -->
+      <div class="container text-center text-md-left mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase font-weight-bold">Company name</h6>
+            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur
+              adipisicing elit.</p>
+          </div>
+          <!-- Grid column -->
 
+<<<<<<< HEAD
               <!-- Links -->
               <h6 class="text-uppercase font-weight-bold">Contact</h6>
               <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
@@ -259,14 +260,46 @@
               <p>
                 <i class="fas fa-print mr-3"></i> + 01 234 567 89
               </p>
-
-            </div>
-            <!-- Grid column -->
-
+=======
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase font-weight-bold">Products</h6>
+            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p><a href="#!">MDBootstrap</a></p>
+            <p><a href="#!">MDWordPress</a></p>
+            <p><a href="#!">BrandFlow</a></p>
+            <p><a href="#!">Bootstrap Angular</a></p>
           </div>
-          <!-- Grid row -->
+          <!-- Grid column -->
+>>>>>>> 3ea2d4e1cec5fc5701627e08b5a1430a22811f6e
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p><a href="#!">Your Account</a></p>
+            <p><a href="#!">Become an Affiliate</a></p>
+            <p><a href="#!">Shipping Rates</a></p>
+            <p><a href="#!">Help</a></p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase font-weight-bold">Contact</h6>
+            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p><i class="fas fa-home mr-3"></i> Cimahi, 40115, ID</p>
+            <p><i class="fas fa-envelope mr-3"></i> app@markeplace.com</p>
+            <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+            <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+          </div>
+          <!-- Grid column -->
 
         </div>
+<<<<<<< HEAD
                 <!-- Footer Links -->
 
       <!-- Copyright -->[]
@@ -276,6 +309,21 @@
         <!-- Copyright -->
     </footer>
       <!-- Footer -->
+=======
+        <!-- Grid row -->
+
+      </div>
+      <!-- Footer Links -->
+
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© 2019 Copyright:
+        <a href="#"> Marketplace.io</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    <div id="modal-alert" data-izimodal-subtitle="Item has added to Cart"></div>
+>>>>>>> 3ea2d4e1cec5fc5701627e08b5a1430a22811f6e
     <script src="{{ asset('js/main/jquery-3.3.1.min.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{ asset('js/main/popper.min.js') }}"></script>

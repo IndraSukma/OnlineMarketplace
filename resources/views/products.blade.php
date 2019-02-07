@@ -79,7 +79,7 @@
                     </div>
                     <div class="col-sm">
                       <div class="float-right">
-                        @if (Auth::check() && in_array($product->id, $wishlist_added))
+                        @if (Auth::check() && in_array($product->id, $wishlist_array))
                           <button class="btn-wishlist bg-transparent border-0" value="{{ $product->id }}" title="Remove Wishlist" data-toggle="tooltip" data-action="remove">
                             <i class="mdi mdi-24px mdi-heart text-danger"></i>
                           </button>
@@ -103,19 +103,6 @@
         @endforeach
       </div>
 
-      {{-- <nav aria-label="Page Navigation" class="mt-5">
-        <ul class="pagination pg-blue justify-content-end pagination-md">
-          <li class="page-item disabled">
-            <a class="page-link" tabindex="-1">Previous</a>
-          </li>
-          <li class="page-item active"><a class="page-link">1</a></li>
-          <li class="page-item"><a class="page-link">2</a></li>
-          <li class="page-item"><a class="page-link">3</a></li>
-          <li class="page-item">
-            <a class="page-link">Next</a>
-          </li>
-        </ul>
-      </nav> --}}
       <nav aria-label="Page Navigation" class="mt-5">
         {{ $products->links() }}
       </nav>

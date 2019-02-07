@@ -9,9 +9,7 @@ use App\Wishlist;
 use App\ProductCategory;
 use App\Product;
 use DataTables;
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -150,7 +148,7 @@ class ProductController extends Controller
   public function indexFront()
   {
     $products = Product::orderBy('created_at', 'desc')->paginate(20);
-
+    
     if (Auth::check()) {
       $user = Auth::user();
       $cart = Cart::where('user_id', $user->id)->first();
@@ -202,9 +200,12 @@ class ProductController extends Controller
     if (Cart::where([['user_id', $user->id], ['product_id', $request->product_id]])->exists()) {
       return response('Item is already in the cart');
     } else {
+      $product_price = Product::where('id', $request->product_id)->value('price');
+      
       $cart = new Cart;
       $cart->user_id = $user->id;
       $cart->product_id = $request->product_id;
+      $cart->subtotal = $product_price;
       $cart->save();
 
       return response('Item has been added to the cart.');
@@ -214,12 +215,15 @@ class ProductController extends Controller
   public function updateQuantity(Request $request)
   {
     $user = Auth::user();
-    $updateDetails=array(
-      'amount_of_item' => $request->get('quantity'),
-      'subtotal' => $request->get('subtotal')
-    );
-    
-    DB::table('carts')->where([
+    $product_price = Product::where('id', $request->product_id)->value('price');
+    $subtotal = $product_price * $request->quantity;
+
+    $updateDetails = [
+      'amount_of_item' => $request->quantity,
+      'subtotal' => $subtotal
+    ];
+
+    Cart::where([
       ['user_id', $user->id],
       ['product_id', $request->product_id]
     ])->update($updateDetails);
@@ -236,7 +240,9 @@ class ProductController extends Controller
       ['product_id', $request->product_id]
     ])->delete();
 
-    return response('Item has been removed from the cart.');
+    $amountOfItem = Cart::where('user_id', $user->id)->count();
+
+    return response($amountOfItem);
   }
 
   public function addToWishlist(Request $request)

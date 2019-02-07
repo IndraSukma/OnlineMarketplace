@@ -9,8 +9,6 @@ Route::get('/cart', 'PageController@cart')->name('cart');
 Route::get('/checkout', 'PageController@checkout')->name('checkout');
 Route::get('/wishlist', 'PageController@wishlist')->name('wishlist');
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
 // Product Operation
 Route::get('/products', 'ProductController@indexFront')->name('products.indexFront');
 Route::get('/products/{slug}', 'ProductController@detail')->name('products.detail');
@@ -20,8 +18,6 @@ Route::post('/addToWishlist', 'ProductController@addToWishlist')->name('products
 Route::post('/updateQuantity', 'ProductController@updateQuantity')->name('products.updateQuantity');
 Route::delete('/removeFromCart', 'ProductController@removeFromCart')->name('products.removeFromCart');
 Route::delete('/removeFromWishlist', 'ProductController@removeFromWishlist')->name('products.removeFromWishlist');
-
-// Route::get('/removeFromCart', 'CartController@removeFromCart');
 
 Route::prefix('admin')
      ->middleware('role:superadministrator|administrator')

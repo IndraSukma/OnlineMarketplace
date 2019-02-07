@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Home')
+
 @section('content')
   <div class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
     <div class="text-white text-center rgba-stylish-strong py-5 px-4">
@@ -120,15 +122,9 @@
                 <div class="row">
                   <div class="col-sm">
                     <div class="float-left">
-                      {{-- @if (Auth::check() && in_array($product->id, $cart_array))
-                        <button class="btn-cart border-0 disabled" value="{{$product->id}}" title="Already in Cart" data-toggle="tooltip">
-                          <i class="mdi mdi-24px mdi-cart-plus"></i>
-                        </button>
-                      @else --}}
-                        <button class="btn-cart bg-transparent border-0" value="{{ $product->id }}" title="Add to Cart" data-toggle="tooltip" data-action="add">
-                          <i class="mdi mdi-24px mdi-cart-plus"></i>
-                        </button>
-                      {{-- @endif --}}
+                      <button class="btn-cart bg-transparent border-0" value="{{ $product->id }}" title="Add to Cart" data-toggle="tooltip" data-action="add">
+                        <i class="mdi mdi-24px mdi-cart-plus"></i>
+                      </button>
                     </div>
                   </div>
                   <div class="col-sm">

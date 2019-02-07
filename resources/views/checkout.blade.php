@@ -124,6 +124,7 @@
 @endsection
 
 @section('script')
+<<<<<<< HEAD
 <script>
 $(document).ready(function () {
   function convertToRupiah(angka)
@@ -197,4 +198,26 @@ $(document).ready(function () {
   @endforeach
 });
 </script>
+=======
+  <script>
+    $(document).ready(function () {
+      @foreach($addresses as $a)
+        $('#select-address-{{$a->id}}').click(function () {
+          var contentStr = '';
+          contentStr += '<span class="d-none" id="address-id">{{$a->id}}</span>';
+          contentStr += '<span class="font-weight-bold" id="recepient-name">{{$a->full_name}}</span><br>';
+          contentStr += '<span id="address-name">{{$a->address_name}}</span><br>';
+          contentStr += '<span class="mt-5" id="complete-address">{{$a->complete_address}}. </span><span id="additional-info">{{$a->additional_info}}</span><br>';
+          contentStr += '<span id="sub-district">{{$a->sub_district}}, </span>';
+          contentStr += '<span id="city">{{$a->city}}</span><br>';
+          contentStr += '<span id="provence">{{$a->provence}}, </span>';
+          contentStr += '<span id="zip-code">{{$a->zip_code}}</span><br>';
+          contentStr += '<span id="phone">{{$a->phone}}</span>';
+          $('#address-info').html(contentStr);
+          $('#recepient').text('{{$a->full_name}}');
+        });
+      @endforeach
+    });
+  </script>
+>>>>>>> 3ea2d4e1cec5fc5701627e08b5a1430a22811f6e
 @endsection
