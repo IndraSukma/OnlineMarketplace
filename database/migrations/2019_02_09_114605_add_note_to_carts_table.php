@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddWeightToProducts extends Migration
+class AddNoteToCartsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddWeightToProducts extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->unsignedInteger('weight')->after('stock')->default(1000);
+        Schema::table('carts', function (Blueprint $table) {
+            $table->string('note')->after('amount_of_item')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddWeightToProducts extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('weight');
+        Schema::table('carts', function (Blueprint $table) {
+            $table->dropColumn('note');
         });
     }
 }

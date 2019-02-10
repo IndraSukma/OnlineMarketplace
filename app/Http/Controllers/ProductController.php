@@ -148,7 +148,7 @@ class ProductController extends Controller
   public function indexFront()
   {
     $products = Product::orderBy('created_at', 'desc')->paginate(20);
-    
+
     if (Auth::check()) {
       $user = Auth::user();
       $cart = Cart::where('user_id', $user->id)->first();
@@ -201,7 +201,7 @@ class ProductController extends Controller
       return response('Item is already in the cart');
     } else {
       $product_price = Product::where('id', $request->product_id)->value('price');
-      
+
       $cart = new Cart;
       $cart->user_id = $user->id;
       $cart->product_id = $request->product_id;
@@ -227,6 +227,18 @@ class ProductController extends Controller
       ['user_id', $user->id],
       ['product_id', $request->product_id]
     ])->update($updateDetails);
+
+    return response('Success');
+  }
+
+  public function updateNotes(Request $request)
+  {
+    $user = Auth::user();
+
+    Cart::where([
+      ['user_id', $user->id],
+      ['product_id', $request->product_id]
+    ])->update(['note' => $request->note]);
 
     return response('Success');
   }

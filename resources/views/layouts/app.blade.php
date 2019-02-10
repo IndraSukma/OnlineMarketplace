@@ -143,7 +143,6 @@
     <footer class="page-footer font-small unique-color-dark">
       <div class="blue-gradient">
         <div class="container">
-<<<<<<< HEAD
 
           <!-- Grid row-->
           <div class="row py-4 d-flex align-items-center">
@@ -183,51 +182,6 @@
       <div class="container text-center text-md-left mt-5">
 
         <!-- Grid row -->
-        <div class="row mt-3">
-
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-
-            <!-- Content -->
-            <h6 class="text-uppercase font-weight-bold">Company name</h6>
-            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-            <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit.</p>
-
-            </div>
-            <!-- Grid column -->
-
-=======
-          <!-- Grid row-->
-          <div class="row py-4 d-flex align-items-center">
->>>>>>> 3ea2d4e1cec5fc5701627e08b5a1430a22811f6e
-            <!-- Grid column -->
-            <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-              <h6 class="mb-0">Get connected with us on social networks!</h6>
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-6 col-lg-7 text-center text-md-right">
-
-              <!-- Facebook -->
-              <a class="mr-3">
-                <i class="mdi mdi-facebook white-text"> </i>
-              </a>
-              <!--Instagram-->
-              <a class="mr-3">
-                <i class="mdi mdi-instagram white-text"> </i>
-              </a>
-              <!--Whatsaap-->
-              <a class="">
-                <i class="mdi mdi-whatsapp white-text"> </i>
-              </a>
-
-            </div>
-            <!-- Grid column -->
-          </div>
-          <!-- Grid row-->
-        </div>
       </div>
 
       <!-- Footer Links -->
@@ -244,23 +198,6 @@
           </div>
           <!-- Grid column -->
 
-<<<<<<< HEAD
-              <!-- Links -->
-              <h6 class="text-uppercase font-weight-bold">Contact</h6>
-              <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-              <p>
-                <i class="fas fa-home mr-3"></i> Cimahi, 40115, ID<
-                /p>
-              <p>
-                <i class="fas fa-envelope mr-3"></i> app@markeplace.com
-              </p>
-              <p>
-                <i class="fas fa-phone mr-3"></i> + 01 234 567 88
-              </p>
-              <p>
-                <i class="fas fa-print mr-3"></i> + 01 234 567 89
-              </p>
-=======
           <!-- Grid column -->
           <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
             <!-- Links -->
@@ -272,7 +209,6 @@
             <p><a href="#!">Bootstrap Angular</a></p>
           </div>
           <!-- Grid column -->
->>>>>>> 3ea2d4e1cec5fc5701627e08b5a1430a22811f6e
 
           <!-- Grid column -->
           <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -299,31 +235,9 @@
           <!-- Grid column -->
 
         </div>
-<<<<<<< HEAD
-                <!-- Footer Links -->
-
-      <!-- Copyright -->[]
-      <div class="footer-copyright text-center py-3">© 2019 Copyright:
-        <a href="#"> Marketplace.io</a>
-      </div>
-        <!-- Copyright -->
+      <!-- Footer Links -->      
     </footer>
       <!-- Footer -->
-=======
-        <!-- Grid row -->
-
-      </div>
-      <!-- Footer Links -->
-
-      <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">© 2019 Copyright:
-        <a href="#"> Marketplace.io</a>
-      </div>
-      <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
-    <div id="modal-alert" data-izimodal-subtitle="Item has added to Cart"></div>
->>>>>>> 3ea2d4e1cec5fc5701627e08b5a1430a22811f6e
     <script src="{{ asset('js/main/jquery-3.3.1.min.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{ asset('js/main/popper.min.js') }}"></script>
@@ -339,7 +253,7 @@
       });
     </script>
 
-    
+
 
 
 

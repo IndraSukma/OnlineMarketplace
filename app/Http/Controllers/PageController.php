@@ -9,6 +9,8 @@ use App\Product;
 use App\Address;
 use App\Provinces;
 use App\City;
+use App\ProductOrder;
+use App\Orders;
 use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
@@ -94,6 +96,8 @@ class PageController extends Controller
     }
   }
 
+  // Shipping API
+
   public function getCity()
   {
     $client = new Client();
@@ -149,6 +153,68 @@ class PageController extends Controller
     $cost =  $array_result['rajaongkir']['results'][0]['costs'][0]['cost'][0]['value'];
 
     return response($cost);
+  }
+
+  // Order Id Generator
+  function generateBarcodeNumber() {
+    $number = mt_rand(1000000000, 9999999999); // better than rand()
+
+    // call the same function if the barcode exists already
+    if ($this->barcodeNumberExists($number)) {
+        return $this->generateBarcodeNumber();
+    }
+
+    // otherwise, it's valid and can be used
+    return $number;
+  }
+
+  function barcodeNumberExists($number) {
+    $query = \DB::table('orders')->where('id', $number)->first();
+
+    if (isset($query)) {
+        return true;
+    } else {
+        return false;
+    }
+  }
+
+  // Place Order Process
+  public function processOrder(Request $request)
+  {
+    $user = Auth::user();
+    $carts = Cart::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+    $orderId = $this->generateBarcodeNumber();
+    $order = new Orders;
+
+    $order->id = $orderId;
+    $order->user_id = $user->id;
+    $order->address_id = $request->address_id;
+    $order->total_price = $request->total_price;
+    $order->status = 'Menunggu Konfimasi Transfer';
+    $order->save();
+
+    foreach ($carts as $cart) {
+      // Insert to Product Order Table
+      $productOrders = new ProductOrder;
+      $productOrders->order_id = $orderId;
+      $productOrders->product_id = $cart->product_id;
+      $productOrders->quantity = $cart->amount_of_item;
+      $productOrders->single_price = $cart->product->price;
+      $productOrders->save();
+
+      // Updating product quantity
+      $stock = \DB::table('products')->where('id', $cart->product_id)->first()->stock;
+      $stockUpdate = $stock - $cart->amount_of_item;
+      Product::where('id', $cart->product_id)->update(['stock' => $stockUpdate]);
+
+      // Clearing the cart
+      Cart::where([
+        ['user_id', $cart->user_id],
+        ['product_id', $cart->product_id]
+      ])->delete();
+    }
+    
+    return response("Success");
   }
 
 }

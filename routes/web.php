@@ -16,6 +16,7 @@ Route::get('/search', 'ProductController@search')->name('products.search');
 Route::post('/addToCart', 'ProductController@addToCart')->name('products.addToCart');
 Route::post('/addToWishlist', 'ProductController@addToWishlist')->name('products.addToWishlist');
 Route::post('/updateQuantity', 'ProductController@updateQuantity')->name('products.updateQuantity');
+Route::post('/updateNotes', 'ProductController@updateNotes')->name('products.updateNotes');
 Route::delete('/removeFromCart', 'ProductController@removeFromCart')->name('products.removeFromCart');
 Route::delete('/removeFromWishlist', 'ProductController@removeFromWishlist')->name('products.removeFromWishlist');
 
@@ -47,6 +48,9 @@ Route::get('/getProvince', 'PageController@getProvince')->name('getProvince');
 Route::get('/getCity', 'PageController@getCity')->name('getCity');
 Route::get('/checkShipping', 'PageController@getShippingCost')->name('checkShipping');
 Route::post('/processShipping', 'PageController@processShipping')->name('processShipping');
+
+// Place mb_detect_order
+Route::post('/processOrder', 'PageController@processOrder')->name('processOrder');
 
 
 

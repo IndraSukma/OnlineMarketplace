@@ -94,6 +94,16 @@
                           </tr>
                         </thead>
                       </table>
+                      <table class="table table-sm">
+                        <thead>
+                          <tr>
+                            <div class="form-group d-none">
+                              <label for="coupon">Coupon</label>
+                              <input type="email" class="form-control" id="coupon">
+                            </div>
+                          </tr>
+                        </thead>
+                      </table>
                     </div>
                   </div>
                   <div class="row px-2">
@@ -109,7 +119,7 @@
                     </div>
                   </div>
                   <hr>
-                  <button type="button" class="btn peach-gradient w-100" name="button">Place Order</button>
+                  <button id="processOrder" type="button" class="btn peach-gradient w-100" name="button">Place Order</button>
                 </div>
               </div>
             </div>
@@ -124,7 +134,6 @@
 @endsection
 
 @section('script')
-<<<<<<< HEAD
 <script>
 $(document).ready(function () {
   function convertToRupiah(angka)
@@ -133,10 +142,6 @@ $(document).ready(function () {
   	var angkarev = angka.toString().split('').reverse().join('');
   	for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
   	return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('');
-  }
-
-  function setCheckoutPrice(a) {
-    var checkoutPrice = a;
   }
 
   var totalprice = {{$cart->sum('subtotal')}};
@@ -189,35 +194,45 @@ $(document).ready(function () {
         var subtotal = parseInt(response) + parseInt(totalprice);
         $('.shipping-cost').html('<strong>'+ convertToRupiah(response) +',00</strong>');
         $('#subTotal').html('<span>'+convertToRupiah(subtotal)+',00</span>');
-        checkoutPrice = subtotal;
 
-        console.log(checkoutPrice);
+        function setCheckoutprice() {
+          if(subtotal != null){
+            checkoutPrice = subtotal;
+          }
+        }
+
+        setCheckoutprice();
       }
     });
   });
   @endforeach
+
+  $('#processOrder').click(function () {
+    var csrf_token = '{{ csrf_token() }}';
+    var address = $('#address-id').text();
+
+    if (checkoutPrice == null) {
+      iziToast.show({
+        message: 'Please select your Address',
+        position: 'bottomCenter',
+        color: 'red',
+      });
+    } else {
+      $.ajax({
+        type: 'POST',
+        url: '{{ route('processOrder') }}',
+        data: {
+          '_token': csrf_token,
+          'address_id': address,
+          'total_price': checkoutPrice,
+        },
+        success: function(response) {
+          window.location.replace('{{ route('user.index') }}');
+        }
+      });
+    }
+
+  });
 });
 </script>
-=======
-  <script>
-    $(document).ready(function () {
-      @foreach($addresses as $a)
-        $('#select-address-{{$a->id}}').click(function () {
-          var contentStr = '';
-          contentStr += '<span class="d-none" id="address-id">{{$a->id}}</span>';
-          contentStr += '<span class="font-weight-bold" id="recepient-name">{{$a->full_name}}</span><br>';
-          contentStr += '<span id="address-name">{{$a->address_name}}</span><br>';
-          contentStr += '<span class="mt-5" id="complete-address">{{$a->complete_address}}. </span><span id="additional-info">{{$a->additional_info}}</span><br>';
-          contentStr += '<span id="sub-district">{{$a->sub_district}}, </span>';
-          contentStr += '<span id="city">{{$a->city}}</span><br>';
-          contentStr += '<span id="provence">{{$a->provence}}, </span>';
-          contentStr += '<span id="zip-code">{{$a->zip_code}}</span><br>';
-          contentStr += '<span id="phone">{{$a->phone}}</span>';
-          $('#address-info').html(contentStr);
-          $('#recepient').text('{{$a->full_name}}');
-        });
-      @endforeach
-    });
-  </script>
->>>>>>> 3ea2d4e1cec5fc5701627e08b5a1430a22811f6e
 @endsection

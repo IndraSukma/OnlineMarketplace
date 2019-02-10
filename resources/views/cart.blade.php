@@ -56,11 +56,7 @@
                                 <a href="{{ route('products.detail', $cartItem->product->slug) }}">
                                   <h5 class="font-weight-bold m-0">{{ $cartItem->product->name }}</h5>
                                 </a>
-<<<<<<< HEAD
-                                <p>Rp. <span class="text-right m-0" id="item-price{{$cartItem->id}}">{{number_format($cartItem->amount_of_item * $cartItem->product->price,2,',','.')}}</span></p>
-=======
                                 <p>Rp. <span class="multiplePrice">{{ number_format($cartItem->amount_of_item * $cartItem->product->price, 2, ',', '.') }}</span></p>
->>>>>>> 3ea2d4e1cec5fc5701627e08b5a1430a22811f6e
                               </div>
                               <div class="row">
                                 <div class="col-lg-4">
@@ -78,7 +74,7 @@
                                 <div class="col pl-0">
                                   <div class="input-group mb-3">
                                     <label>Notes</label>
-                                    <input type="text" class="notes form-control w-100 rounded" placeholder="Ex: Size: XL, etc">
+                                    <input type="text" class="notes form-control w-100 rounded" placeholder="Ex: Size: XL, etc" value="{{$cartItem->note}}">
                                   </div>
                                 </div>
                               </div>
@@ -148,12 +144,37 @@
         var quantityInput = cartItem.find('.quantity');
         var btnMinus = cartItem.find('.btnMinus');
         var btnPlus = cartItem.find('.btnPlus');
+        var noteInput = cartItem.find('.notes');
 
         var minValue = 1;
         var maxValue = cartItem.data('stock');
 
         var singlePrice = cartItem.data('price');
         var multiplePrice = cartItem.find('.multiplePrice');
+
+        noteInput.on('change', function (event) {
+          var csrf_token = '{{ csrf_token() }}';
+          var product_id = cartItem.data('id');
+          var note = noteInput.val();
+
+          delay(function() {
+            $.ajax({
+              type: 'POST',
+              url: '{{ route('products.updateNotes') }}',
+              data: {
+                '_token': csrf_token,
+                'product_id': product_id,
+                'note': note
+              },
+              success: function(response) {
+                iziToast.show({
+                  message: response,
+                });
+              }
+            });
+          }, 1000);
+
+        });
 
         btnMinus.click(function () {
           var oldValue = parseInt(quantityInput.val());
@@ -226,9 +247,9 @@
         totalPrice.number(sum, 2, ',', '.');
       });
 
-      $('#btnCheckout').click(function() {
+      $('#btnCheckout').click(function () {
         window.location.replace('{{ route('checkout') }}');
-      });
+      })
     });
   </script>
 @endsection
