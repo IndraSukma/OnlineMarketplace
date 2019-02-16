@@ -80,6 +80,11 @@
 			</div>
 		</div>
 	</div>
+
+	@foreach($orders as $orders)
+	@include('_extends.confirm-transcation')
+	@endforeach
+
 @endsection
 
 @section('scripts')

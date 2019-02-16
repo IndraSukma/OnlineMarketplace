@@ -227,7 +227,7 @@ $(document).ready(function () {
           'total_price': checkoutPrice,
         },
         success: function(response) {
-          window.location.replace('{{ route('user.index') }}');
+          window.location.replace('{{ route('manage.transaction') }}');
         }
       });
     }

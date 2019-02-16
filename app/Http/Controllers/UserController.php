@@ -47,8 +47,11 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $orders = Orders::where('user_id', $user->id)->get();
+    $today = Carbon::today('Asia/Jakarta')->toDateString();
+    $year_now = Carbon::today()->year;
+    $year = $year_now - 100;
 
-    return view('manage.userInformation.transaction', compact('orders', 'user'));
+    return view('manage.userInformation.transaction', compact('orders', 'user', 'today' ,'year'));
   }
 
   public function transactionDetail(Orders $order, $code)
@@ -62,7 +65,7 @@ class UserController extends Controller
 
     return view('manage.userInformation.transaction-detail', compact('orders', 'user', 'products', 'today' ,'year'));
   }
-  
+
 
   /**
    * Show the form for creating a new resource.

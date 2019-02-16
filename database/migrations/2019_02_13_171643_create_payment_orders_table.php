@@ -16,7 +16,7 @@ class CreatePaymentOrdersTable extends Migration
         Schema::create('payment_orders', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('order_id');
+            $table->unsignedBigInteger('order_id');
             $table->string('bank');
             $table->string('paid_by');
             $table->unsignedBigInteger('total_payment');
@@ -24,6 +24,10 @@ class CreatePaymentOrdersTable extends Migration
             $table->string('month_of_pay')->nullable();
             $table->string('year_of_pay')->nullable();
             $table->timestamps();
+
+            $table->foreign('order_id')
+                  ->references('id')->on('orders')
+                  ->onDelete('cascade');
         });
     }
 

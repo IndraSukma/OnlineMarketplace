@@ -15,7 +15,7 @@
         <div class="container">
           <form action="{{ route('paymentOrders.store') }}" method="POST">
             <div class="card-body">
-              @csrf              
+              @csrf
               <div class="row">
                 <div class="form-group col col-md-12">
                   <label for="order_id">Transaction Code</label>

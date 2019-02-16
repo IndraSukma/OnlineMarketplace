@@ -214,7 +214,7 @@ class PageController extends Controller
       ])->delete();
     }
 
-    return response("Success");
+    return redirect()->route('manage.transactionDetail', $orderId);
   }
 
   /*
@@ -251,5 +251,5 @@ class PageController extends Controller
     return redirect()->back();
   }
   */
-  
+
 }
