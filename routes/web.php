@@ -33,10 +33,14 @@ Route::prefix('manage')
 		 ->middleware('role:superadministrator|administrator|user')
 		 ->group(function () {
   Route::get('/dashboard', 'PageController@dashboard')->name('dashboard');
-  Route::resource('/user', 'UserController')->only('index', 'edit', 'update');
+  Route::get('user/address', 'UserController@address')->name('manage.address');
+  Route::get('user/transaction', 'UserController@transaction')->name('manage.transaction');
+  Route::get('user/transaction/{code}', 'UserController@transactionDetail')->name('manage.transactionDetail');
+  Route::resource('/user', 'UserController')->only('index', 'address', 'edit', 'update');
   Route::resource('/address', 'AddressController');
   Route::resource('/products', 'ProductController');
   Route::resource('/productCategories', 'ProductCategoryController');
+  Route::resource('/paymentOrders', 'OrderPaymentController');
 });
 
 // JSON

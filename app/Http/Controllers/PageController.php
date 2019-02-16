@@ -213,8 +213,43 @@ class PageController extends Controller
         ['product_id', $cart->product_id]
       ])->delete();
     }
-    
+
     return response("Success");
   }
 
+  /*
+  public function confirmPayment(Request $request)
+  {
+    $this->validate($request, [
+      'order_id'       => 'required|string|max:255',
+      'bank'           => 'required|string',
+      'paid_by'        => 'required|string|max:255',
+      'total_payment'  => 'required|numeric',
+      'payment_date'   => 'required',
+    ]);
+
+    $order = new PaymentOrder;
+    $user = Auth::user();
+
+    $date = explode('-', $request->payment_date);
+    $year = $date[0];
+    $month = $date[1];
+    $day = $date[2];
+
+    $order->user_id       = $user->id;
+    $order->order_id      = $request->order_id;
+    $order->bank          = $request->bank;
+    $order->paid_by       = $request->paid_by;
+    $order->total_payment = $request->total_payment;
+    $order->day_of_pay   = $day;
+    $order->month_of_pay = $month;
+    $order->year_of_pay  = $year;
+    $order->save();
+
+    Session::flash('success', 'Payment Confirmed');
+
+    return redirect()->back();
+  }
+  */
+  
 }
