@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use App\User;
 use App\Address;
 use App\Provinces;
+use App\Orders;
+use App\ProductOrder;
 use App\City;
 use Illuminate\Http\Request;
 
@@ -21,15 +23,49 @@ class UserController extends Controller
   public function index()
   {
     $user = Auth::user();
-    $addresses = Address::where('user_id', $user->id)->get();
     $today = Carbon::today('Asia/Jakarta')->toDateString();
     $year_now = Carbon::today()->year;
     $year = $year_now - 100;
+
+    return view('manage.userInformation.index', compact('user', 'today', 'year'));
+  }
+
+  public function address()
+  {
+    $user = Auth::user();
+    $today = Carbon::today('Asia/Jakarta')->toDateString();
+    $year_now = Carbon::today()->year;
+    $year = $year_now - 100;
+    $addresses = Address::where('user_id', $user->id)->get();
     $provinces = Provinces::get();
     $cities = City::get();
 
-    return view('manage.userInformation.index', compact('addresses', 'user', 'today', 'year', 'provinces', 'cities'));
+    return view('manage.userInformation.address', compact('addresses', 'user', 'today', 'year', 'provinces', 'cities'));
   }
+
+  public function transaction()
+  {
+    $user = Auth::user();
+    $orders = Orders::where('user_id', $user->id)->get();
+    $today = Carbon::today('Asia/Jakarta')->toDateString();
+    $year_now = Carbon::today()->year;
+    $year = $year_now - 100;
+
+    return view('manage.userInformation.transaction', compact('orders', 'user', 'today' ,'year'));
+  }
+
+  public function transactionDetail(Orders $order, $code)
+  {
+    $user = Auth::user();
+    $orders = Orders::where('id', $code)->first();
+    $products = ProductOrder::where('order_id', $code)->get();
+    $today = Carbon::today('Asia/Jakarta')->toDateString();
+    $year_now = Carbon::today()->year;
+    $year = $year_now - 100;
+
+    return view('manage.userInformation.transaction-detail', compact('orders', 'user', 'products', 'today' ,'year'));
+  }
+
 
   /**
    * Show the form for creating a new resource.

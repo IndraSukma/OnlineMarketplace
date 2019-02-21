@@ -318,7 +318,7 @@ class ProductController extends Controller
   public function indexFront()
   {
     $products = Product::orderBy('created_at', 'desc')->paginate(20);
-    
+
     if (Auth::check()) {
       $user = Auth::user();
       $cart = Cart::where('user_id', $user->id)->first();
@@ -372,7 +372,7 @@ class ProductController extends Controller
       return response('Item is already in the cart');
     } else {
       $product_price = Product::where('id', $request->product_id)->value('price');
-      
+
       $cart = new Cart;
       $cart->user_id = $user->id;
       $cart->product_id = $request->product_id;
@@ -398,6 +398,18 @@ class ProductController extends Controller
       ['user_id', $user->id],
       ['product_id', $request->product_id]
     ])->update($updateDetails);
+
+    return response('Success');
+  }
+
+  public function updateNotes(Request $request)
+  {
+    $user = Auth::user();
+
+    Cart::where([
+      ['user_id', $user->id],
+      ['product_id', $request->product_id]
+    ])->update(['note' => $request->note]);
 
     return response('Success');
   }
@@ -438,22 +450,5 @@ class ProductController extends Controller
     ])->delete();
 
     return response('Item has been removed from the wish list.');
-  }
-
-  public function json()
-  {
-    $products = Product::query();
-
-    return DataTables::of($products)
-                     ->addColumn('action', function($products){
-                        return '
-                          <center>
-                            <a href="{{route('."products.show".', $product->id)}}" class="btn btn-primary mx-0"> Show</a>
-                            <a href="#edit-'.$products->id.'" class="btn btn-warning mx-0"> Edit</a>
-                            <a href="#edit-'.$products->id.'" class="btn btn-danger mx-0"> Delete</a>
-                          </center>
-                        ';
-                      })
-                     ->make(true);
   }
 }

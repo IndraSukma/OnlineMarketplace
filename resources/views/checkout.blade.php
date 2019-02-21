@@ -94,6 +94,16 @@
                           </tr>
                         </thead>
                       </table>
+                      <table class="table table-sm">
+                        <thead>
+                          <tr>
+                            <div class="form-group d-none">
+                              <label for="coupon">Coupon</label>
+                              <input type="email" class="form-control" id="coupon">
+                            </div>
+                          </tr>
+                        </thead>
+                      </table>
                     </div>
                   </div>
                   <div class="row px-2">
@@ -109,7 +119,7 @@
                     </div>
                   </div>
                   <hr>
-                  <button type="button" class="btn peach-gradient w-100" name="button">Place Order</button>
+                  <button id="processOrder" type="button" class="btn peach-gradient w-100" name="button">Place Order</button>
                 </div>
               </div>
             </div>
@@ -132,10 +142,6 @@
       	var angkarev = angka.toString().split('').reverse().join('');
       	for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
       	return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('');
-      }
-
-      function setCheckoutPrice(a) {
-        var checkoutPrice = a;
       }
 
       var totalprice = {{$cart->sum('subtotal')}};
@@ -188,13 +194,44 @@
               var subtotal = parseInt(response) + parseInt(totalprice);
               $('.shipping-cost').html('<strong>'+ convertToRupiah(response) +',00</strong>');
               $('#subTotal').html('<span>'+convertToRupiah(subtotal)+',00</span>');
-              checkoutPrice = subtotal;
 
-              console.log(checkoutPrice);
+              function setCheckoutprice() {
+                if(subtotal != null){
+                  checkoutPrice = subtotal;
+                }
+              }
+
+              setCheckoutprice();
             }
           });
         });
       @endforeach
+
+      $('#processOrder').click(function () {
+        var csrf_token = '{{ csrf_token() }}';
+        var address = $('#address-id').text();
+
+        if (checkoutPrice == null) {
+          iziToast.show({
+            message: 'Please select your Address',
+            position: 'bottomCenter',
+            color: 'red',
+          });
+        } else {
+          $.ajax({
+            type: 'POST',
+            url: '{{ route('processOrder') }}',
+            data: {
+              '_token': csrf_token,
+              'address_id': address,
+              'total_price': checkoutPrice,
+            },
+            success: function(response) {
+              window.location.replace('{{ route('manage.transaction') }}');
+            }
+          });
+        }
+      });
     });
   </script>
 @endsection

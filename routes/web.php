@@ -16,6 +16,7 @@ Route::get('/search', 'ProductController@search')->name('products.search');
 Route::post('/addToCart', 'ProductController@addToCart')->name('products.addToCart');
 Route::post('/addToWishlist', 'ProductController@addToWishlist')->name('products.addToWishlist');
 Route::post('/updateQuantity', 'ProductController@updateQuantity')->name('products.updateQuantity');
+Route::post('/updateNotes', 'ProductController@updateNotes')->name('products.updateNotes');
 Route::delete('/removeFromCart', 'ProductController@removeFromCart')->name('products.removeFromCart');
 Route::delete('/removeFromWishlist', 'ProductController@removeFromWishlist')->name('products.removeFromWishlist');
 
@@ -32,10 +33,14 @@ Route::prefix('manage')
 		 ->middleware('role:superadministrator|administrator|user')
 		 ->group(function () {
   Route::get('/dashboard', 'PageController@dashboard')->name('dashboard');
-  Route::resource('/user', 'UserController')->only('index', 'edit', 'update');
+  Route::get('user/address', 'UserController@address')->name('manage.address');
+  Route::get('user/transaction', 'UserController@transaction')->name('manage.transaction');
+  Route::get('user/transaction/{code}', 'UserController@transactionDetail')->name('manage.transactionDetail');
+  Route::resource('/user', 'UserController')->only('index', 'address', 'edit', 'update');
   Route::resource('/address', 'AddressController');
   Route::resource('/products', 'ProductController');
   Route::resource('/productCategories', 'ProductCategoryController');
+  Route::resource('/paymentOrders', 'OrderPaymentController');
 });
 
 // JSON
@@ -47,6 +52,9 @@ Route::get('/getProvince', 'PageController@getProvince')->name('getProvince');
 Route::get('/getCity', 'PageController@getCity')->name('getCity');
 Route::get('/checkShipping', 'PageController@getShippingCost')->name('checkShipping');
 Route::post('/processShipping', 'PageController@processShipping')->name('processShipping');
+
+// Place mb_detect_order
+Route::post('/processOrder', 'PageController@processOrder')->name('processOrder');
 
 // Address Data
 Route::get('/city', function (){

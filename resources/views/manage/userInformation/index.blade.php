@@ -11,12 +11,13 @@
 					<div class="card-body">
 						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 						  <li class="nav-item">
-						    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-						      aria-controls="pills-home" aria-selected="true">Profile</a>
+						    <a class="nav-link active" href="{{ route('user.index') }}">Profile</a>
 						  </li>
 						  <li class="nav-item ml-2">
-						    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-						      aria-controls="pills-profile" aria-selected="false">Address List</a>
+						    <a class="nav-link" href="{{ route('manage.address') }}">Address List</a>
+						  </li>
+							<li class="nav-item ml-2">
+						    <a class="nav-link" href="{{ route('manage.transaction') }}">Transaction List</a>
 						  </li>
 						</ul>
 						<hr>
@@ -148,9 +149,6 @@
 		</div>
 
 		@include('_extends.user-edit')
-		@include('_extends.address-add')
-		@include('_extends.address-edit')
-		@include('_extends.address-delete')
 	</div>
 @endsection
 
