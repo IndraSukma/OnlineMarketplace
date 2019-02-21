@@ -6,29 +6,28 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCitiesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('cities', function (Blueprint $table) {
-            $table->integer('id')->unsigned();
-            $table->primary('id');
-            $table->string('name');
-            $table->integer('province_id')->unsigned();
-            $table->timestamps();
-        });
-    }
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::create('cities', function (Blueprint $table) {
+      $table->unsignedInteger('id')->primary();
+      $table->string('name');
+      $table->unsignedInteger('province_id');
+      $table->timestamps();
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('cities');
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('cities');
+  }
 }

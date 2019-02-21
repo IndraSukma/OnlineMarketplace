@@ -12,7 +12,7 @@
 							<h4 class="card-title">Product Data</h4>
 						</div>
 						<div class="col">
-							<button id="btnAdd" class="btn btn-primary float-right" type="button">Add Item</button>
+							<button id="btnAdd" class="btn btn-primary float-right" data-toggle="modal" data-target="#modalAdd">Add Item</button>
 						</div>
 					</div>
 				  <div class="card-body p-0">
@@ -46,24 +46,30 @@
 				            <td class="text-dark">{{ $product->created_at->toFormattedDateString() }}</td>
 				            <td>
 				              <div class="d-flex justify-content-center">
-				                <button class="btnShow btn btn-primary" 
+				                <button class="btnShow btn btn-primary" data-toggle="modal" data-target="#modalShow" 
 				                				data-name="{{ $product->name }}" 
-				                				data-stock="{{ $product->stock }}" 
-				                				data-views="{{ $product->views }}" 
 				                				data-category="{{ is_null($product->category_id) ? 'Uncategorized' : $product->category->name }}" 
 				                				data-condition="{{ $product->condition }}" 
 				                				data-price="{{ $product->price }}" 
-				                				data-description="{{ $product->description }}">Show</button>
-				                <button class="btnEdit btn btn-warning mx-1"
-				                				data-id="{{ $product->id }}" 
-				                				data-name="{{ $product->name }}" 
+				                				data-weight="{{ $product->weight }}" 
 				                				data-stock="{{ $product->stock }}" 
 				                				data-views="{{ $product->views }}" 
+				                				data-description="{{ $product->description }}" 
+				                				data-thumbnail="{{ $product->thumbnail }}" 
+				                				data-images="{{ $product->images }}">Show</button>
+				                <button class="btnEdit btn btn-warning mx-1" data-toggle="modal" data-target="#modalEdit" 
+				                				data-id="{{ $product->id }}" 
+				                				data-name="{{ $product->name }}" 
 				                				data-category="{{ $product->category_id }}" 
 				                				data-condition="{{ $product->condition }}" 
 				                				data-price="{{ $product->price }}" 
-				                				data-description="{{ $product->description }}">Edit</button>
-				                <button class="btnDelete btn btn-danger" data-id="{{ $product->id }}">Delete</button>
+				                				data-weight="{{ $product->weight }}" 
+				                				data-stock="{{ $product->stock }}" 
+				                				data-views="{{ $product->views }}" 
+				                				data-description="{{ $product->description }}" 
+				                				data-thumbnail="{{ $product->thumbnail }}" 
+				                				data-images="{{ $product->images }}">Edit</button>
+				                <button class="btnDelete btn btn-danger" data-toggle="modal" data-target="#modalDelete"  data-id="{{ $product->id }}">Delete</button>
 				              </div>
 				            </td>
 				          </tr>
@@ -72,26 +78,37 @@
 				    </table>
 				  </div>
 
-					@include('_extends.product-add')
-					@include('_extends.product-show')
-					@include('_extends.product-edit')
-					@include('_extends.delete')
 				</div>
+				@include('_extends.product-add')
+				@include('_extends.product-show')
+				@include('_extends.product-edit')
+				@include('_extends.delete')
+				@include('_extends.product-cropper')
       </div>
     </div>
   </div>
 @endsection
 
+@section('styles')
+  <link rel="stylesheet" href="{{ asset('css/main/cropper.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/main/animate.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/product-image.css') }}">
+@endsection
+
 @section('scripts')
-	<script>
+	<script src="{{ asset('js/main/cropper.min.js') }}"></script>
+  <script src="{{ asset('js/main/jquery-cropper.min.js') }}"></script>
+  <script src="{{ asset('js/productManagement.js') }}"></script>
+	{{-- <script>
     $(document).ready(function () {
-      // Modal
+    	// Modal
       var modal = new tingle.modal();
 
       // Add Product
       $('#btnAdd').click(function() {
         var content = $('#modalAdd').html();
         modal.setContent(content);
+
         modal.open();
       });
 
@@ -142,9 +159,9 @@
       // $('#btnClose').click(function() {
       //   modal.close();
       // });
-
+      
       // Datatables
       $('#products-table').DataTable();
     });
-  </script>
+  </script> --}}
 @endsection

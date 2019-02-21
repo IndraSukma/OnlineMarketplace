@@ -40,15 +40,13 @@ Route::prefix('manage')
 
 // JSON
 Route::get('/productsJson', 'ProductController@json');
-Route::get('/provencesJson', 'AddressController@provencesJson')->name('json.provences');
+Route::get('/provincesJson', 'AddressController@provincesJson')->name('json.provinces');
 
 // Get Rajaongkir
 Route::get('/getProvince', 'PageController@getProvince')->name('getProvince');
 Route::get('/getCity', 'PageController@getCity')->name('getCity');
 Route::get('/checkShipping', 'PageController@getShippingCost')->name('checkShipping');
 Route::post('/processShipping', 'PageController@processShipping')->name('processShipping');
-
-
 
 // Address Data
 Route::get('/city', function (){

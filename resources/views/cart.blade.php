@@ -49,18 +49,18 @@
                         <div class="detail flex-fill">
                           <div class="row">
                             <div class="col-2">
-                              <img src="{{ asset('img/user.jpg') }}" alt="{{ $cartItem->product->name }}" class="w-100">
+                              @if (!empty($cartItem->product->thumbnail))
+                                <img src="{{ asset('img/product-thumbnail/'.$cartItem->product->thumbnail) }}" alt="{{ $cartItem->product->name }}" class="w-100">
+                              @else
+                                <img src="{{ asset('img/product-thumbnail/image-not-found.png') }}" alt="{{ $cartItem->product->name }}" class="w-100">
+                              @endif
                             </div>
                             <div class="col px-0 mr-5">
                               <div class="d-flex justify-content-between">
                                 <a href="{{ route('products.detail', $cartItem->product->slug) }}">
                                   <h5 class="font-weight-bold m-0">{{ $cartItem->product->name }}</h5>
                                 </a>
-<<<<<<< HEAD
-                                <p>Rp. <span class="text-right m-0" id="item-price{{$cartItem->id}}">{{number_format($cartItem->amount_of_item * $cartItem->product->price,2,',','.')}}</span></p>
-=======
                                 <p>Rp. <span class="multiplePrice">{{ number_format($cartItem->amount_of_item * $cartItem->product->price, 2, ',', '.') }}</span></p>
->>>>>>> 3ea2d4e1cec5fc5701627e08b5a1430a22811f6e
                               </div>
                               <div class="row">
                                 <div class="col-lg-4">

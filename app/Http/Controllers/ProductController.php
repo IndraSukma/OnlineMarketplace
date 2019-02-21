@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Image;
+use DataTables;
+use File;
 use Session;
+use Auth;
 use App\Cart;
 use App\Wishlist;
 use App\ProductCategory;
 use App\Product;
-use DataTables;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -20,7 +22,7 @@ class ProductController extends Controller
    */
   public function index()
   {
-    $products = Product::orderBy('id', 'asc')->get();
+    $products = Product::orderBy('id')->get();
     $productCategories = ProductCategory::orderBy('name')->get();
 
     return view('manage.products.index', compact('products', 'productCategories'));
@@ -52,9 +54,10 @@ class ProductController extends Controller
       'description' => 'required',
       'category'    => 'required',
       'condition'   => 'required',
-      'stock'       => 'required|numeric'
+      'stock'       => 'required|numeric',
+      'weight'       => 'required|numeric'
     ]);
-
+    
     $slug = str_replace(' ', '-', $request->name);
 
     $product = new Product;
@@ -65,6 +68,75 @@ class ProductController extends Controller
     $product->category_id = $request->category;
     $product->condition = $request->condition;
     $product->stock = $request->stock;
+    $product->weight = $request->weight;
+    
+    // thumbnail
+    if (!empty($request->product_thumbnail)) {
+      $thumbnail = $request->product_thumbnail;
+      $imageNameArray = [];
+      
+      $file          = Image::canvas(250, 250, '#fff');
+      $thumbnail     = Image::make($thumbnail);
+      $width         = $thumbnail->width();
+      $height        = $thumbnail->height();
+      $mime          = explode('/', $thumbnail->mime());
+      $extension     = $mime[1];
+      $thumbnailName = time() . '.' . $extension;
+      $location      = public_path('img/product-thumbnail/' . $thumbnailName);
+
+      if ($width > $height) {
+        $thumbnail->resize(250, null, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+      } elseif ($width < $height) {
+        $thumbnail->resize(null, 250, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+      } elseif ($width = $height) {
+        $thumbnail->resize(250, 250);
+      }
+
+      $thumbnail->resizeCanvas(250, 250, 'center', false, 'fff');
+      $file->fill($thumbnail)->save($location);
+
+      $product->thumbnail = $thumbnailName;
+    }
+
+    // images
+    if (!empty($request->product_images)) {
+      $images = json_decode($request->product_images);
+      $i = 0;
+
+      foreach ($images as $image) {
+        $file      = Image::canvas(500, 500, '#fff');
+        $image     = Image::make($image);
+        $width     = $image->width();
+        $height    = $image->height();
+        $mime      = explode('/', $image->mime());
+        $extension = $mime[1];
+        $imageName = time() . $i++ . '.' . $extension;
+        $location  = public_path('img/product-img/' . $imageName);
+
+        if ($width > $height) {
+          $image->resize(500, null, function ($constraint) {
+            $constraint->aspectRatio();
+          });
+        } elseif ($width < $height) {
+          $image->resize(null, 500, function ($constraint) {
+            $constraint->aspectRatio();
+          });
+        } elseif ($width = $height) {
+          $image->resize(500, 500);
+        }
+
+        $imageNameArray[] = $imageName;
+        $image->resizeCanvas(500, 500, 'center', false, 'fff');
+        $file->fill($image)->save($location);
+      }
+
+      $product->images = json_encode($imageNameArray);
+    }
+
     $product->save();
 
     Session::flash('success', 'Produk berhasil ditambahkan.');
@@ -111,7 +183,8 @@ class ProductController extends Controller
       'description' => 'required',
       'category'    => 'required',
       'condition'   => 'required',
-      'stock'       => 'required|numeric'
+      'stock'       => 'required|numeric',
+      'weight'       => 'required|numeric'
     ]);
 
     $slug = str_replace(' ', '-', $request->name);
@@ -123,6 +196,92 @@ class ProductController extends Controller
     $product->category_id = $request->category;
     $product->condition = $request->condition;
     $product->stock = $request->stock;
+    $product->weight = $request->weight;
+
+    // thumbnail
+    if (!empty($request->product_thumbnail)) {
+      $thumbnail = $request->product_thumbnail;
+      $imageNameArray = [];
+      
+      $file          = Image::canvas(250, 250, '#fff');
+      $thumbnail     = Image::make($thumbnail);
+      $width         = $thumbnail->width();
+      $height        = $thumbnail->height();
+      $mime          = explode('/', $thumbnail->mime());
+      $extension     = $mime[1];
+      $thumbnailName = time() . '.' . $extension;
+      $location      = public_path('img/product-thumbnail/' . $thumbnailName);
+
+      if ($width > $height) {
+        $thumbnail->resize(250, null, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+      } elseif ($width < $height) {
+        $thumbnail->resize(null, 250, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+      } elseif ($width = $height) {
+        $thumbnail->resize(250, 250);
+      }
+
+      $thumbnail->resizeCanvas(250, 250, 'center', false, 'fff');
+      $file->fill($thumbnail)->save($location);
+
+      // Delete old Thumbnail
+      if ($product->thumbnail != null) {
+        $thumbnailName = $product->thumbnail;
+        $thumbnailFile = public_path('img/product-thumbnail/' . $thumbnailName);
+        File::delete($thumbnailFile);
+      }
+
+      $product->thumbnail = $thumbnailName;
+    }
+
+    // images
+    if (!empty($request->product_images)) {
+      $images = json_decode($request->product_images);
+      $i = 0;
+
+      foreach ($images as $image) {
+        $file      = Image::canvas(500, 500, '#fff');
+        $image     = Image::make($image);
+        $width     = $image->width();
+        $height    = $image->height();
+        $mime      = explode('/', $image->mime());
+        $extension = $mime[1];
+        $imageName = time() . $i++ . '.' . $extension;
+        $location  = public_path('img/product-img/' . $imageName);
+
+        if ($width > $height) {
+          $image->resize(500, null, function ($constraint) {
+            $constraint->aspectRatio();
+          });
+        } elseif ($width < $height) {
+          $image->resize(null, 500, function ($constraint) {
+            $constraint->aspectRatio();
+          });
+        } elseif ($width = $height) {
+          $image->resize(500, 500);
+        }
+
+        $imageNameArray[] = $imageName;
+        $image->resizeCanvas(500, 500, 'center', false, 'fff');
+        $file->fill($image)->save($location);
+      }
+
+      // Delete old Images
+      if ($product->images != null) {
+        $imageNames = json_decode($product->images);
+
+        foreach ($imageNames as $imageName) {
+          $imageFile = public_path('img/product-img/' . $imageName);
+          File::delete($imageFile);
+        }
+      }
+
+      $product->images = json_encode($imageNameArray);
+    }
+
     $product->save();
 
     Session::flash('success', 'Produk berhasil diubah.');
@@ -138,6 +297,17 @@ class ProductController extends Controller
    */
   public function destroy(Product $product)
   {
+    $thumbnailName = $product->thumbnail;
+    $imageNames = json_decode($product->images);
+
+    $thumbnailFile = public_path('img/product-thumbnail/' . $thumbnailName);
+    File::delete($thumbnailFile);
+
+    foreach ($imageNames as $imageName) {
+      $imageFile = public_path('img/product-img/' . $imageName);
+      File::delete($imageFile);
+    }
+
     $product->delete();
 
     Session::flash('success', 'Produk Berhasil dihapus.');
@@ -163,6 +333,7 @@ class ProductController extends Controller
   public function detail(Product $product, $slug)
   {
     $product = Product::where('slug', $slug)->first();
+    $product_images = json_decode($product->images);
     $relatedProducts = Product::orderBy('created_at', 'desc')->limit(4)->get();
 
     if (Auth::check()) {
@@ -173,7 +344,7 @@ class ProductController extends Controller
       $wishlist_array = Wishlist::where('user_id', $user->id)->pluck('product_id')->toArray();
     }
 
-    return view('productDetail', compact('product', 'relatedProducts', 'cart', 'wishlist', 'wishlist_array'));
+    return view('productDetail', compact('product', 'product_images', 'relatedProducts', 'cart', 'wishlist', 'wishlist_array'));
   }
 
   public function search(Request $request)

@@ -123,7 +123,7 @@
 																				data-phone="{{ $address->phone }}"
 																				data-address-name="{{ $address->address_name }}"
 																				data-zip-code="{{ $address->zip_code }}"
-																				data-provence="{{ $address->province_id }}"
+																				data-province="{{ $address->province_id }}"
 																				data-city="{{ $address->city_id }}"
 																				data-sub-district="{{ $address->sub_district }}"
 																				data-complete-address="{{ $address->complete_address }}"
@@ -157,7 +157,7 @@
 @section('scripts')
 	<script>
     $(document).ready(function () {
-			$('#provence').on('change', function(e) {
+			$('#province').on('change', function(e) {
 				console.log(e);
 				var province_id = e.target.value;
 
@@ -176,14 +176,14 @@
         $('#modalEditAddress #phone').val($(this).data('phone'));
         $('#modalEditAddress #address_name').val($(this).data('address-name'));
         $('#modalEditAddress #zip_code').val($(this).data('zip-code'));
-        $('#modalEditAddress #provence').val($(this).data('provence'));
+        $('#modalEditAddress #province').val($(this).data('province'));
         $('#modalEditAddress #city').val($(this).data('city'));
         $('#modalEditAddress #sub_district').val($(this).data('sub-district'));
         $('#modalEditAddress #complete_address').val($(this).data('complete-address'));
         $('#modalEditAddress #additional_info').val($(this).data('additional-info'));
 
 				// Modal City Option
-				$('#modalEditAddress #provence').on('change', function(e) {
+				$('#modalEditAddress #province').on('change', function(e) {
 					console.log(e);
 					var province_id = e.target.value;
 					$.get('/city?province_id=' + province_id, function (data) {

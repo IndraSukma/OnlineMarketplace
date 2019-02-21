@@ -14,7 +14,7 @@ class AddWeightToProducts extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->unsignedInteger('weight')->after('stock');
+            $table->unsignedInteger('weight')->after('stock')->default(0);
         });
     }
 
@@ -26,7 +26,7 @@ class AddWeightToProducts extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('weight')->default(0);
+            $table->dropColumn('weight');
         });
     }
 }

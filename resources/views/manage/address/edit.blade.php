@@ -59,16 +59,16 @@
               </div>
 
               <div class="form-group col col-md-4">
-                <label for="provence">Provinsi</label>
-                <select name="provence" id="provence" class="form-control{{ $errors->has('provence') ? ' is-invalid' : '' }}" required>
+                <label for="province">Provinsi</label>
+                <select name="province" id="province" class="form-control{{ $errors->has('province') ? ' is-invalid' : '' }}" required>
                   <option selected disabled>Pilih Provinsi</option>
-                  <option value="Provinsi 1" {{ $address->provence == 'Provinsi 1' ? 'selected' : '' }}>Provinsi 1</option>
-                  <option value="Provinsi 2" {{ $address->provence == 'Provinsi 2' ? 'selected' : '' }}>Provinsi 2</option>
-                  <option value="Provinsi 3" {{ $address->provence == 'Provinsi 3' ? 'selected' : '' }}>Provinsi 3</option>
+                  <option value="Provinsi 1" {{ $address->province == 'Provinsi 1' ? 'selected' : '' }}>Provinsi 1</option>
+                  <option value="Provinsi 2" {{ $address->province == 'Provinsi 2' ? 'selected' : '' }}>Provinsi 2</option>
+                  <option value="Provinsi 3" {{ $address->province == 'Provinsi 3' ? 'selected' : '' }}>Provinsi 3</option>
                 </select>
-                @if ($errors->has('provence'))
+                @if ($errors->has('province'))
                   <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('provence') }}</strong>
+                    <strong>{{ $errors->first('province') }}</strong>
                   </span>
                 @endif
               </div>

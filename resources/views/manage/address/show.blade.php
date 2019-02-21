@@ -49,7 +49,7 @@
               <div class="col col-md-4">
                 <dl>
                   <dt>Provinsi</dt>
-                  <dd>{{ $address->provence }}</dd>
+                  <dd>{{ $address->province }}</dd>
                 </dl>
               </div>
               <div class="col col-md-4">

@@ -53,7 +53,11 @@
 
               <!--Card image-->
               <div class="view view-cascade">
-                <img src="{{ asset('img/user.jpg') }}" class="card-img-top" alt="">
+                @if (!empty($product->thumbnail))
+                  <img src="{{ asset('img/product-thumbnail/' . $product->thumbnail) }}" class="card-img-top" alt="{{ $product->name }}">
+                @else
+                  <img src="{{ asset('img/product-thumbnail/image-not-found.png') }}" class="card-img-top" alt="{{ $product->name }}">
+                @endif
                 <a>
                   <div class="mask rgba-white-slight"></div>
                 </a>

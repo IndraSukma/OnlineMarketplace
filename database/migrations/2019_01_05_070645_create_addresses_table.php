@@ -21,7 +21,7 @@ class CreateAddressesTable extends Migration
       $table->string('complete_address');
       $table->unsignedInteger('province_id');
       $table->unsignedInteger('city_id');
-      //$table->string('provence');
+      //$table->string('province');
       //$table->string('city');
       $table->string('sub_district');
       $table->string('additional_info')->nullable();
@@ -29,8 +29,8 @@ class CreateAddressesTable extends Migration
       $table->timestamps();
 
       $table->foreign('user_id')
-      ->references('id')->on('users')
-      ->onDelete('cascade');      
+            ->references('id')->on('users')
+            ->onDelete('cascade');
     });
   }
 

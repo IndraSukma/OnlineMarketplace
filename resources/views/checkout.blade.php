@@ -124,83 +124,35 @@
 @endsection
 
 @section('script')
-<<<<<<< HEAD
-<script>
-$(document).ready(function () {
-  function convertToRupiah(angka)
-  {
-  	var rupiah = '';
-  	var angkarev = angka.toString().split('').reverse().join('');
-  	for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
-  	return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('');
-  }
-
-  function setCheckoutPrice(a) {
-    var checkoutPrice = a;
-  }
-
-  var totalprice = {{$cart->sum('subtotal')}};
-  var checkoutPrice;
-
-  $('#provence').on('change', function(e) {
-    console.log(e);
-    var province_id = e.target.value;
-
-    $.get('/city?province_id=' + province_id, function (data) {
-      $('#city').empty();
-      $.each(data, function (index, cityObj) {
-        $('#city').append('<option value="'+cityObj.id+'">'+cityObj.name+'</option>');
-      });
-    });
-  });
-
-  @foreach($addresses as $a)
-  $('#select-address-{{$a->id}}').click(function () {
-    var contentStr = '';
-    contentStr += '<span class="d-none" id="address-id">{{$a->id}}</span>';
-    contentStr += '<span class="font-weight-bold" id="recepient-name">{{$a->full_name}}</span><br>';
-    contentStr += '<span id="address-name">{{$a->address_name}}</span><br>';
-    contentStr += '<span class="mt-5" id="complete-address">{{$a->complete_address}}. </span><span id="additional-info">{{$a->additional_info}}</span><br>';
-    contentStr += '<span id="sub-district">{{$a->sub_district}}, </span>';
-    contentStr += '<span class="city" id="{{$a->city->id}}">{{$a->city->name}}</span><br>';
-    contentStr += '<span class="province" id="{{$a->province->id}}">{{$a->province->name}}, </span>';
-    contentStr += '<span id="zip-code">{{$a->zip_code}}</span><br>';
-    contentStr += '<span id="phone">{{$a->phone}}</span>';
-    $('#address-info').html(contentStr);
-    $('#recepient').text('{{$a->full_name}}');
-
-    var csrf_token = '{{ csrf_token() }}';
-    var origin = '107';
-    var destination = $('.city').attr('id');
-    var weight = '1700';
-    var courier = 'pos';
-
-    $.ajax({
-      type: 'post',
-      url: '{{ route('processShipping') }}',
-      data: {
-        '_token': csrf_token,
-        'origin': origin,
-        'destination': destination,
-        'weight': weight,
-        'courier': courier,
-      },
-      success: function(response) {
-        var subtotal = parseInt(response) + parseInt(totalprice);
-        $('.shipping-cost').html('<strong>'+ convertToRupiah(response) +',00</strong>');
-        $('#subTotal').html('<span>'+convertToRupiah(subtotal)+',00</span>');
-        checkoutPrice = subtotal;
-
-        console.log(checkoutPrice);
-      }
-    });
-  });
-  @endforeach
-});
-</script>
-=======
   <script>
     $(document).ready(function () {
+      function convertToRupiah(angka)
+      {
+      	var rupiah = '';
+      	var angkarev = angka.toString().split('').reverse().join('');
+      	for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
+      	return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('');
+      }
+
+      function setCheckoutPrice(a) {
+        var checkoutPrice = a;
+      }
+
+      var totalprice = {{$cart->sum('subtotal')}};
+      var checkoutPrice;
+
+      $('#province').on('change', function(e) {
+        console.log(e);
+        var province_id = e.target.value;
+
+        $.get('/city?province_id=' + province_id, function (data) {
+          $('#city').empty();
+          $.each(data, function (index, cityObj) {
+            $('#city').append('<option value="'+cityObj.id+'">'+cityObj.name+'</option>');
+          });
+        });
+      });
+
       @foreach($addresses as $a)
         $('#select-address-{{$a->id}}').click(function () {
           var contentStr = '';
@@ -209,15 +161,40 @@ $(document).ready(function () {
           contentStr += '<span id="address-name">{{$a->address_name}}</span><br>';
           contentStr += '<span class="mt-5" id="complete-address">{{$a->complete_address}}. </span><span id="additional-info">{{$a->additional_info}}</span><br>';
           contentStr += '<span id="sub-district">{{$a->sub_district}}, </span>';
-          contentStr += '<span id="city">{{$a->city}}</span><br>';
-          contentStr += '<span id="provence">{{$a->provence}}, </span>';
+          contentStr += '<span class="city" id="{{$a->city->id}}">{{$a->city->name}}</span><br>';
+          contentStr += '<span class="province" id="{{$a->province->id}}">{{$a->province->name}}, </span>';
           contentStr += '<span id="zip-code">{{$a->zip_code}}</span><br>';
           contentStr += '<span id="phone">{{$a->phone}}</span>';
           $('#address-info').html(contentStr);
           $('#recepient').text('{{$a->full_name}}');
+
+          var csrf_token = '{{ csrf_token() }}';
+          var origin = '107';
+          var destination = $('.city').attr('id');
+          var weight = '1700';
+          var courier = 'pos';
+
+          $.ajax({
+            type: 'post',
+            url: '{{ route('processShipping') }}',
+            data: {
+              '_token': csrf_token,
+              'origin': origin,
+              'destination': destination,
+              'weight': weight,
+              'courier': courier,
+            },
+            success: function(response) {
+              var subtotal = parseInt(response) + parseInt(totalprice);
+              $('.shipping-cost').html('<strong>'+ convertToRupiah(response) +',00</strong>');
+              $('#subTotal').html('<span>'+convertToRupiah(subtotal)+',00</span>');
+              checkoutPrice = subtotal;
+
+              console.log(checkoutPrice);
+            }
+          });
         });
       @endforeach
     });
   </script>
->>>>>>> 3ea2d4e1cec5fc5701627e08b5a1430a22811f6e
 @endsection
