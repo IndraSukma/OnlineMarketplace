@@ -59,16 +59,16 @@
                 </div>
 
                 <div class="form-group col col-md-12">
-                  <label for="provence">Provinsi</label>
-                  <select type="text" name="provence" id="provence" class="selectpicker form-control{{ $errors->has('provence') ? ' is-invalid' : '' }}" required>
+                  <label for="province">Provinsi</label>
+                  <select type="text" name="province" id="province" class="selectpicker form-control{{ $errors->has('province') ? ' is-invalid' : '' }}" required>
                     <option selected disabled>Pilih Provinsi</option>
-                    @foreach($provinces as $provence)
-                    <option value="{{$provence->id}}">{{$provence->name}}</option>
+                    @foreach($provinces as $province)
+                    <option value="{{$province->id}}">{{$province->name}}</option>
                     @endforeach
                   </select>
-                  @if ($errors->has('provence'))
+                  @if ($errors->has('province'))
                     <span class="invalid-feedback" role="alert">
-                      <strong>{{ $errors->first('provence') }}</strong>
+                      <strong>{{ $errors->first('province') }}</strong>
                     </span>
                   @endif
                 </div>

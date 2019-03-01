@@ -58,16 +58,16 @@
               </div>
 
               <div class="form-group col col-md-4">
-                <label for="provence">Provinsi</label>
-                <select name="provence" id="provence" class="form-control{{ $errors->has('provence') ? ' is-invalid' : '' }}" required>
+                <label for="province">Provinsi</label>
+                <select name="province" id="province" class="form-control{{ $errors->has('province') ? ' is-invalid' : '' }}" required>
                   <option selected disabled>Pilih Provinsi</option>
                   <option value="Provinsi 1">Provinsi 1</option>
                   <option value="Provinsi 2">Provinsi 2</option>
                   <option value="Provinsi 3">Provinsi 3</option>
                 </select>
-                @if ($errors->has('provence'))
+                @if ($errors->has('province'))
                   <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('provence') }}</strong>
+                    <strong>{{ $errors->first('province') }}</strong>
                   </span>
                 @endif
               </div>

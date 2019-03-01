@@ -46,7 +46,7 @@ Route::prefix('manage')
 
 // JSON
 Route::get('/productsJson', 'ProductController@json');
-Route::get('/provencesJson', 'AddressController@provencesJson')->name('json.provences');
+Route::get('/provincesJson', 'AddressController@provincesJson')->name('json.provinces');
 
 // Get Rajaongkir
 Route::get('/getProvince', 'PageController@getProvince')->name('getProvince');
@@ -56,8 +56,6 @@ Route::post('/processShipping', 'PageController@processShipping')->name('process
 
 // Place mb_detect_order
 Route::post('/processOrder', 'PageController@processOrder')->name('processOrder');
-
-
 
 // Address Data
 Route::get('/city', function (){

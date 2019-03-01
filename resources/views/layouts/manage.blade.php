@@ -7,7 +7,7 @@
     <title>@yield('title') | Marketplace</title>
     {{-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css"> --}}
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/main/materialdesignicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/mdb.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main/style.css') }}">

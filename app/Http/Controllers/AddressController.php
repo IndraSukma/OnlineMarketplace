@@ -60,7 +60,7 @@ class AddressController extends Controller
       'full_name'        => 'required|string|max:255',
       'address_name'     => 'required|string|max:255',
       'complete_address' => 'required|string|max:255',
-      'provence'         => 'required',
+      'province'         => 'required',
       'city'             => 'required',
       'sub_district'     => 'required',
       'zip_code'         => 'required|numeric',
@@ -72,7 +72,7 @@ class AddressController extends Controller
     $address->full_name        = $request->full_name;
     $address->address_name     = $request->address_name;
     $address->complete_address = $request->complete_address;
-    $address->province_id      = $request->provence;
+    $address->province_id      = $request->province;
     $address->city_id          = $request->city;
     $address->sub_district     = $request->sub_district;
     $address->zip_code         = $request->zip_code;
@@ -123,7 +123,7 @@ class AddressController extends Controller
       'full_name'        => 'required|string|max:255',
       'address_name'     => 'required|string|max:255',
       'complete_address' => 'required|string|max:255',
-      'provence'         => 'required',
+      'province'         => 'required',
       'city'             => 'required',
       'sub_district'     => 'required',
       'zip_code'         => 'required|numeric',
@@ -133,7 +133,7 @@ class AddressController extends Controller
     $address->full_name        = $request->full_name;
     $address->address_name     = $request->address_name;
     $address->complete_address = $request->complete_address;
-    $address->province_id      = $request->provence;
+    $address->province_id      = $request->province;
     $address->city_id          = $request->city;
     $address->sub_district     = $request->sub_district;
     $address->zip_code         = $request->zip_code;
@@ -173,7 +173,7 @@ class AddressController extends Controller
     return view('manage.address.index', compact('addresses'));
   }
 
-  public function provencesJson()
+  public function provincesJson()
   {
     $provinces = Provinces::select('name');
 

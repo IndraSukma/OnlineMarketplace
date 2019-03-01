@@ -59,7 +59,11 @@
 
                 <!--Card image-->
                 <div class="view view-cascade">
-                  <img src="{{ asset('img/user.jpg') }}" class="card-img-top" alt="">
+                  @if (empty($wish->product->thumbnail) || !file_exists('img/product-thumbnail/' . $wish->product->thumbnail))
+                    <img src="{{ asset('img/product-thumbnail/image-not-found.png') }}" class="card-img-top" alt="{{ $wish->product->name }}">
+                  @else
+                    <img src="{{ asset('img/product-thumbnail/' . $wish->product->thumbnail) }}" class="card-img-top" alt="{{ $wish->product->name }}">
+                  @endif
                   <a href="{{ route('products.detail', $wish->product->slug) }}">
                     <div class="mask rgba-white-slight"></div>
                   </a>

@@ -6,28 +6,27 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateProvincesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('provinces', function (Blueprint $table) {
-            $table->integer('id')->unsigned();
-            $table->primary('id');
-            $table->string('name');
-            $table->timestamps();
-        });
-    }
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::create('provinces', function (Blueprint $table) {
+      $table->unsignedInteger('id')->primary();
+      $table->string('name');
+      $table->timestamps();
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('provinces');
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('provinces');
+  }
 }

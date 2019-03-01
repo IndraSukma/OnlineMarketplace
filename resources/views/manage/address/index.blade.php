@@ -30,7 +30,7 @@
                 </div>
                 <p class="text-muted my-0">{{ $address->complete_address }}</p>
                 <p class="text-muted my-0">{{ $address->city }} - {{ $address->sub_district }}</p>
-                <p class="text-muted my-0">{{ $address->provence }}</p>
+                <p class="text-muted my-0">{{ $address->province }}</p>
                 <p class="text-muted my-0">{{ $address->zip_code }}</p>
               </div>
             @endforeach

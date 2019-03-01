@@ -6,27 +6,27 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddWeightToProducts extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::table('products', function (Blueprint $table) {
-            $table->unsignedInteger('weight')->after('stock')->default(1000);
-        });
-    }
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::table('products', function (Blueprint $table) {
+      $table->unsignedInteger('weight')->after('stock')->default(1000);
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('weight');
-        });
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::table('products', function (Blueprint $table) {
+      $table->dropColumn('weight');
+    });
+  }
 }

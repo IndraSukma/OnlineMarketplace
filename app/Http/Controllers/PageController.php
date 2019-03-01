@@ -19,7 +19,7 @@ class PageController extends Controller
 {
   public function index()
   {
-	  $products = Product::orderBy('id', 'asc')->limit(4)->get();
+	  $products = Product::orderBy('id', 'desc')->limit(4)->get();
 
 	  if (Auth::check()) {
 	  	$user = Auth::user();

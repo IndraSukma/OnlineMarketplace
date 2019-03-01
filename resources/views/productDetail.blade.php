@@ -23,21 +23,19 @@
         <div class="col-sm-5 pl-2">
           <div class="product-gallery">
             <div id="productGallery" class="owl-carousel owl-theme">
-              <div class="item">
-                <img src="{{ asset('img/product-img/product-2.jpeg') }}" class="img-thumbnail w-100" alt="">
-              </div>
-              <div class="item">
-                <img src="{{ asset('img/user.jpg') }}" class="img-thumbnail w-100" alt="">
-              </div>
-              <div class="item">
-                <img src="{{ asset('img/user.jpg') }}" class="img-thumbnail w-100" alt="">
-              </div>
-              <div class="item">
-                <img src="{{ asset('img/user.jpg') }}" class="img-thumbnail w-100" alt="">
-              </div>
-              <div class="item">
-                <img src="{{ asset('img/user.jpg') }}" class="img-thumbnail w-100" alt="">
-              </div>
+              @if ($product_images > 0)
+                @foreach ($product_images as $image)
+                  @if (file_exists('img/product-img/' . $image))
+                    <div class="item">
+                      <img src="{{ asset('img/product-img/'.$image) }}" class="img-thumbnail w-100" alt="Product Image">
+                    </div>
+                  @endif
+                @endforeach
+              @else
+                <div class="item">
+                  <img src="{{ asset('img/product-img/image-not-found.png') }}" class="img-thumbnail w-100" alt="Product Image">
+                </div>
+              @endif
             </div>
           </div>
         </div>
@@ -355,7 +353,11 @@
 
               <!--Card image-->
               <div class="view view-cascade">
-                <img src="{{ asset('img/user.jpg') }}" class="card-img-top" alt="">
+                @if (empty($relatedProduct->thumbnail) || !file_exists('img/product-thumbnail/' . $relatedProduct->thumbnail))
+                  <img src="{{ asset('img/product-thumbnail/image-not-found.png') }}" class="card-img-top" alt="{{ $relatedProduct->name }}">
+                @else
+                  <img src="{{ asset('img/product-thumbnail/' . $relatedProduct->thumbnail) }}" class="card-img-top" alt="{{ $relatedProduct->name }}">
+                @endif
                 <a href="{{ route('products.detail', $relatedProduct->slug) }}">
                   <div class="mask rgba-white-slight"></div>
                 </a>
