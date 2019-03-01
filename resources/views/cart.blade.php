@@ -49,10 +49,10 @@
                         <div class="detail flex-fill">
                           <div class="row">
                             <div class="col-2">
-                              @if (!empty($cartItem->product->thumbnail))
-                                <img src="{{ asset('img/product-thumbnail/'.$cartItem->product->thumbnail) }}" alt="{{ $cartItem->product->name }}" class="w-100">
-                              @else
+                              @if (empty($cartItem->product->thumbnail) || !file_exists('img/product-thumbnail/' . $cartItem->product->thumbnail))
                                 <img src="{{ asset('img/product-thumbnail/image-not-found.png') }}" alt="{{ $cartItem->product->name }}" class="w-100">
+                              @else
+                                <img src="{{ asset('img/product-thumbnail/'.$cartItem->product->thumbnail) }}" alt="{{ $cartItem->product->name }}" class="w-100">
                               @endif
                             </div>
                             <div class="col px-0 mr-5">

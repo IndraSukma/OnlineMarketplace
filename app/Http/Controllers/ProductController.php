@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Image;
-use DataTables;
 use File;
 use Session;
 use Auth;
@@ -228,10 +227,10 @@ class ProductController extends Controller
       $file->fill($thumbnail)->save($location);
 
       // Delete old Thumbnail
-      if ($product->thumbnail != null) {
-        $thumbnailName = $product->thumbnail;
-        $thumbnailFile = public_path('img/product-thumbnail/' . $thumbnailName);
-        File::delete($thumbnailFile);
+      if (File::exists('img/product-thumbnail/' . $product->thumbnail)) {
+        $oldThumbnailName = $product->thumbnail;
+        $oldThumbnailFile = public_path('img/product-thumbnail/' . $oldThumbnailName);
+        File::delete($oldThumbnailFile);
       }
 
       $product->thumbnail = $thumbnailName;

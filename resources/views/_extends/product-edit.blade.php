@@ -113,7 +113,7 @@
                     <i class="mdi mdi-upload mdi-48px"></i>
                     <small>Maksimal 4 gambar</small>
                   </div>
-                  <input type="file" id="productImageInput" accept="image/*" multiple data-modal-id="#modalEdit" />
+                  <input type="file" id="productImageInput" accept="image/x-png,image/gif,image/jpeg" multiple data-modal-id="#modalEdit" />
                 </div>
               </div>
             </div>
@@ -209,7 +209,7 @@
       </div>
       <div class="modal-footer border-top-0">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary" data-form-id="#formEdit">Save</button>
       </div>
     </form>
   </div>

@@ -121,7 +121,7 @@
 
 <div id="modalAdd" class="modal animated fadeIn faster" tabindex="-1" role="dialog" data-backdrop="static">
   <div class="modal-dialog modal-lg" role="document">
-    <form action="{{ route('products.store') }}" method="post" class="modal-content" style="margin-top: 100px;">
+    <form action="{{ route('products.store') }}" method="post" class="modal-content" id="formAdd" style="margin-top: 100px;">
       <div class="modal-header border-bottom-0">
         <h3 class="modal-title">Add Product</h3>
       </div>
@@ -137,7 +137,7 @@
                     <i class="mdi mdi-upload mdi-48px"></i>
                     <small>Maksimal 4 gambar</small>
                   </div>
-                  <input type="file" id="productImageInput" accept="image/*" multiple data-modal-id="#modalAdd" />
+                  <input type="file" id="productImageInput" accept="image/x-png,image/gif,image/jpeg" multiple data-modal-id="#modalAdd" />
                 </div>
               </div>
             </div>
@@ -230,7 +230,7 @@
       </div>
       <div class="modal-footer border-top-0">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary" data-form-id="#formAdd">Save</button>
       </div>
     </form>
   </div>

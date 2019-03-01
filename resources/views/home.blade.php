@@ -104,10 +104,10 @@
           <div class="card card-cascade mb-4">
             <!--Card image-->
             <div class="view view-cascade">
-              @if (!empty($product->thumbnail))
-                <img src="{{ asset('img/product-thumbnail/' . $product->thumbnail) }}" class="card-img-top" alt="{{ $product->name }}">
-              @else
+              @if (empty($product->thumbnail) || !file_exists('img/product-thumbnail/' . $product->thumbnail))
                 <img src="{{ asset('img/product-thumbnail/image-not-found.png') }}" class="card-img-top" alt="{{ $product->name }}">
+              @else
+                <img src="{{ asset('img/product-thumbnail/' . $product->thumbnail) }}" class="card-img-top" alt="{{ $product->name }}">
               @endif
               <a href="{{ route('products.detail', $product->slug) }}">
                 <div class="mask rgba-white-slight"></div>
