@@ -41,6 +41,7 @@ Route::prefix('manage')
   Route::resource('/products', 'ProductController');
   Route::resource('/productCategories', 'ProductCategoryController');
   Route::resource('/paymentOrders', 'OrderPaymentController');
+  Route::resource('/orders', 'OrderController');
 });
 
 // JSON

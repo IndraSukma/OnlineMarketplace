@@ -199,6 +199,7 @@ class PageController extends Controller
       $productOrders->order_id = $orderId;
       $productOrders->product_id = $cart->product_id;
       $productOrders->quantity = $cart->amount_of_item;
+      $productOrders->note = $cart->note;
       $productOrders->single_price = $cart->product->price;
       $productOrders->save();
 

@@ -289,8 +289,8 @@
             <li class="nav-label">Products and Orders</li>
             <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Products</span></a>
               <ul aria-expanded="false" class="collapse">
-                <li><a href="#">Products Data</a></li>
-                <li><a href="#">Category Data</a></li>
+                <li><a href="{{route('products.index')}}">Products Data</a></li>
+                <li><a href="{{route('productCategories.index')}}">Category Data</a></li>
               </ul>
             </li>
             <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-handshake-o"></i><span class="hide-menu">Transactions</span></a>
@@ -344,7 +344,7 @@
       <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a></footer>
       <!-- End footer -->
     </div>
-    <!-- End Page wrapper  -->    
+    <!-- End Page wrapper  -->
 
   </div>
   <!-- End Wrapper -->

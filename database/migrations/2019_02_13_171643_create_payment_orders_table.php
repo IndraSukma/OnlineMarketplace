@@ -14,8 +14,7 @@ class CreatePaymentOrdersTable extends Migration
     public function up()
     {
         Schema::create('payment_orders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->increments('id');            
             $table->unsignedBigInteger('order_id');
             $table->string('bank');
             $table->string('paid_by');
