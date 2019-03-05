@@ -10,6 +10,7 @@ use App\Address;
 use App\Provinces;
 use App\Orders;
 use App\ProductOrder;
+use App\PaymentOrder;
 use App\City;
 use Illuminate\Http\Request;
 
@@ -59,11 +60,12 @@ class UserController extends Controller
     $user = Auth::user();
     $orders = Orders::where('id', $code)->first();
     $products = ProductOrder::where('order_id', $code)->get();
+    $payment = PaymentOrder::where('order_id', $code)->first();
     $today = Carbon::today('Asia/Jakarta')->toDateString();
     $year_now = Carbon::today()->year;
     $year = $year_now - 100;
 
-    return view('manage.userInformation.transaction-detail', compact('orders', 'user', 'products', 'today' ,'year'));
+    return view('manage.userInformation.transaction-detail', compact('orders', 'user', 'products', 'payment', 'today','year'));
   }
 
 

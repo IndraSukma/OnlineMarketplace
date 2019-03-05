@@ -318,7 +318,72 @@
           </nav>
           <!-- End Sidebar navigation -->
         </div>
+<<<<<<< HEAD
+      </nav>
+    </div>
+    <!-- End header header -->
+
+    <!-- Left Sidebar  -->
+    <div class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+          <ul id="sidebarnav">
+            <li class="nav-devider"></li>
+            <li class="nav-label">Home</li>
+            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard </span></a>
+              <ul aria-expanded="false" class="collapse">
+                <li><a href="#">Insight </a></li>
+                <li><a href="#">Analytics </a></li>
+              </ul>
+            </li>
+            <li class="nav-label">Product Listing</li>
+            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bullhorn"></i><span class="hide-menu">Announce</span></a>
+              <ul aria-expanded="false" class="collapse">
+                <li><a href="#">Featured Items</a></li>
+                <li><a href="#">Discounted Items</a></li>
+                <li><a href="#">Hot Products</a></li>
+              </ul>
+            </li>
+            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-calendar"></i><span class="hide-menu">Events</span></a>
+              <ul aria-expanded="false" class="collapse">
+                <li><a href="#">Flash Sale</a></li>
+                <li><a href="#">Promo</a></li>
+              </ul>
+            </li>
+            <li class="nav-label">Products and Orders</li>
+            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Products</span></a>
+              <ul aria-expanded="false" class="collapse">
+                <li><a href="{{route('products.index')}}">Products Data</a></li>
+                <li><a href="{{route('productCategories.index')}}">Category Data</a></li>
+              </ul>
+            </li>
+            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-handshake-o"></i><span class="hide-menu">Transactions</span></a>
+              <ul aria-expanded="false" class="collapse">
+                <li><a href="#">Transaction list</a></li>
+                <li><a href="#">Track Orders</a></li>
+              </ul>
+            </li>
+            <li class="nav-label">Settings</li>
+            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-database"></i><span class="hide-menu">Database</span></a>
+              <ul aria-expanded="false" class="collapse">
+                <li><a href="#">Backup Database</a></li>
+                <li><a href="#">Restore Database</a></li>
+              </ul>
+            </li>
+
+            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-question-circle-o"></i><span class="hide-menu">Website</span></a>
+              <ul aria-expanded="false" class="collapse">
+                <li><a href="#">Other</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+=======
         <!-- End Sidebar scroll-->
+>>>>>>> 89f29a75eef3ef49c3c8ed4d85a64bc59285f2a6
       </div>
       <!-- End Left Sidebar  -->
       <!-- Page wrapper  -->
@@ -346,7 +411,23 @@
         <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a></footer>
         <!-- End footer -->
       </div>
+<<<<<<< HEAD
+      <!-- End Bread crumb -->
+      <!-- Container fluid  -->
+      <div class="container-fluid">
+        <!-- Start Page Content -->
+        @yield('content')
+        <!-- End PAge Content -->
+      </div>
+      <!-- End Container fluid  -->
+      <!-- footer -->
+      <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a></footer>
+      <!-- End footer -->
+    </div>
+    <!-- End Page wrapper  -->
+=======
       <!-- End Page wrapper  -->    
+>>>>>>> 89f29a75eef3ef49c3c8ed4d85a64bc59285f2a6
 
     </div>
     <!-- End Wrapper -->

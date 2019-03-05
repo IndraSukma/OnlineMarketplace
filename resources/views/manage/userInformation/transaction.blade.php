@@ -59,12 +59,7 @@
                             @endif
                           </td>
                           <td class="text-center align-middle">
-                            <a class="btn btn-primary btn-sm blue-gradient border-0" href="{{ route('manage.transactionDetail', $order->id) }}">Order Details</a>
-														@if($order->status != 'Menunggu Pengiriman Barang')
-														<button class="btn peach-gradient btn-sm" data-toggle="modal" data-target="#modalConfirmPayment{{$order->id}}">Confirm Payment</button>
-														@else
-														<button class="btn peach-gradient btn-sm">Confirm Item</button>
-														@endif
+                            <a class="btn btn-primary btn-sm blue-gradient border-0" href="{{ route('manage.transactionDetail', $order->id) }}">Details</a>														
                           </td>
                         </tr>
                         @endforeach

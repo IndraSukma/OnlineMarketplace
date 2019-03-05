@@ -77,7 +77,7 @@
                     </table>
                     <hr>
                     <div class="float-right">
-											@if($orders->status != 'Menunggu Pengiriman Barang')
+											@if(empty($payment->id))
 											<button class="btn peach-gradient btn-md" data-toggle="modal" data-target="#modalConfirmPayment{{$orders->id}}">Confirm Payment</button>
 											@else
 											<button class="btn peach-gradient btn-md">Confirm Item</button>
