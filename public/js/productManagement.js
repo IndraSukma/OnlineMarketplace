@@ -2,14 +2,6 @@ $(document).ready(function () {
 	// Datatables
   $('#products-table').DataTable();
 
-  // Form Validation
-  // $('#formAdd button[type="submit"], #formEdit button[type="submit"]').click(function (event) {
-  //   var form = $(this).data('form-id');
-
-  //   event.preventDefault();
-  //   formValidation(form);
-  // });
-
   // Show Image Preview
   $('#modalAdd #productImageInput, #modalEdit #productImageInput').change(function () {
     var modal = $(this).data('modal-id');
@@ -39,8 +31,8 @@ $(document).ready(function () {
                 	<a class="btnSetThumbnail nonactive" title="Set as Thumbnail">
                 		<i class="mdi mdi-24px mdi-radiobox-blank text-white"></i>
                 	</a>
-                	<a class="btnSetThumbnail active" title="Set as Thumbnail" style="display: none;">
-                		<i class="mdi mdi-24px mdi-check-circle-outline text-primary"></i>
+                	<a class="btnSetThumbnail active" title="Thumbnail" style="display: none;">
+                		<i class="mdi mdi-24px mdi-check-circle text-primary check-white"></i>
                 	</a>
                   <div>
                     <a class="btnEditImage" title="Edit Image" data-toggle="modal" data-target="#modalEditImage">
@@ -56,13 +48,10 @@ $(document).ready(function () {
           `);
 
 	        updateImageBoxId(modal);
-         //  delay(function () {
-	      		// updateProductImages(modal);
-         //  }, 1000);
           setDefaultThumbnail(modal);
           delay(function () {
             rearrangeImages(modal);
-          }, 1000);
+          }, 1500);
         }
         reader.readAsDataURL(this.files[i]);
       }
@@ -76,10 +65,8 @@ $(document).ready(function () {
 
   	imageBox.parent().remove();
     updateImageBoxId(modal);
-    // updateProductImages(modal);
     setDefaultThumbnail(modal);
     rearrangeImages(modal);
-    // console.log($(modal + ' #productThumbnail').val());
   });
 
   // Edit Image Preview
@@ -102,27 +89,49 @@ $(document).ready(function () {
       aspectRatio: 1 / 1,
       viewMode: 3
     });
-
-    $('#btnApply').click(function () {
-	    var croppedImage = cropperImage.cropper('getCroppedCanvas').toDataURL();
-	    var modal = $(this).attr('data-modal-id');
-	    var imageBox = $(modal + ' ' + $(this).attr('data-imagebox-id'));
-
-	    imageBox.css('background-image', 'url(' + croppedImage + ')');
-      if (imageBox.is('[thumbnail]')) {
-        $(modal + ' #productThumbnail').val(croppedImage);
-        // console.log($(modal + ' #productThumbnail').val());
-      }
-      // updateProductImages(modal);
-	    rearrangeImages(modal);
-	  });
   });
 
-  //Set as Thumbnail
+  $('.btnControl').click(function () {
+    var cropperImage = $('#cropperImage');
+    var method = $(this).data('method');
+    var option = $(this).data('option');
+    var secondOption = $(this).data('second-option');
+
+    cropperImage.cropper(method, option, secondOption);
+
+    if ($(this).hasClass('toggle')) {
+      if ($(this).data('option') == -1) {
+        $(this).data('option', 1);
+      } else {
+        $(this).data('option', -1);
+      }
+    }
+  });
+
+  $('#btnApply').click(function () {
+    var modal = $(this).attr('data-modal-id');
+    var imageBox = $(modal + ' ' + $(this).attr('data-imagebox-id'));
+    var cropperImage = $('#cropperImage');
+    var cropperImageData = cropperImage.cropper('getData');
+
+    if (cropperImageData.width > 500) {
+      var croppedImage = cropperImage.cropper('getCroppedCanvas', {width: 500, height: 500}).toDataURL();
+    } else {
+      var croppedImage = cropperImage.cropper('getCroppedCanvas').toDataURL();
+    }
+
+    imageBox.css('background-image', 'url(' + croppedImage + ')');
+    if (imageBox.is('[thumbnail]')) {
+      $(modal + ' #productThumbnail').val(croppedImage);
+    }
+    rearrangeImages(modal);
+  });
+
+  //Set Thumbnail
   $('body').on('mouseenter', '.btnSetThumbnail.nonactive', function () {
-  	$(this).children().removeClass('mdi-radiobox-blank').addClass('mdi-check-circle-outline');
+  	$(this).children().removeClass('mdi-radiobox-blank').addClass('mdi-check-circle check-primary');
   }).on('mouseleave', '.btnSetThumbnail.nonactive', function () {
-  	$(this).children().removeClass('mdi-check-circle-outline').addClass('mdi-radiobox-blank');
+  	$(this).children().removeClass('mdi-check-circle check-primary').addClass('mdi-radiobox-blank');
   }).on('click', '.btnSetThumbnail.nonactive', function () {
     var imageBox = $(this).parent().parent();
     var modal = imageBox.data('modal-id');
@@ -137,7 +146,6 @@ $(document).ready(function () {
     $(modal + ' .image-box').not(imageBox).removeAttr('thumbnail');
     $(modal + ' #productThumbnail').val(thumbnail);
     rearrangeImages(modal);
-    // console.log($(modal + ' #productThumbnail').val());
   });
 
   // Show Product
@@ -159,7 +167,7 @@ $(document).ready(function () {
       var imageUrl = baseUrl + '/img/product-img/' + this;
 
       $.get(imageUrl).done( function() {
-        $(imageBox[i]).css('background-image', 'url(' + imageUrl + ')');
+        $(imageBox[i]).css('background-image', 'url(' + this.url + ')');
         $(imageBox[i]).show();
       }).fail( function() {
         $(imageBox[i]).css('background-image', 'url(' + baseUrl + '/img/product-img/image-not-found.png)');
@@ -187,79 +195,50 @@ $(document).ready(function () {
   	var imageArray = $(this).data('images');
   	var totalImages = imageArray.length;
   	var baseUrl = window.location.origin;
+    var i = 0;
 
   	if (totalImages < 4) {
   		$('#modalEdit #btnUploadImage').show();
   	}
 
-    // for (i = 0; i < imageArray.length; i++) {
-    //   // var imageUrl[i] = baseUrl + '/img/product-img/' + imageArray[i];
+    if (totalImages > 0) {
+      $.get(baseUrl + '/img/product-img/' + imageArray[i]).done( function () {
+        var interval = setInterval(function(){
+          if (i === totalImages - 1){
+            clearInterval(interval);
+          }
 
-    //   $.get(baseUrl + '/img/product-img/' + imageArray[i]).done( function() { 
-    //     // console.log(this.url);
-    //     $('#modalEdit #btnUploadImage').before(`
-    //       <div class="col-6 col-lg-3 p-2">
-    //         <div class="image-box animated fadeIn faster" data-modal-id="#modalEdit" data-original-background="` + this.url + `" style="background-image: url('` + this.url + `');">
-    //           <div class="actions">
-    //             <a class="btnSetThumbnail nonactive" title="Set as Thumbnail">
-    //               <i class="mdi mdi-24px mdi-radiobox-blank text-white"></i>
-    //             </a>
-    //             <a class="btnSetThumbnail active" title="Set as Thumbnail" style="display: none;">
-    //               <i class="mdi mdi-24px mdi-check-circle-outline text-primary"></i>
-    //             </a>
-    //             <div>
-    //               <a class="btnEditImage" title="Edit Image" data-toggle="modal" data-target="#modalEditImage">
-    //                 <i class="mdi mdi-24px mdi-pencil-outline text-white"></i>
-    //               </a>
-    //               <a class="btnRemoveImage" title="Remove Image">
-    //                 <i class="mdi mdi-24px mdi-delete-outline text-white"></i>
-    //               </a>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     `);
+          $('#modalEdit #btnUploadImage').before(`
+            <div class="col-6 col-lg-3 p-2">
+              <div class="image-box animated fadeIn faster" data-modal-id="#modalEdit" data-original-background="` + baseUrl + '/img/product-img/' + imageArray[i] + `" style="background-image: url('` + baseUrl + '/img/product-img/' + imageArray[i] + `');">
+                <div class="actions">
+                  <a class="btnSetThumbnail nonactive" title="Set as Thumbnail">
+                    <i class="mdi mdi-24px mdi-radiobox-blank text-white"></i>
+                  </a>
+                  <a class="btnSetThumbnail active" title="Thumbnail" style="display: none;">
+                    <i class="mdi mdi-24px mdi-check-circle text-primary check-white"></i>
+                  </a>
+                  <div>
+                    <a class="btnEditImage" title="Edit Image" data-toggle="modal" data-target="#modalEditImage">
+                      <i class="mdi mdi-24px mdi-pencil-outline text-white"></i>
+                    </a>
+                    <a class="btnRemoveImage" title="Remove Image">
+                      <i class="mdi mdi-24px mdi-delete-outline text-white"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `);
 
-    //     // updateImageBoxId('#modalEdit');
-    //     // // updateProductImages('#modalEdit');
-    //     // setDefaultThumbnail('#modalEdit');
-    //     // rearrangeImages('#modalEdit');
-    //   });
-    // }
+          updateImageBoxId('#modalEdit');
+          setDefaultThumbnail('#modalEdit');
+          rearrangeImages('#modalEdit');
 
-  	$(imageArray).each(function (i) {
-  		var imageUrl = baseUrl + '/img/product-img/' + this;
-
-      $.get(imageUrl).done( function() { 
-    		$('#modalEdit #btnUploadImage').before(`
-  	      <div class="col-6 col-lg-3 p-2">
-  	        <div class="image-box animated fadeIn faster" data-modal-id="#modalEdit" data-original-background="` + imageUrl + `" style="background-image: url('` + imageUrl + `');">
-  	          <div class="actions">
-  	          	<a class="btnSetThumbnail nonactive" title="Set as Thumbnail">
-  	          		<i class="mdi mdi-24px mdi-radiobox-blank text-white"></i>
-  	          	</a>
-  	          	<a class="btnSetThumbnail active" title="Set as Thumbnail" style="display: none;">
-  	          		<i class="mdi mdi-24px mdi-check-circle-outline text-primary"></i>
-  	          	</a>
-  	            <div>
-  	              <a class="btnEditImage" title="Edit Image" data-toggle="modal" data-target="#modalEditImage">
-  	              	<i class="mdi mdi-24px mdi-pencil-outline text-white"></i>
-  	              </a>
-  	              <a class="btnRemoveImage" title="Remove Image">
-  	              	<i class="mdi mdi-24px mdi-delete-outline text-white"></i>
-  	              </a>
-  	            </div>
-  	          </div>
-  	        </div>
-  	      </div>
-  	    `);
-
-        updateImageBoxId('#modalEdit');
-        // updateProductImages('#modalEdit');
-        setDefaultThumbnail('#modalEdit');
-        rearrangeImages('#modalEdit');
+          i++;
+        }, 100);
       });
-  	});
+    }
 
   	$('#formEdit').attr('action', '/manage/products/' + $(this).data('id'));
     $('#modalEdit #name').val($(this).data('name'));
@@ -308,20 +287,6 @@ $(document).ready(function () {
       $(imageBox[i]).attr('id', 'box-' + (i+1));
     }
   }
-
-  // function updateProductImages(modal) {
-  //   var imageBox = $(modal + ' .image-box');
-  //   var totalBox = imageBox.length;
-  //   var images = [];
-
-  //   for (i = 0; i < totalBox; i++) {
-  //     var image = $(imageBox[i]).css('background-image').replace(/^url\(['"](.+)['"]\)/, '$1');
-  //     images.push(image);
-  //   }
-
-  //   $(modal + ' #productImages').val(JSON.stringify(images));
-  //   // console.log(images);
-  // }
   
   function setDefaultThumbnail(modal) {
     var thumbnail = $(modal + ' .image-box[thumbnail]');
@@ -330,7 +295,6 @@ $(document).ready(function () {
 
     if (totalBox == 0) {
       $(modal + ' #productThumbnail').val('');
-      // console.log($(modal + ' #productThumbnail').val());
     }
 
     if (totalBox > 0 && thumbnail.length == 0) {
@@ -341,12 +305,10 @@ $(document).ready(function () {
       $(imageBox[0]).find('.btnSetThumbnail.active').show();
 
       $(modal + ' #productThumbnail').val(image);
-      // console.log($(modal + ' #productThumbnail').val());
     }
   }
 
   function rearrangeImages(modal) {
-    var thumbnail = $(modal + ' .image-box[thumbnail]').css('background-image').replace(/^url\(['"](.+)['"]\)/, '$1');
     var imageBox = $(modal + ' .image-box');
     var images = [];
 
@@ -355,39 +317,25 @@ $(document).ready(function () {
       images.push(image);
     });
 
-    var thumbnailIndex = images.indexOf(thumbnail);
-    if (thumbnailIndex > 0) {
-      images.splice(thumbnailIndex, 1);
-      images.unshift(thumbnail);
+    if (imageBox.length > 0) {
+      var thumbnail = $(modal + ' .image-box[thumbnail]').css('background-image').replace(/^url\(['"](.+)['"]\)/, '$1');
+      var thumbnailIndex = images.indexOf(thumbnail);
+      
+      if (thumbnailIndex > 0) {
+        images.splice(thumbnailIndex, 1);
+        images.unshift(thumbnail);
+      }
     }
+    
 
     $(modal + ' #productImages').val(JSON.stringify(images));
-    // console.log(images);
   }
-
-  // function formValidation(form) {
-  //   var thumbnail = $(form + ' .image-box[thumbnail]');
-  //   var imageBox = $(form + ' .image-box');
-  //   var totalBox = imageBox.length;
-
-  //   if (totalBox == 0) {
-  //     alert('Please upload product images.');
-  //   }
-
-  //   if (thumbnail.length == 0) {
-  //     alert('Please select thumbnail image.');
-  //   }
-
-  //   if (totalBox > 0 && thumbnail.length == 1) {
-  //     $(form).submit();
-  //   }
-  // }
 
   var delay = (function () {
     var timer = 0;
 
     return function(callback, ms) {
-      clearTimeout (timer);
+      clearTimeout(timer);
       timer = setTimeout(callback, ms);
     };
   })();

@@ -113,7 +113,9 @@
                     <i class="mdi mdi-upload mdi-48px"></i>
                     <small>Maksimal 4 gambar</small>
                   </div>
-                  <input type="file" id="productImageInput" accept="image/x-png,image/gif,image/jpeg" multiple data-modal-id="#modalEdit" />
+                  <label class="invisible-file-input">
+                    <input type="file" id="productImageInput" accept="image/x-png,image/gif,image/jpeg" multiple data-modal-id="#modalEdit" />
+                  </label>
                 </div>
               </div>
             </div>
