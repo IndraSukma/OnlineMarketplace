@@ -46,26 +46,6 @@
 				            <td class="text-dark">{{ $product->created_at->toFormattedDateString() }}</td>
 				            <td>
 				              <div class="d-flex justify-content-center">
-<<<<<<< HEAD
-				                <button class="btnShow btn btn-primary"
-				                				data-name="{{ $product->name }}"
-				                				data-stock="{{ $product->stock }}"
-				                				data-views="{{ $product->views }}"
-				                				data-category="{{ is_null($product->category_id) ? 'Uncategorized' : $product->category->name }}"
-				                				data-condition="{{ $product->condition }}"
-				                				data-price="{{ $product->price }}"
-				                				data-description="{{ $product->description }}">Show</button>
-				                <button class="btnEdit btn btn-warning mx-1"
-				                				data-id="{{ $product->id }}"
-				                				data-name="{{ $product->name }}"
-				                				data-stock="{{ $product->stock }}"
-				                				data-views="{{ $product->views }}"
-				                				data-category="{{ $product->category_id }}"
-				                				data-condition="{{ $product->condition }}"
-				                				data-price="{{ $product->price }}"
-				                				data-description="{{ $product->description }}">Edit</button>
-				                <button class="btnDelete btn btn-danger" data-id="{{ $product->id }}">Delete</button>
-=======
 				                <button class="btnShow btn btn-primary" data-toggle="modal" data-target="#modalShow" 
 				                				data-name="{{ $product->name }}" 
 				                				data-category="{{ is_null($product->category_id) ? 'Uncategorized' : $product->category->name }}" 
@@ -90,7 +70,6 @@
 				                				data-thumbnail="{{ $product->thumbnail }}" 
 				                				data-images="{{ $product->images }}">Edit</button>
 				                <button class="btnDelete btn btn-danger" data-toggle="modal" data-target="#modalDelete"  data-id="{{ $product->id }}">Delete</button>
->>>>>>> 89f29a75eef3ef49c3c8ed4d85a64bc59285f2a6
 				              </div>
 				            </td>
 				          </tr>
@@ -184,10 +163,5 @@
       // Datatables
       $('#products-table').DataTable();
     });
-<<<<<<< HEAD
-  </script>
-@endsection
-=======
   </script> --}}
 @endsection
->>>>>>> 89f29a75eef3ef49c3c8ed4d85a64bc59285f2a6

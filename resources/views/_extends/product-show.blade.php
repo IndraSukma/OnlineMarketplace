@@ -64,7 +64,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header justify-content-start align-items-center border-bottom-0">
-        <img alt="Thumbnail" height="40" class="thumbnail-box rounded border mr-2" style="display: none;" />
+        <img alt="Thumbnail" height="40" class="thumbnail-box rounded mr-2" style="display: none;" />
         <h3 class="modal-title" id="name">{{-- $product->name --}}</h3>
       </div>
       <div class="modal-body pt-0">
@@ -72,16 +72,16 @@
           <strong class="mb-1">Gambar Produk</strong>
           <div class="row px-2">
             <div class="col-6 col-lg-3 p-2">
-              <div class="image-box-static border" style="display: none;"></div>
+              <div class="image-box-static" style="display: none;"></div>
             </div>
             <div class="col-6 col-lg-3 p-2">
-              <div class="image-box-static border" style="display: none;"></div>
+              <div class="image-box-static" style="display: none;"></div>
             </div>
             <div class="col-6 col-lg-3 p-2">
-              <div class="image-box-static border" style="display: none;"></div>
+              <div class="image-box-static" style="display: none;"></div>
             </div>
             <div class="col-6 col-lg-3 p-2">
-              <div class="image-box-static border" style="display: none;"></div>
+              <div class="image-box-static" style="display: none;"></div>
             </div>
           </div>
         </div>
