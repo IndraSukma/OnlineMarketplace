@@ -42,6 +42,11 @@ Route::prefix('manage')
   Route::resource('/productCategories', 'ProductCategoryController');
   Route::resource('/paymentOrders', 'OrderPaymentController');
   Route::resource('/orders', 'OrderController');
+  Route::get('/database', 'DatabaseController@index')->name('database.index');
+  Route::get('/database/backup', 'DatabaseController@backup')->name('database.backup');
+  Route::post('/database/restore', 'DatabaseController@restore')->name('database.restore');
+  Route::delete('/database/{filename}', 'DatabaseController@delete')->name('database.delete');
+  Route::get('/database/download/{filename}', 'DatabaseController@download')->name('database.download');
 });
 
 // JSON

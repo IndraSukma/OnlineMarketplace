@@ -53,7 +53,12 @@
   </div>
 @endsection
 
+@section('styles')
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.14.0/tingle.min.css" rel="stylesheet">
+@endsection
+
 @section('scripts')
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.14.0/tingle.min.js"></script>
 	<script>
     $(document).ready(function () {
       // Modal

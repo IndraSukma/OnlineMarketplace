@@ -69,7 +69,9 @@
 				                				data-description="{{ $product->description }}" 
 				                				data-thumbnail="{{ $product->thumbnail }}" 
 				                				data-images="{{ $product->images }}">Edit</button>
-				                <button class="btnDelete btn btn-danger" data-toggle="modal" data-target="#modalDelete"  data-id="{{ $product->id }}">Delete</button>
+				                <button class="btnDelete btn btn-danger" data-toggle="modal" data-target="#modalDelete" 
+				                				data-id="{{ $product->id }}" 
+				                				data-name="{{ $product->name }}">Delete</button>
 				              </div>
 				            </td>
 				          </tr>
@@ -77,7 +79,6 @@
 				      </tbody>
 				    </table>
 				  </div>
-
 				</div>
 				@include('_extends.product-add')
 				@include('_extends.product-show')

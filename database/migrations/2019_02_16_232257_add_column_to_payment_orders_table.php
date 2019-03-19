@@ -14,9 +14,9 @@ class AddColumnToPaymentOrdersTable extends Migration
   public function up()
   {
     Schema::table('payment_orders', function (Blueprint $table) {
-      $table->foreign('user_id')
-            ->references('id')->on('users')
-            ->onDelete('cascade');
+      // $table->foreign('user_id')
+      //       ->references('id')->on('users')
+      //       ->onDelete('cascade');
     });
   }
 
@@ -28,7 +28,7 @@ class AddColumnToPaymentOrdersTable extends Migration
   public function down()
   {
     Schema::table('payment_orders', function (Blueprint $table) {
-      $table->dropForeign('payment_orders_user_id_foreign');
+      // $table->dropForeign('payment_orders_user_id_foreign');
     });
   }
 }

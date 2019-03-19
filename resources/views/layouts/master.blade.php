@@ -22,6 +22,7 @@
     {{-- <link href="{{ asset('css/lib/calendar2/pignose.calendar.min.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/helper.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/iziToast.min.css') }}">
     @yield('styles')
 
     <!-- Icons -->
@@ -304,8 +305,8 @@
               <li class="nav-label">Settings</li>
               <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-database"></i><span class="hide-menu">Database</span></a>
                 <ul aria-expanded="false" class="collapse">
-                  <li><a href="#">Backup Database</a></li>
-                  <li><a href="#">Restore Database</a></li>
+                  <li><a href="{{ route('database.index') }}">Backup & Restore</a></li>
+                  {{-- <li><a href="#">Restore Database</a></li> --}}
                 </ul>
               </li>
 
@@ -361,6 +362,7 @@
     <script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
     <script src="{{ asset('js/sidebarmenu.js') }}"></script>
     <script src="{{ asset('js/lib/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
+    <script src="{{ asset('js/iziToast.min.js') }}"></script>
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.14.0/tingle.min.js"></script> --}}
 

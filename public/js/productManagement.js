@@ -259,8 +259,11 @@ $(document).ready(function () {
   // Delete Product
   $('#products-table').on('click', '.btnDelete' ,function() {
     $('#formDelete').attr('action', '/manage/products/' + $(this).data('id'));
+    $('#itemName').text($(this).data('name'));
+
     $('#modalDelete').on('hide.bs.modal', function () {
       $('#formDelete').attr('action', '');
+      $('#itemName').text('');
     });
   });
 

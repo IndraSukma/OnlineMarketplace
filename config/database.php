@@ -54,6 +54,9 @@ return [
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+            'dump' => [
+               'dump_binary_path' => 'C:\laragon\bin\mysql\mysql-5.7.19-winx64\bin', // only the path, so without `mysqldump` or `pg_dump`
+            ]
         ],
 
         'pgsql' => [

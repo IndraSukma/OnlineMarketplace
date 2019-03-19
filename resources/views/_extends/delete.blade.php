@@ -19,6 +19,7 @@
       <div class="modal-body py-0">
         @csrf
         @method('DELETE')
+        <p id="itemName"></p>
       </div>
       <div class="modal-footer border-top-0 pt-0">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
