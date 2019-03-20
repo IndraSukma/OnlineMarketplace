@@ -9,7 +9,7 @@
       	<div class="card">
           <div class="d-flex justify-content-between align-items-center">
 	          <h4 class="h4"><b>Product Categories</b></h4>
-	          <button type="button" id="btnAdd" class="btn btn-primary">Add Category</button>
+	          <button id="btnAdd" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">Add Category</button>
 	        </div>
           <div class="mt-3">
             <table id="categories-table" class="table table-bordered mb-3">
@@ -31,11 +31,13 @@
 							      <td class="text-center text-dark">{{ $productCategory->created_at->toFormattedDateString() }}</td>
 							      <td>
 							      	<div class="d-flex justify-content-center">
-								      	<button class="btnEdit btn btn-warning mr-3"
+								      	<button class="btnEdit btn btn-warning mr-3" data-toggle="modal" data-target="#modalEdit" 
 								      					data-id="{{ $productCategory->id }}"
 				                				data-name="{{ $productCategory->name }}"
 				                				data-base-category="{{ $productCategory->base_category }}">Ubah</button>
-					              <button class="btnDelete btn btn-danger" data-id="{{ $productCategory->id }}">Hapus</button>
+					              <button class="btnDelete btn btn-danger" data-toggle="modal" data-target="#modalDelete" 
+                                data-id="{{ $productCategory->id }}"
+                                data-name="{{ $productCategory->name }}">Hapus</button>
 							      	</div>
 							      </td>
 							    </tr>
@@ -53,53 +55,37 @@
   </div>
 @endsection
 
-@section('styles')
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.14.0/tingle.min.css" rel="stylesheet">
-@endsection
-
 @section('scripts')
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.14.0/tingle.min.js"></script>
 	<script>
     $(document).ready(function () {
-      // Modal
-      var modal = new tingle.modal();
-
-      // Add Category
-      $('#btnAdd').click(function() {
-        var content = $('#modalAdd').html();
-        modal.setContent(content);
-        modal.open();
-      });
+      var baseUrl = window.location.origin;
+      
+      // Datatables
+      $('#categories-table').DataTable();
 
       // Edit Category
-      $('.btnEdit').click(function() {
-        var content = $('#modalEdit').html();
-        modal.setContent(content);
+      $('#categories-table').on('click', '.btnEdit', function() {
+        $('#formEdit').attr('action', baseUrl + '/manage/productCategories/' + $(this).data('id'));
+        $('#modalEdit #base_category').val($(this).data('base-category'));
+        $('#modalEdit #name').val($(this).data('name'));
 
-        $('#formEdit').attr('action', '/manage/productCategories/' + $(this).data('id'));
-        $('#base_category').val($(this).data('base-category'));
-        $('#name').val($(this).data('name'));
-
-        modal.open();
+        $('#modalEdit').on('hide.bs.modal', function () {
+          $('#formEdit').attr('action', '');
+          $('#modalEdit #base_category').val('');
+          $('#modalEdit #name').val('');
+        });
       });
 
       // Delete Category
-      $('.btnDelete').click(function() {
-        var content = $('#modalDelete').html();
-        modal.setContent(content);
+      $('#categories-table').on('click', '.btnDelete' ,function() {
+        $('#formDelete').attr('action', baseUrl + '/manage/productCategories/' + $(this).data('id'));
+        $('#itemName').text($(this).data('name'));
 
-        $('#formDelete').attr('action', '/manage/productCategories/' + $(this).data('id'));
-
-        modal.open();
+        $('#modalDelete').on('hide.bs.modal', function () {
+          $('#formDelete').attr('action', '');
+          $('#itemName').text('');
+        });
       });
-
-      // Close Modal
-      // $('#btnClose').click(function() {
-      //   modal.close();
-      // });
-
-      // Datatables
-      $('#categories-table').DataTable();
     });
   </script>
 @endsection

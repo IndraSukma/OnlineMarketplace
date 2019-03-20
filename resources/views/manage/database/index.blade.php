@@ -13,7 +13,6 @@
 						</div>
 						<div class="col">
 							<a href="{{ route('database.backup') }}" class="btn btn-primary float-right">Create new backup</a>
-							{{-- <button id="btnAdd" class="btn btn-primary float-right" type="button">Add Item</button> --}}
 						</div>
 					</div>
 				  <div class="card-body p-0">
@@ -91,7 +90,34 @@
 @section('scripts')
 	<script>
     $(document).ready(function () {
-      // Message
+    	// Datatables
+      $('#database-table').DataTable();
+
+      // Restore database
+      $('#database-table').on('click', '.btnRestore', function () {
+        $('#itemName').text($(this).data('filename'));
+        $('#filename').val($(this).data('filename'));
+
+        $('#modalRestore').on('hide.bs.modal', function () {
+          $('#itemName').text('');
+        	$('#filename').val('');
+        });
+      });
+
+      // Delete Backup
+      $('#database-table').on('click', '.btnDelete', function () {
+  			var baseUrl = window.location.origin;
+
+        $('#formDelete').attr('action', baseUrl + '/manage/database/' + $(this).data('filename'));
+        $('#itemName').text($(this).data('filename'));
+
+        $('#modalDelete').on('hide.bs.modal', function () {
+          $('#formDelete').attr('action', '');
+          $('#itemName').text('');
+        });
+      });
+
+      // Messages
       @if (Session::has('success'))
       	iziToast.success({
           message: '{{ Session::get('success') }}'
@@ -105,31 +131,6 @@
           message: '{{ Session::get('wrongPassword') }}'
         });
       @endif
-
-      // Restore database
-      $('#database-table').on('click', '.btnRestore', function () {
-        $('#itemName').text($(this).data('filename'));
-        $('#filename').val($(this).data('filename'));
-
-        $('#modalDelete').on('hide.bs.modal', function () {
-          $('#itemName').text('');
-        	$('#filename').val('');
-        });
-      });
-
-      // Delete Backup
-      $('#database-table').on('click', '.btnDelete', function () {
-        $('#formDelete').attr('action', '/manage/database/' + $(this).data('filename'));
-        $('#itemName').text($(this).data('filename'));
-
-        $('#modalDelete').on('hide.bs.modal', function () {
-          $('#formDelete').attr('action', '');
-          $('#itemName').text('');
-        });
-      });
-
-			// Datatables
-      $('#database-table').DataTable();
     });
   </script>
 @endsection

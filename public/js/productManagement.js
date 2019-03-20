@@ -240,7 +240,7 @@ $(document).ready(function () {
       });
     }
 
-  	$('#formEdit').attr('action', '/manage/products/' + $(this).data('id'));
+  	$('#formEdit').attr('action', baseUrl + '/manage/products/' + $(this).data('id'));
     $('#modalEdit #name').val($(this).data('name'));
     $('#modalEdit #category').val($(this).data('category'));
     $('#modalEdit #condition').val($(this).data('condition'));
@@ -258,7 +258,9 @@ $(document).ready(function () {
 
   // Delete Product
   $('#products-table').on('click', '.btnDelete' ,function() {
-    $('#formDelete').attr('action', '/manage/products/' + $(this).data('id'));
+    var baseUrl = window.location.origin;
+
+    $('#formDelete').attr('action', baseUrl + '/manage/products/' + $(this).data('id'));
     $('#itemName').text($(this).data('name'));
 
     $('#modalDelete').on('hide.bs.modal', function () {
